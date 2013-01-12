@@ -1,0 +1,20 @@
+{
+  "name": "weixin",
+  "version": "0.0.1",
+  "description": "微信公共平台自动回复接口服务",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha -R spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/JacksonTian/weixin.git"
+  },
+  "keywords": [
+    "weixin",
+    "weichat"
+  ],
+  "author": "Jackson Tian",
+  "license": "MIT",
+  "readmeFilename": "README.md"
+}
