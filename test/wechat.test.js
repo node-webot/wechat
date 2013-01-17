@@ -1,20 +1,19 @@
-/**
- * @property {String} tpl XML模版
- */
+require('should');
+
 var tpl = [
   '<xml>',
     '<ToUserName><![CDATA[<%=sp%>]]></ToUserName>',
     '<FromUserName><![CDATA[<%=user%>]]></FromUserName>',
     '<CreateTime><%=(new Date().getTime())%></CreateTime>',
     '<MsgType><![CDATA[<%=type%>]]></MsgType>',
-    '<% if(type=="text"){ %>',
+    '<% if (type === "text") { %>',
       '<Content><![CDATA[<%=text%>]]></Content>',
-    '<% }else if(type=="location"){  %>',
+    '<% } else if (type === "location") {  %>',
       '<Location_X><%=xPos%></Location_X>',
       '<Location_Y><%=yPos%></Location_Y>',
       '<Scale>{<%=scale%>}</Scale>',
       '<Label><![CDATA[<%=label%>]]></Label>',
-    '<% }else if(type=="image"){  %>',
+    '<% } else if (type === "image") {  %>',
       '<PicUrl><![CDATA[<%=pic%>]]></PicUrl>',
     '<% } %>',
   '</xml>'
@@ -65,22 +64,29 @@ describe('wechat.js', function () {
   });
 
   describe('respond', function () {
-    it('should not ok', function (done) {
+    it('should ok', function (done) {
       var info = {
-        sp: 'webot',
-        user: 'client',
+        sp: 'nvshen',
+        user: 'diaosi',
         type: 'text',
-        text: 'help',
-        pic: 'http://www.baidu.com/img/baidu_sylogo1.gif',
-        scale: '20',
-        label: 'this is a location'
+        text: '测试中'
       };
 
       request(app)
       .post('/wechat')
       .send(ejs.render(tpl, info))
       .expect(200)
-      .expect('<xml>       <ToUserName><![CDATA[diaosi]]></ToUserName>       <FromUserName><![CDATA[nvshen]]></FromUserName>       <CreateTime>1358453451281</CreateTime>       <MsgType><![CDATA[text]]></MsgType>       <Content><![CDATA[测试中]]></Content>       <FuncFlag>0</FuncFlag>     </xml>', done);
+      .end(function(err, res){
+        if (err) return done(err);
+        var body = res.text.toString();
+        body.should.include('<ToUserName><![CDATA[diaosi]]></ToUserName>');
+        body.should.include('<FromUserName><![CDATA[nvshen]]></FromUserName>');
+        body.should.match(/<CreateTime>\d{13}<\/CreateTime>/);
+        body.should.include('<MsgType><![CDATA[text]]></MsgType>');
+        body.should.include('<Content><![CDATA[hehe]]></Content>');
+        body.should.include('<FuncFlag>0</FuncFlag>');
+        done();
+      });
     });
   });
 });
