@@ -15,3 +15,11 @@ app.use('/wechat', wechat('some token', function (req, res, next) {
 }));
 ```
 
+## Show cases
+### Node.js API自动回复
+
+![](http://nodeapi.cloudfoundry.com/qrcode.jpg)
+
+欢迎关注。
+
+代码：<https://github.com/JacksonTian/api-doc-service>
