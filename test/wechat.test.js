@@ -88,5 +88,30 @@ describe('wechat.js', function () {
         done();
       });
     });
+
+    it('should ok with news', function (done) {
+      var info = {
+        sp: 'nvshen',
+        user: 'gaofushuai',
+        type: 'text',
+        text: '测试中'
+      };
+
+      request(app)
+      .post('/wechat')
+      .send(ejs.render(tpl, info))
+      .expect(200)
+      .end(function(err, res){
+        if (err) return done(err);
+        var body = res.text.toString();
+        body.should.include('<ToUserName><![CDATA[gaofushuai]]></ToUserName>');
+        body.should.include('<FromUserName><![CDATA[nvshen]]></FromUserName>');
+        body.should.match(/<CreateTime>\d{13}<\/CreateTime>/);
+        body.should.include('<MsgType><![CDATA[text]]></MsgType>');
+        body.should.include('<Content><![CDATA[hehe]]></Content>');
+        body.should.include('<FuncFlag>0</FuncFlag>');
+        done();
+      });
+    });
   });
 });
