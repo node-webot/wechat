@@ -1,4 +1,4 @@
-weixin
+weixin [![Build Status](https://travis-ci.org/JacksonTian/weixin.png?branch=master)](https://travis-ci.org/JacksonTian/weixin)
 ======
 
 微信公共平台消息接口服务中间件
