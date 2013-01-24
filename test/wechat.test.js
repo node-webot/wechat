@@ -107,8 +107,13 @@ describe('wechat.js', function () {
         body.should.include('<ToUserName><![CDATA[gaofushuai]]></ToUserName>');
         body.should.include('<FromUserName><![CDATA[nvshen]]></FromUserName>');
         body.should.match(/<CreateTime>\d{13}<\/CreateTime>/);
-        body.should.include('<MsgType><![CDATA[text]]></MsgType>');
+        body.should.include('<MsgType><![CDATA[news]]></MsgType>');
         body.should.include('<Content><![CDATA[hehe]]></Content>');
+        body.should.include('<ArticleCount>1</ArticleCount>');
+        body.should.include('<Title><![CDATA[你来我家接我吧]]></Title>');
+        body.should.include('<Description><![CDATA[这是女神与高富帅之间的对话]]></Description>');
+        body.should.include('<PicUrl><![CDATA[http://nodeapi.cloudfoundry.com/qrcode.jpg]]></PicUrl>');
+        body.should.include('<Url><![CDATA[http://nodeapi.cloudfoundry.com/]]></Url>');
         body.should.include('<FuncFlag>0</FuncFlag>');
         done();
       });
