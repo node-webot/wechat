@@ -22,7 +22,8 @@
   "devDependencies": {
     "supertest": "*",
     "mocha": "*",
-    "should": "*"
+    "should": "*",
+    "connect": "*"
   },
   "author": "Jackson Tian",
   "license": "MIT",
