@@ -86,7 +86,7 @@ app.use('/wechat', wechat('some token', wechat.text(function (message, req, res,
   // MediaId: 'OMYnpghh8fRfzHL8obuboDN9rmLig4s0xdpoNT6a5BoFZWufbE6srbCKc_bxduzS',
   // Format: 'amr',
   // MsgId: '5837397520665436492' }
-}));
+})));
 ```
 
 注意： `text`, `image`, `location`, `voice`方法请至少指定一个。

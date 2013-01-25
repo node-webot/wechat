@@ -1,30 +1,34 @@
 require('should');
 
-var tpl = [
-  '<xml>',
-    '<ToUserName><![CDATA[<%=sp%>]]></ToUserName>',
-    '<FromUserName><![CDATA[<%=user%>]]></FromUserName>',
-    '<CreateTime><%=(new Date().getTime())%></CreateTime>',
-    '<MsgType><![CDATA[<%=type%>]]></MsgType>',
-    '<% if (type === "text") { %>',
-      '<Content><![CDATA[<%=text%>]]></Content>',
-    '<% } else if (type === "location") {  %>',
-      '<Location_X><%=xPos%></Location_X>',
-      '<Location_Y><%=yPos%></Location_Y>',
-      '<Scale>{<%=scale%>}</Scale>',
-      '<Label><![CDATA[<%=label%>]]></Label>',
-    '<% } else if (type === "image") {  %>',
-      '<PicUrl><![CDATA[<%=pic%>]]></PicUrl>',
-    '<% } %>',
-  '</xml>'
-].join('');
-
 var querystring = require('querystring');
 var request = require('supertest');
-var ejs = require('ejs');
+var template = require('./support').template;
+
+var connect = require('connect');
+var wechat = require('../');
+
+var app = connect();
+app.use(connect.query());
+app.use('/wechat', wechat('some token', function (req, res, next) {
+  // 微信输入信息都在req.weixin上
+  var info = req.weixin;
+  // 回复屌丝(普通回复)
+  if (info.FromUserName === 'diaosi') {
+    res.reply('hehe');
+  } else {
+  // 回复高富帅(图文回复)
+    res.reply([
+      {
+        title: '你来我家接我吧',
+        description: '这是女神与高富帅之间的对话',
+        picurl: 'http://nodeapi.cloudfoundry.com/qrcode.jpg',
+        url: 'http://nodeapi.cloudfoundry.com/'
+      }
+    ]);
+  }
+}));
 
 describe('wechat.js', function () {
-  var app = require('./app');
 
   describe('valid', function () {
     it('should 401', function (done) {
@@ -74,7 +78,7 @@ describe('wechat.js', function () {
 
       request(app)
       .post('/wechat')
-      .send(ejs.render(tpl, info))
+      .send(template(info))
       .expect(200)
       .end(function(err, res){
         if (err) return done(err);
@@ -99,7 +103,7 @@ describe('wechat.js', function () {
 
       request(app)
       .post('/wechat')
-      .send(ejs.render(tpl, info))
+      .send(template(info))
       .expect(200)
       .end(function(err, res){
         if (err) return done(err);

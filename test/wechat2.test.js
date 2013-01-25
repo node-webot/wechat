@@ -19,34 +19,21 @@ app.use('/wechat', wechat('some token', wechat.text(function (message, req, res,
       }
     ]);
   }
+}).location(function (message, req, res, next) {
+  res.reply('location');
+}).image(function (message, req, res, next) {
+  res.reply('image');
+}).voice(function (message, req, res, next) {
+  res.reply('voice');
 })));
 
 require('should');
 
-var tpl = [
-  '<xml>',
-    '<ToUserName><![CDATA[<%=sp%>]]></ToUserName>',
-    '<FromUserName><![CDATA[<%=user%>]]></FromUserName>',
-    '<CreateTime><%=(new Date().getTime())%></CreateTime>',
-    '<MsgType><![CDATA[<%=type%>]]></MsgType>',
-    '<% if (type === "text") { %>',
-      '<Content><![CDATA[<%=text%>]]></Content>',
-    '<% } else if (type === "location") {  %>',
-      '<Location_X><%=xPos%></Location_X>',
-      '<Location_Y><%=yPos%></Location_Y>',
-      '<Scale>{<%=scale%>}</Scale>',
-      '<Label><![CDATA[<%=label%>]]></Label>',
-    '<% } else if (type === "image") {  %>',
-      '<PicUrl><![CDATA[<%=pic%>]]></PicUrl>',
-    '<% } %>',
-  '</xml>'
-].join('');
-
 var querystring = require('querystring');
 var request = require('supertest');
-var ejs = require('ejs');
+var template = require('./support').template;
 
-describe('wechat.js 2.0', function () {
+describe('wechat.js 0.2.0', function () {
 
   describe('valid', function () {
     it('should 401', function (done) {
@@ -96,7 +83,7 @@ describe('wechat.js 2.0', function () {
 
       request(app)
       .post('/wechat')
-      .send(ejs.render(tpl, info))
+      .send(template(info))
       .expect(200)
       .end(function(err, res){
         if (err) return done(err);
@@ -121,7 +108,7 @@ describe('wechat.js 2.0', function () {
 
       request(app)
       .post('/wechat')
-      .send(ejs.render(tpl, info))
+      .send(template(info))
       .expect(200)
       .end(function(err, res){
         if (err) return done(err);
@@ -135,6 +122,85 @@ describe('wechat.js 2.0', function () {
         body.should.include('<Description><![CDATA[这是女神与高富帅之间的对话]]></Description>');
         body.should.include('<PicUrl><![CDATA[http://nodeapi.cloudfoundry.com/qrcode.jpg]]></PicUrl>');
         body.should.include('<Url><![CDATA[http://nodeapi.cloudfoundry.com/]]></Url>');
+        body.should.include('<FuncFlag>0</FuncFlag>');
+        done();
+      });
+    });
+
+    it('should ok when image', function (done) {
+      var info = {
+        sp: 'nvshen',
+        user: 'diaosi',
+        type: 'image',
+        pic: 'http://mmsns.qpic.cn/mmsns/bfc815ygvIWcaaZlEXJV7NzhmA3Y2fc4eBOxLjpPI60Q1Q6ibYicwg/0'
+      };
+
+      request(app)
+      .post('/wechat')
+      .send(template(info))
+      .expect(200)
+      .end(function(err, res){
+        if (err) return done(err);
+        var body = res.text.toString();
+        body.should.include('<ToUserName><![CDATA[diaosi]]></ToUserName>');
+        body.should.include('<FromUserName><![CDATA[nvshen]]></FromUserName>');
+        body.should.match(/<CreateTime>\d{13}<\/CreateTime>/);
+        body.should.include('<MsgType><![CDATA[text]]></MsgType>');
+        body.should.include('<Content><![CDATA[image]]></Content>');
+        body.should.include('<FuncFlag>0</FuncFlag>');
+        done();
+      });
+    });
+
+    it('should ok when location', function (done) {
+      var info = {
+        sp: 'nvshen',
+        user: 'diaosi',
+        type: 'location',
+        xPos: 'xPos',
+        yPos: 'yPos',
+        scale: '100',
+        label: 'label'
+      };
+
+      request(app)
+      .post('/wechat')
+      .send(template(info))
+      .expect(200)
+      .end(function(err, res){
+        if (err) return done(err);
+        var body = res.text.toString();
+        body.should.include('<ToUserName><![CDATA[diaosi]]></ToUserName>');
+        body.should.include('<FromUserName><![CDATA[nvshen]]></FromUserName>');
+        body.should.match(/<CreateTime>\d{13}<\/CreateTime>/);
+        body.should.include('<MsgType><![CDATA[text]]></MsgType>');
+        body.should.include('<Content><![CDATA[location]]></Content>');
+        body.should.include('<FuncFlag>0</FuncFlag>');
+        done();
+      });
+    });
+
+    it('should ok when voice', function (done) {
+      var info = {
+        sp: 'nvshen',
+        user: 'diaosi',
+        type: 'voice',
+        mediaId: 'id',
+        format: 'format'
+      };
+
+      request(app)
+      .post('/wechat')
+      .send(template(info))
+      .expect(200)
+      .end(function(err, res){
+        if (err) return done(err);
+        var body = res.text.toString();
+        body.should.include('<ToUserName><![CDATA[diaosi]]></ToUserName>');
+        body.should.include('<FromUserName><![CDATA[nvshen]]></FromUserName>');
+        body.should.match(/<CreateTime>\d{13}<\/CreateTime>/);
+        body.should.include('<MsgType><![CDATA[text]]></MsgType>');
+        body.should.include('<Content><![CDATA[voice]]></Content>');
         body.should.include('<FuncFlag>0</FuncFlag>');
         done();
       });
