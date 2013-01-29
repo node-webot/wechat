@@ -15,9 +15,9 @@
     "wechat"
   ],
   "dependencies": {
-    "xml2js": "*",
-    "ejs": "*",
-    "bufferhelper": "*"
+    "xml2js": ">=0.2.2",
+    "ejs": ">=0.8.3",
+    "bufferhelper": ">=0.1.1"
   },
   "devDependencies": {
     "supertest": "*",
