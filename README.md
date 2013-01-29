@@ -91,3 +91,19 @@ app.use('/wechat', wechat('some token', wechat.text(function (message, req, res,
 
 注意： `text`, `image`, `location`, `voice`方法请至少指定一个。
 这四个方法的设计适用于按内容类型区分处理的场景。如果需要更复杂的场景，请使用第一个例子中的API。
+
+### 更简化的API设计
+示例如下：
+
+```
+app.use('/wechat', wechat('some token').text(function (message, req, res, next) {
+
+}).image(function (message, req, res, next) {
+
+}).location(function (message, req, res, next) {
+
+}).voice(function (message, req, res, next) {
+
+}).middlewarify());
+```
+该接口从0.3.0提供。

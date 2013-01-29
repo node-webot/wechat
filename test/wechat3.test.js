@@ -29,7 +29,7 @@ app.use('/wechat', wechat('some token').text(function (message, req, res, next) 
   res.reply('image');
 }).voice(function (message, req, res, next) {
   res.reply('voice');
-}).middleware());
+}).middlewarify());
 
 describe('wechat.js 0.3.0', function () {
 
