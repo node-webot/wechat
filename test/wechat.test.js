@@ -15,6 +15,13 @@ app.use('/wechat', wechat('some token', function (req, res, next) {
   // 回复屌丝(普通回复)
   if (info.FromUserName === 'diaosi') {
     res.reply('hehe');
+  } else if (info.FromUserName === 'hehe') {
+    res.reply({
+      title: "来段音乐吧",
+      description: "一无所有",
+      musicUrl: "http://mp3.com/xx.mp3",
+      hdMusicUrl: "http://mp3.com/xx.mp3"
+    });
   } else {
   // 回复高富帅(图文回复)
     res.reply([
@@ -117,6 +124,36 @@ describe('wechat.js', function () {
         body.should.include('<Description><![CDATA[这是女神与高富帅之间的对话]]></Description>');
         body.should.include('<PicUrl><![CDATA[http://nodeapi.cloudfoundry.com/qrcode.jpg]]></PicUrl>');
         body.should.include('<Url><![CDATA[http://nodeapi.cloudfoundry.com/]]></Url>');
+        body.should.include('<FuncFlag>0</FuncFlag>');
+        done();
+      });
+    });
+
+    it('should ok with music', function (done) {
+      var info = {
+        sp: 'nvshen',
+        user: 'hehe',
+        type: 'text',
+        text: '测试中'
+      };
+
+      request(app)
+      .post('/wechat')
+      .send(template(info))
+      .expect(200)
+      .end(function(err, res){
+        if (err) return done(err);
+        var body = res.text.toString();
+        body.should.include('<ToUserName><![CDATA[hehe]]></ToUserName>');
+        body.should.include('<FromUserName><![CDATA[nvshen]]></FromUserName>');
+        body.should.match(/<CreateTime>\d{13}<\/CreateTime>/);
+        body.should.include('<MsgType><![CDATA[music]]></MsgType>');
+        body.should.include('<Music>');
+        body.should.include('</Music>');
+        body.should.include('<Title><![CDATA[来段音乐吧]]></Title>');
+        body.should.include('<Description><![CDATA[一无所有]]></Description>');
+        body.should.include('<MusicUrl><![CDATA[http://mp3.com/xx.mp3]]></MusicUrl>');
+        body.should.include('<HQMusicUrl><![CDATA[http://mp3.com/xx.mp3]]></HQMusicUrl>');
         body.should.include('<FuncFlag>0</FuncFlag>');
         done();
       });

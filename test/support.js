@@ -16,6 +16,17 @@ var tpl = [
     '<% } else if (type === "voice") { %>',
       '<MediaId><%=mediaId%></MediaId>',
       '<Format><%=format%></Format>',
+    '<% } else if (type === "link") { %>',
+      '<Title><![CDATA[<%=title%>]]></Title>',
+      '<Description><![CDATA[<%=description%>]]></Description>',
+      '<Url><![CDATA[<%=url%>]]></Url>',
+    '<% } else if (type === "event") { %>',
+      '<Event><![CDATA[<%=event%>]]></Event>',
+    '<% if (event === "LOCATION") { %>',
+      '<Latitude><%=latitude%></Latitude>',
+      '<Longitude><%=longitude%></Longitude>',
+      '<Precision><%=precision%></Precision>',
+    '<% } %>',
     '<% } %>',
   '</xml>'
 ].join('');

@@ -18,11 +18,19 @@ app.use(connect.query()); // Or app.use(express.query());
 app.use('/wechat', wechat('some token', function (req, res, next) {
   // 微信输入信息都在req.weixin上
   var message = req.weixin;
-  // 回复屌丝(普通回复)
   if (message.FromUserName === 'diaosi') {
+    // 回复屌丝(普通回复)
     res.reply('hehe');
+  } else if (message.FromUserName === 'hehe') {
+    // 回复一段音乐
+    res.reply({
+      title: "来段音乐吧",
+      description: "一无所有",
+      musicUrl: "http://mp3.com/xx.mp3",
+      hdMusicUrl: "http://mp3.com/xx.mp3"
+    });
   } else {
-  // 回复高富帅(图文回复)
+    // 回复高富帅(图文回复)
     res.reply([
       {
         title: '你来我家接我吧',
@@ -45,8 +53,8 @@ app.use('/wechat', wechat('some token', function (req, res, next) {
 代码：<https://github.com/JacksonTian/api-doc-service>
 
 ## 详细API
-目前微信公共平台能接收到4种内容：文字、图片、位置、音频。其中音频还未正式开放。支持两种回复：纯文本和图文。  
-针对目前的业务形态，发布了0.2.x版本，该版本支持四种内容分别处理，以保持业务逻辑的简洁性。
+目前微信公共平台能接收到4种内容：文字、图片、位置、音频、事件、链接。其中音频还未正式开放。支持三种回复：纯文本、图文、音乐。  
+针对目前的业务形态，发布了0.3.x版本，该版本支持六种内容分别处理，以保持业务逻辑的简洁性。
 
 ```
 app.use('/wechat', wechat('some token', wechat.text(function (message, req, res, next) {
@@ -86,24 +94,49 @@ app.use('/wechat', wechat('some token', wechat.text(function (message, req, res,
   // MediaId: 'OMYnpghh8fRfzHL8obuboDN9rmLig4s0xdpoNT6a5BoFZWufbE6srbCKc_bxduzS',
   // Format: 'amr',
   // MsgId: '5837397520665436492' }
+}).link(function (message, req, res, next) {
+  // message为链接内容
+  // { ToUserName: 'gh_d3e07d51b513',
+  // FromUserName: 'oPKu7jgOibOA-De4u8J2RuNKpZRw',
+  // CreateTime: '1359125022',
+  // MsgType: 'link',
+  // Title: '公众平台官网链接',
+  // Description: '公众平台官网链接',
+  // Url: 'http://1024.com/',
+  // MsgId: '5837397520665436492' }
+}).event(function (message, req, res, next) {
+  // message为事件内容
+  // { ToUserName: 'gh_d3e07d51b513',
+  // FromUserName: 'oPKu7jgOibOA-De4u8J2RuNKpZRw',
+  // CreateTime: '1359125022',
+  // MsgType: 'event',
+  // Event: 'LOCATION',
+  // Latitude: '23.137466',
+  // Longitude: '113.352425',
+  // Precision: '119.385040',
+  // MsgId: '5837397520665436492' }
 })));
 ```
 
-注意： `text`, `image`, `location`, `voice`方法请至少指定一个。
-这四个方法的设计适用于按内容类型区分处理的场景。如果需要更复杂的场景，请使用第一个例子中的API。
+注意： `text`, `image`, `location`, `voice`, `link`, `event`方法请至少指定一个。
+这六个方法的设计适用于按内容类型区分处理的场景。如果需要更复杂的场景，请使用第一个例子中的API。
 
 ### 更简化的API设计
 示例如下：
 
 ```
 app.use('/wechat', wechat('some token').text(function (message, req, res, next) {
-
+  // TODO
 }).image(function (message, req, res, next) {
-
+  // TODO
 }).location(function (message, req, res, next) {
-
+  // TODO
 }).voice(function (message, req, res, next) {
-
+  // TODO
+}).link(function (message, req, res, next) {
+  // TODO
+}).event(function (message, req, res, next) {
+  // TODO
 }).middlewarify());
 ```
-该接口从0.3.0提供。
+该接口从0.3.x提供。
