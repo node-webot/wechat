@@ -42,6 +42,7 @@ app.use('/wechat', wechat('some token', function (req, res, next) {
   }
 }));
 ```
+备注：token在[微信平台上申请](http://mp.weixin.qq.com/cgi-bin/callbackprofile?type=info&t=wxm-developer-ahead&lang=zh_CN)
 
 ## Show cases
 ### Node.js API自动回复
