@@ -78,7 +78,7 @@ describe('wechat.js', function () {
   describe('valid POST', function () {
     it('should 401', function (done) {
       request(app)
-      .post('/wechat' + urlTail)
+      .post('/wechat' + urlTail())
       .expect(401)
       .expect('sorry', done);
     });
@@ -108,7 +108,7 @@ describe('wechat.js', function () {
       };
 
       request(app)
-      .post('/wechat' + urlTail)
+      .post('/wechat' + urlTail())
       .send(template(info))
       .expect(200)
       .end(function(err, res){
@@ -133,7 +133,7 @@ describe('wechat.js', function () {
       };
 
       request(app)
-      .post('/wechat' + urlTail)
+      .post('/wechat' + urlTail())
       .send(template(info))
       .expect(200)
       .end(function(err, res){
@@ -162,7 +162,7 @@ describe('wechat.js', function () {
       };
 
       request(app)
-      .post('/wechat' + urlTail)
+      .post('/wechat' + urlTail())
       .send(template(info))
       .expect(200)
       .end(function(err, res){

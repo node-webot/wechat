@@ -114,7 +114,7 @@ describe('wechat.js 0.3.0', function () {
       };
 
       request(app)
-      .post('/wechat' + urlTail)
+      .post('/wechat' + urlTail())
       .send(template(info))
       .expect(200)
       .end(function(err, res){
@@ -139,7 +139,7 @@ describe('wechat.js 0.3.0', function () {
       };
 
       request(app)
-      .post('/wechat' + urlTail)
+      .post('/wechat' + urlTail())
       .send(template(info))
       .expect(200)
       .end(function(err, res){
@@ -168,7 +168,7 @@ describe('wechat.js 0.3.0', function () {
       };
 
       request(app)
-      .post('/wechat' + urlTail)
+      .post('/wechat' + urlTail())
       .send(template(info))
       .expect(200)
       .end(function(err, res){
@@ -196,7 +196,7 @@ describe('wechat.js 0.3.0', function () {
       };
 
       request(app)
-      .post('/wechat' + urlTail)
+      .post('/wechat' + urlTail())
       .send(template(info))
       .expect(200)
       .end(function(err, res){
@@ -222,7 +222,7 @@ describe('wechat.js 0.3.0', function () {
       };
 
       request(app)
-      .post('/wechat' + urlTail)
+      .post('/wechat' + urlTail())
       .send(template(info))
       .expect(200)
       .end(function(err, res){
@@ -249,7 +249,7 @@ describe('wechat.js 0.3.0', function () {
       };
 
       request(app)
-      .post('/wechat' + urlTail)
+      .post('/wechat' + urlTail())
       .send(template(info))
       .expect(200)
       .end(function(err, res){
@@ -277,7 +277,7 @@ describe('wechat.js 0.3.0', function () {
       };
 
       request(app)
-      .post('/wechat' + urlTail)
+      .post('/wechat' + urlTail())
       .send(template(info))
       .expect(200)
       .end(function(err, res){
@@ -302,7 +302,7 @@ describe('wechat.js 0.3.0', function () {
       };
 
       request(app)
-      .post('/wechat' + urlTail)
+      .post('/wechat' + urlTail())
       .send(template(info))
       .expect(200)
       .end(function(err, res){
@@ -327,7 +327,7 @@ describe('wechat.js 0.3.0', function () {
       };
 
       request(app)
-      .post('/wechat' + urlTail)
+      .post('/wechat' + urlTail())
       .send(template(info))
       .expect(200)
       .end(function(err, res){
@@ -348,7 +348,7 @@ describe('wechat.js 0.3.0', function () {
       };
 
       request(app)
-      .post('/wechat' + urlTail)
+      .post('/wechat' + urlTail())
       .send(template(info))
       .expect(200)
       .end(function(err, res){
@@ -373,7 +373,7 @@ describe('wechat.js 0.3.0', function () {
       };
 
       request(app)
-      .post('/wechat' + urlTail)
+      .post('/wechat' + urlTail())
       .send(template(info))
       .expect(200)
       .end(function(err, res){
