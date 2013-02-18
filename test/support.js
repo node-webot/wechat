@@ -1,3 +1,5 @@
+var querystring = require('querystring');
+
 var tpl = [
   '<xml>',
     '<ToUserName><![CDATA[<%=sp%>]]></ToUserName>',

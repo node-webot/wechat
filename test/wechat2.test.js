@@ -43,6 +43,7 @@ require('should');
 var querystring = require('querystring');
 var request = require('supertest');
 var template = require('./support').template;
+var urlTail = require('./support').urlTail;
 
 describe('wechat.js 0.2.0', function () {
 

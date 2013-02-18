@@ -3,6 +3,7 @@ var wechat = require('../');
 var querystring = require('querystring');
 var request = require('supertest');
 var template = require('./support').template;
+var urlTail = require('./support').urlTail;
 require('should');
 
 var app = connect();

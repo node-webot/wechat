@@ -78,7 +78,7 @@ describe('wechat.js', function () {
   describe('valid POST', function () {
     it('should 401', function (done) {
       request(app)
-      .post('/wechat' + urlTail())
+      .post('/wechat')
       .expect(401)
       .expect('sorry', done);
     });
