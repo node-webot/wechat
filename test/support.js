@@ -1,3 +1,5 @@
+var querystring = require('querystring');
+
 var tpl = [
   '<xml>',
     '<ToUserName><![CDATA[<%=sp%>]]></ToUserName>',
@@ -31,4 +33,16 @@ var tpl = [
   '</xml>'
 ].join('');
 
+var urlTail = function () {
+  var q = {
+    timestamp: new Date().getTime(),
+    nonce: parseInt((Math.random() * 10e10), 10)
+  };
+  var s = ['some token', q.timestamp, q.nonce].sort().join('');
+  q.signature = require('crypto').createHash('sha1').update(s).digest('hex');
+  q.echostr = 'hehe';
+  return '?' + querystring.stringify(q);
+};
+
 exports.template = require('ejs').compile(tpl);
+exports.urlTail = urlTail;
