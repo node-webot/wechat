@@ -3,6 +3,7 @@ require('should');
 var querystring = require('querystring');
 var request = require('supertest');
 var template = require('./support').template;
+var urlTail = require('./support').urlTail;
 
 var connect = require('connect');
 var wechat = require('../');
@@ -37,7 +38,7 @@ app.use('/wechat', wechat('some token', function (req, res, next) {
 
 describe('wechat.js', function () {
 
-  describe('valid', function () {
+  describe('valid GET', function () {
     it('should 401', function (done) {
       request(app)
       .get('/wechat')
@@ -74,6 +75,29 @@ describe('wechat.js', function () {
     });
   });
 
+  describe('valid POST', function () {
+    it('should 401', function (done) {
+      request(app)
+      .post('/wechat')
+      .expect(401)
+      .expect('sorry', done);
+    });
+
+    it('should 401 invalid signature', function (done) {
+      var q = {
+        timestamp: new Date().getTime(),
+        nonce: parseInt((Math.random() * 10e10), 10)
+      };
+      var s = ['some token', q.timestamp, q.nonce].sort().join('');
+      q.signature = 'invalid_signature';
+      q.echostr = 'hehe';
+      request(app)
+      .post('/wechat?' + querystring.stringify(q))
+      .expect(401)
+      .expect('sorry', done);
+    });
+  });
+
   describe('respond', function () {
     it('should ok', function (done) {
       var info = {
@@ -84,7 +108,7 @@ describe('wechat.js', function () {
       };
 
       request(app)
-      .post('/wechat')
+      .post('/wechat' + urlTail())
       .send(template(info))
       .expect(200)
       .end(function(err, res){
@@ -109,7 +133,7 @@ describe('wechat.js', function () {
       };
 
       request(app)
-      .post('/wechat')
+      .post('/wechat' + urlTail())
       .send(template(info))
       .expect(200)
       .end(function(err, res){
@@ -138,7 +162,7 @@ describe('wechat.js', function () {
       };
 
       request(app)
-      .post('/wechat')
+      .post('/wechat' + urlTail())
       .send(template(info))
       .expect(200)
       .end(function(err, res){
