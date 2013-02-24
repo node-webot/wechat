@@ -33,10 +33,10 @@ var tpl = [
   '</xml>'
 ].join('');
 
-var urlTail = function () {
+exports.tail = function () {
   var q = {
     timestamp: new Date().getTime(),
-    nonce: parseInt((Math.random() * 10e10), 10)
+    nonce: parseInt((Math.random() * 100000000000), 10)
   };
   var s = ['some token', q.timestamp, q.nonce].sort().join('');
   q.signature = require('crypto').createHash('sha1').update(s).digest('hex');
@@ -45,4 +45,3 @@ var urlTail = function () {
 };
 
 exports.template = require('ejs').compile(tpl);
-exports.urlTail = urlTail;
