@@ -1,6 +1,6 @@
 {
   "name": "wechat",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "description": "微信公共平台自动回复接口服务",
   "main": "index.js",
   "scripts": {
@@ -15,7 +15,7 @@
     "wechat"
   ],
   "dependencies": {
-    "xml2js": "0.2.4",
+    "xml2js": "0.2.6",
     "ejs": ">=0.8.3",
     "bufferhelper": ">=0.2.0"
   },

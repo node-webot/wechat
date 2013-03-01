@@ -183,4 +183,26 @@ describe('wechat.js', function () {
       });
     });
   });
+
+  describe('exception', function () {
+var xml = '<xml><ToUserName><![CDATA[gh_d3e07d51b513]]></ToUserName>\
+<FromUserName><![CDATA[diaosi]]></FromUserName>\
+<CreateTime>1362161914</CreateTime>\
+<MsgType><![CDATA[location]]></MsgType>\
+<Location_X>30.283878</Location_X>\
+<Location_Y>120.063370</Location_Y>\
+<Scale>15</Scale>\
+<Label><![CDATA[]]></Label>\
+<MsgId>5850440872586764820</MsgId>\
+</xml>';
+    it('should ok', function () {
+      request(app)
+      .post('/wechat' + tail())
+      .send(xml)
+      .expect(200)
+      .end(function(err, res){
+        if (err) return done(err);
+      });
+    });
+  });
 });
