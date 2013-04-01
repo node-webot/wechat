@@ -15,7 +15,7 @@ npm install wechat
 var wechat = require('wechat');
 
 app.use(connect.query()); // Or app.use(express.query());
-app.use('/wechat', wechat('some token', function (req, res, next) {
+app.use('/', wechat('some token', function (req, res, next) {
   // 微信输入信息都在req.weixin上
   var message = req.weixin;
   if (message.FromUserName === 'diaosi') {
@@ -60,7 +60,7 @@ app.use('/wechat', wechat('some token', function (req, res, next) {
 针对目前的业务形态，发布了0.3.x版本，该版本支持六种内容分别处理，以保持业务逻辑的简洁性。
 
 ```
-app.use('/wechat', wechat('some token', wechat.text(function (message, req, res, next) {
+app.use('/', wechat('some token', wechat.text(function (message, req, res, next) {
   // message为文本内容
   // { ToUserName: 'gh_d3e07d51b513',
   // FromUserName: 'oPKu7jgOibOA-De4u8J2RuNKpZRw',
@@ -128,7 +128,7 @@ app.use('/wechat', wechat('some token', wechat.text(function (message, req, res,
 示例如下：
 
 ```
-app.use('/wechat', wechat('some token').text(function (message, req, res, next) {
+app.use('/', wechat('some token').text(function (message, req, res, next) {
   // TODO
 }).image(function (message, req, res, next) {
   // TODO

@@ -8,7 +8,7 @@ require('should');
 
 var app = connect();
 app.use(connect.query());
-app.use('/wechat', wechat('some token').text(function (message, req, res, next) {
+app.use('/', wechat('some token').text(function (message, req, res, next) {
   // 微信输入信息都在message上
   // 回复屌丝(普通回复)
   if (message.FromUserName === 'diaosi') {
