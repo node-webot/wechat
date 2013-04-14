@@ -8,15 +8,6 @@ var connect = require('connect');
 var wechat = require('../');
 
 var List = require('../').List;
-List.add('view', [
-  ['回复{a}查看我的性别', function (info, req, res) {
-    res.reply('我是个妹纸哟');
-  }],
-  ['回复{b}查看我的年龄', function (info, req, res) {
-    res.reply('我今年18岁');
-  }],
-  ['回复{c}查看我的性取向', '这样的事情怎么好意思告诉你啦- -']
-]);
 
 var app = connect();
 app.use(connect.query());
@@ -31,6 +22,18 @@ app.use('/wechat', wechat('some token', wechat.text(function (info, req, res, ne
 })));
 
 describe('wechat.js', function () {
+  before(function () {
+    List.add('view', [
+      ['回复{a}查看我的性别', function (info, req, res) {
+        res.reply('我是个妹纸哟');
+      }],
+      ['回复{b}查看我的年龄', function (info, req, res) {
+        res.reply('我今年18岁');
+      }],
+      ['回复{c}查看我的性取向', '这样的事情怎么好意思告诉你啦- -']
+    ]);
+  });
+
   describe('talk', function () {
     it('should reply hehe when not trigger the list', function (done) {
       var info = {

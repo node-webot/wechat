@@ -13,8 +13,7 @@
     "before",
     "beforeEach",
     "after",
-    "afterEach",
-    "should"
+    "afterEach"
   ],
 
   "node": true,
