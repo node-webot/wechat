@@ -65,6 +65,61 @@ app.use('/wechat', wechat('some token', wechat.text(function (info, req, res, ne
 
 `req.wxsession`与`req.session`采用相同的存储引擎，这意味着如果采用redis作为存储，这样`wxsession`可以实现跨进程共享。
 
+### 等待回复
+等待回复，类似于电话拨号业务。该功能在WXSession的基础上提供。需要为等待回复预置操作，中间件将其抽象为`List`对象，在提供服务前需要添加服务。
+
+```
+var List = require('wechat').List;
+List.add('view', [
+  ['回复{a}查看我的性别', function (info, req, res) {
+    res.reply('我是个妹纸哟');
+  }],
+  ['回复{b}查看我的年龄', function (info, req, res) {
+    res.reply('我今年18岁');
+  }],
+  ['回复{c}查看我的性取向', '这样的事情怎么好意思告诉你啦- -']
+]);
+```
+
+然后在业务中触发等待回复事务，如下示例，当收到用户发送`list`后，调用`res.wait('view')`进入事务`view`中。
+
+```
+var app = connect();
+app.use(connect.query());
+app.use(connect.cookieParser());
+app.use(connect.session({secret: 'keyboard cat', cookie: {maxAge: 60000}}));
+app.use('/wechat', wechat('some token', wechat.text(function (info, req, res, next) {
+  if (info.Content === 'list') {
+    res.wait('view');
+  } else {
+    res.reply('hehe');
+    // 或者中断等待回复事务
+    // res.nowait('hehe');
+  }
+})));
+```
+用户将收到如下回复：
+
+```
+回复a查看我的性别
+回复b查看我的年龄
+回复c查看我的性取向
+```
+
+用户回复其中的`a`、`b`、`c`将会由注册的方法接管回复。回复可以是一个函数，也可以是一个字符串：
+
+```
+List.add('view', [
+  ['回复{a}查看我的性别', function (info, req, res, next) {
+    res.reply('我是个妹纸哟');
+  }],
+  // 或者字符串
+  ['回复{c}查看我的性取向', '这样的事情怎么好意思告诉你啦- -']
+]);
+```
+
+如果用户触发等待回复事务后，没有按照`{}`中的进行回复，那么将会由原有的默认函数进行处理。在原有函数中，可以选择调用`res.nowait()`中断事务。`nowait()`除了能中断事务外，与`reply`的行为一致。
+
 ## Show cases
 ### Node.js API自动回复
 
