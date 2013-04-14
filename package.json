@@ -4,7 +4,7 @@
   "description": "微信公共平台自动回复接口服务",
   "main": "index.js",
   "scripts": {
-    "test": "mocha -R spec"
+    "test": "make test"
   },
   "repository": {
     "type": "git",
@@ -23,7 +23,8 @@
     "supertest": "*",
     "mocha": "*",
     "should": "*",
-    "connect": "*"
+    "connect": "*",
+    "jscover": "*"
   },
   "author": "Jackson Tian",
   "license": "MIT",
