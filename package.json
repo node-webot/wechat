@@ -26,7 +26,8 @@
   "dependencies": {
     "xml2js": "0.2.6",
     "ejs": ">=0.8.3",
-    "bufferhelper": ">=0.2.0"
+    "bufferhelper": ">=0.2.0",
+    "urllib": ">=0.3.4"
   },
   "devDependencies": {
     "supertest": "*",
