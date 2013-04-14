@@ -44,6 +44,27 @@ app.use('/wechat', wechat('some token', function (req, res, next) {
 ```
 备注：token在[微信平台上申请](http://mp.weixin.qq.com/cgi-bin/callbackprofile?type=info&t=wxm-developer-ahead&lang=zh_CN)
 
+### WXSession支持
+由于公共平台应用的客户端实际上是微信，所以采用传统的Cookie来实现会话并不现实，为此中间件模块在openid的基础上添加了Session支持。一旦服务端启用了`connect.session`中间件，在业务中就可以访问`req.wxsession`属性。这个属性与`req.session`行为类似。
+
+```
+app.use(connect.cookieParser());
+app.use(connect.session({secret: 'keyboard cat', cookie: {maxAge: 60000}}));
+app.use('/wechat', wechat('some token', wechat.text(function (info, req, res, next) {
+  if (info.Content === '=') {
+    var exp = req.wxsession.text.join('');
+    req.wxsession.text = '';
+    res.reply(exp);
+  } else {
+    req.wxsession.text = req.wxsession.text || [];
+    req.wxsession.text.push(info.Content);
+    res.reply('收到' + info.Content);
+  }
+})));
+```
+
+`req.wxsession`与`req.session`采用相同的存储引擎，这意味着如果采用redis作为存储，这样`wxsession`可以实现跨进程共享。
+
 ## Show cases
 ### Node.js API自动回复
 
