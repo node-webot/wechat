@@ -40,5 +40,5 @@
   "expr": true,
   "multistr": true,
   "onevar": false,
-  "unused": true
+  "unused": "vars"
 }
