@@ -1,6 +1,6 @@
 {
   "name": "wechat",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "微信公共平台自动回复接口服务",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/JacksonTian/weixin.git"
+    "url": "git://github.com/node-webot/wechat.git"
   },
   "keywords": [
     "weixin",
@@ -28,5 +28,9 @@
   },
   "author": "Jackson Tian",
   "license": "MIT",
-  "readmeFilename": "README.md"
+  "readmeFilename": "README.md",
+  "gitHead": "904aaec6f98ac78d80553ffc726ebea779f40e60",
+  "directories": {
+    "test": "test"
+  }
 }
