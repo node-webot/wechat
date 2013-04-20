@@ -16,6 +16,8 @@ app.use(connect.session({secret: 'keyboard cat', cookie: {maxAge: 60000}}));
 app.use('/wechat', wechat('some token', wechat.text(function (info, req, res, next) {
   if (info.Content === 'list') {
     res.wait('view');
+  } else if (info.Content === 'undefinedlist') {
+    res.wait('undefined');
   } else {
     res.reply('hehe');
   }
@@ -30,7 +32,10 @@ describe('wechat.js', function () {
       ['回复{b}查看我的年龄', function (info, req, res) {
         res.reply('我今年18岁');
       }],
-      ['回复{c}查看我的性取向', '这样的事情怎么好意思告诉你啦- -']
+      ['回复{c}查看我的性取向', '这样的事情怎么好意思告诉你啦- -'],
+      ['回复{nowait}退出问答', function (info, req, res) {
+        res.nowait('thanks');
+      }]
     ]);
   });
 
@@ -70,7 +75,7 @@ describe('wechat.js', function () {
       .end(function (err, res) {
         if (err) return done(err);
         var body = res.text.toString();
-        body.should.include('<Content><![CDATA[回复a查看我的性别\n回复b查看我的年龄\n回复c查看我的性取向]]></Content>');
+        body.should.include('<Content><![CDATA[回复a查看我的性别\n回复b查看我的年龄\n回复c查看我的性取向\n回复nowait退出问答]]></Content>');
         done();
       });
     });
@@ -151,6 +156,46 @@ describe('wechat.js', function () {
         if (err) return done(err);
         var body = res.text.toString();
         body.should.include('<Content><![CDATA[hehe]]></Content>');
+        done();
+      });
+    });
+
+    it('should reply 500 when undefined list', function (done) {
+      var info = {
+        sp: 'nvshen',
+        user: 'diaosi',
+        type: 'text',
+        text: 'undefinedlist'
+      };
+
+      request(app)
+      .post('/wechat' + tail())
+      .send(template(info))
+      .expect(500)
+      .end(function(err, res){
+        if (err) return done(err);
+        var body = res.text.toString();
+        body.should.include('UndefinedListError');
+        done();
+      });
+    });
+
+    it('should reply 500 when undefined list', function (done) {
+      var info = {
+        sp: 'nvshen',
+        user: 'diaosi',
+        type: 'text',
+        text: 'nowait'
+      };
+
+      request(app)
+      .post('/wechat' + tail())
+      .send(template(info))
+      .expect(200)
+      .end(function(err, res){
+        if (err) return done(err);
+        var body = res.text.toString();
+        body.should.include('thanks');
         done();
       });
     });

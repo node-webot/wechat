@@ -65,7 +65,6 @@ describe('wechat.js', function () {
         timestamp: new Date().getTime(),
         nonce: parseInt((Math.random() * 10e10), 10)
       };
-      var s = ['some token', q.timestamp, q.nonce].sort().join('');
       q.signature = 'invalid_signature';
       q.echostr = 'hehe';
       request(app)
@@ -94,6 +93,21 @@ describe('wechat.js', function () {
       .post('/wechat?' + querystring.stringify(q))
       .expect(401)
       .expect('Invalid signature', done);
+    });
+  });
+
+  describe('valid other method', function () {
+    it('should 200', function (done) {
+      var q = {
+        timestamp: new Date().getTime(),
+        nonce: parseInt((Math.random() * 10e10), 10)
+      };
+      var s = ['some token', q.timestamp, q.nonce].sort().join('');
+      q.signature = require('crypto').createHash('sha1').update(s).digest('hex');
+      q.echostr = 'hehe';
+      request(app)
+      .head('/wechat?' + querystring.stringify(q))
+      .expect(501, done);
     });
   });
 
@@ -184,16 +198,16 @@ describe('wechat.js', function () {
   });
 
   describe('exception', function () {
-var xml = '<xml><ToUserName><![CDATA[gh_d3e07d51b513]]></ToUserName>\
-<FromUserName><![CDATA[diaosi]]></FromUserName>\
-<CreateTime>1362161914</CreateTime>\
-<MsgType><![CDATA[location]]></MsgType>\
-<Location_X>30.283878</Location_X>\
-<Location_Y>120.063370</Location_Y>\
-<Scale>15</Scale>\
-<Label><![CDATA[]]></Label>\
-<MsgId>5850440872586764820</MsgId>\
-</xml>';
+    var xml = '<xml><ToUserName><![CDATA[gh_d3e07d51b513]]></ToUserName>\
+      <FromUserName><![CDATA[diaosi]]></FromUserName>\
+      <CreateTime>1362161914</CreateTime>\
+      <MsgType><![CDATA[location]]></MsgType>\
+      <Location_X>30.283878</Location_X>\
+      <Location_Y>120.063370</Location_Y>\
+      <Scale>15</Scale>\
+      <Label><![CDATA[]]></Label>\
+      <MsgId>5850440872586764820</MsgId>\
+      </xml>';
     it('should ok', function () {
       request(app)
       .post('/wechat' + tail())

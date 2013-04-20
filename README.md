@@ -1,4 +1,4 @@
-weixin [![Build Status](https://travis-ci.org/JacksonTian/weixin.png?branch=master)](https://travis-ci.org/JacksonTian/weixin)
+wechat [![Build Status](https://travis-ci.org/node-webot/wechat.png?branch=master)](https://travis-ci.org/node-webot/wechat)
 ======
 
 微信公共平台消息接口服务中间件
@@ -128,6 +128,8 @@ List.add('view', [
 欢迎关注。
 
 代码：<https://github.com/JacksonTian/api-doc-service>
+
+你可以在[CloudFoundry](http://www.cloudfoundry.com/)、[appfog](https://www.appfog.com/)、[BAE](http://developer.baidu.com/wiki/index.php?title=docs/cplat/rt/node.js)等搭建自己的机器人。
 
 ## 详细API
 原始API文档请参见：[消息接口指南](http://mp.weixin.qq.com/wiki/index.php?title=%E6%B6%88%E6%81%AF%E6%8E%A5%E5%8F%A3%E6%8C%87%E5%8D%97)。
