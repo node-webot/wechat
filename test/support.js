@@ -11,7 +11,7 @@ var tpl = [
     '<% } else if (type === "location") { %>',
       '<Location_X><%=xPos%></Location_X>',
       '<Location_Y><%=yPos%></Location_Y>',
-      '<Scale>{<%=scale%>}</Scale>',
+      '<Scale><%=scale%></Scale>',
       '<Label><![CDATA[<%=label%>]]></Label>',
     '<% } else if (type === "image") { %>',
       '<PicUrl><![CDATA[<%=pic%>]]></PicUrl>',
