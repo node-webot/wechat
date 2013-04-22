@@ -1,4 +1,4 @@
-wechat [![Build Status](https://travis-ci.org/node-webot/wechat.png?branch=master)](https://travis-ci.org/node-webot/wechat)
+wechat [![Build Status](https://travis-ci.org/node-webot/wechat.png?branch=master)](https://travis-ci.org/node-webot/wechat) [![](https://david-dm.org/node-webot/wechat.png)](https://david-dm.org/node-webot/wechat)
 ======
 
 微信公共平台消息接口服务中间件
