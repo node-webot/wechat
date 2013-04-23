@@ -72,7 +72,6 @@ describe('wechat.js 0.3.0', function () {
         timestamp: new Date().getTime(),
         nonce: parseInt((Math.random() * 10e10), 10)
       };
-      var s = ['some token', q.timestamp, q.nonce].sort().join('');
       q.signature = 'invalid_signature';
       q.echostr = 'hehe';
       request(app)
@@ -95,7 +94,6 @@ describe('wechat.js 0.3.0', function () {
         timestamp: new Date().getTime(),
         nonce: parseInt((Math.random() * 10e10), 10)
       };
-      var s = ['some token', q.timestamp, q.nonce].sort().join('');
       q.signature = 'invalid_signature';
       q.echostr = 'hehe';
       request(app)
