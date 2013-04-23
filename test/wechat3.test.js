@@ -18,7 +18,7 @@ app.use('/wechat', wechat('some token').text(function (message, req, res, next) 
       title: "来段音乐吧",
       description: "一无所有",
       musicUrl: "http://mp3.com/xx.mp3",
-      hdMusicUrl: "http://mp3.com/xx.mp3"
+      hqMusicUrl: "http://mp3.com/xx.mp3"
     });
   } else {
   // 回复高富帅(图文回复)

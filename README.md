@@ -1,4 +1,4 @@
-wechat [![Build Status](https://travis-ci.org/node-webot/wechat.png?branch=master)](https://travis-ci.org/node-webot/wechat)
+wechat [![Build Status](https://travis-ci.org/node-webot/wechat.png?branch=master)](https://travis-ci.org/node-webot/wechat) [![](https://david-dm.org/node-webot/wechat.png)](https://david-dm.org/node-webot/wechat)
 ======
 
 微信公共平台消息接口服务中间件
@@ -27,7 +27,7 @@ app.use('/wechat', wechat('some token', function (req, res, next) {
       title: "来段音乐吧",
       description: "一无所有",
       musicUrl: "http://mp3.com/xx.mp3",
-      hdMusicUrl: "http://mp3.com/xx.mp3"
+      hqMusicUrl: "http://mp3.com/xx.mp3"
     });
   } else {
     // 回复高富帅(图文回复)
