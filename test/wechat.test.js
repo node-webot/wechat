@@ -18,10 +18,10 @@ app.use('/wechat', wechat('some token', function (req, res, next) {
     res.reply('hehe');
   } else if (info.FromUserName === 'hehe') {
     res.reply({
-      title: "来段音乐吧",
-      description: "一无所有",
-      musicUrl: "http://mp3.com/xx.mp3",
-      hqMusicUrl: "http://mp3.com/xx.mp3"
+      title: "来段音乐吧<",
+      description: "一无所有>",
+      musicUrl: "http://mp3.com/xx.mp3?a=b&c=d",
+      hqMusicUrl: "http://mp3.com/xx.mp3?foo=bar"
     });
   } else {
   // 回复高富帅(图文回复)
@@ -187,10 +187,10 @@ describe('wechat.js', function () {
         body.should.include('<MsgType><![CDATA[music]]></MsgType>');
         body.should.include('<Music>');
         body.should.include('</Music>');
-        body.should.include('<Title><![CDATA[来段音乐吧]]></Title>');
-        body.should.include('<Description><![CDATA[一无所有]]></Description>');
-        body.should.include('<MusicUrl><![CDATA[http://mp3.com/xx.mp3]]></MusicUrl>');
-        body.should.include('<HQMusicUrl><![CDATA[http://mp3.com/xx.mp3]]></HQMusicUrl>');
+        body.should.include('<Title><![CDATA[来段音乐吧<]]></Title>');
+        body.should.include('<Description><![CDATA[一无所有>]]></Description>');
+        body.should.include('<MusicUrl><![CDATA[http://mp3.com/xx.mp3?a=b&c=d]]></MusicUrl>');
+        body.should.include('<HQMusicUrl><![CDATA[http://mp3.com/xx.mp3?foo=bar]]></HQMusicUrl>');
         body.should.include('<FuncFlag>0</FuncFlag>');
         done();
       });
