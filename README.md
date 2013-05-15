@@ -224,3 +224,5 @@ app.use('/wechat', wechat('some token').text(function (message, req, res, next) 
 
 ### 流程图
 ![graph](https://raw.github.com/node-webot/wechat/master/figures/wechat.png)
+
+诸多细节由wechat中间件提供，用户只要关注蓝色部分的业务逻辑即可。
