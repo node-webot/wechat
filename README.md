@@ -221,3 +221,6 @@ app.use('/wechat', wechat('some token').text(function (message, req, res, next) 
 }).middlewarify());
 ```
 该接口从0.3.x提供。
+
+### 流程图
+![graph](https://raw.github.com/node-webot/wechat/master/figures/wechat.png)
