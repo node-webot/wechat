@@ -226,3 +226,10 @@ app.use('/wechat', wechat('some token').text(function (message, req, res, next) 
 ![graph](https://raw.github.com/node-webot/wechat/master/figures/wechat.png)
 
 诸多细节由wechat中间件提供，用户只要关注蓝色部分的业务逻辑即可。
+## License
+The MIT license.
+
+## 捐赠
+如果您觉得Wechat对您有帮助，欢迎请作者一杯咖啡
+
+[![捐赠wechat](https://img.alipay.com/sys/personalprod/style/mc/btn-index.png)](https://me.alipay.com/jacksontian)
