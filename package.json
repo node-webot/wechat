@@ -4,7 +4,16 @@
   "description": "微信公共平台自动回复接口服务",
   "main": "index.js",
   "scripts": {
-    "test": "make test"
+    "test": "make test-all",
+    "blanket": {
+      "pattern": "wechat/lib",
+      "data-cover-flags": {
+        "debug": false
+      }
+    },
+    "travis-cov": {
+      "threshold": 90
+    }
   },
   "repository": {
     "type": "git",
@@ -24,7 +33,8 @@
     "mocha": "*",
     "should": "*",
     "connect": "*",
-    "jscover": "*"
+    "blanket": "*",
+    "travis-cov": "*"
   },
   "author": "Jackson Tian",
   "license": "MIT",
