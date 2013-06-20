@@ -29,4 +29,19 @@ describe('list.js', function () {
     list = List.get('common');
     should.not.exist(list);
   });
+
+  it('should ok with string', function () {
+    var common = [
+      ['welcome'],
+      ['选择{a}查看啥', function () {}],
+      ['选择{b}查看啥', function () {}],
+      ['选择{c}查看啥', function () {}]
+    ];
+    List.add('welcome', common);
+    var list = List.get('welcome');
+    list.description.should.be.equal('welcome\n选择a查看啥\n选择b查看啥\n选择c查看啥');
+    list.get('a').should.be.equal(common[1][1]);
+    list.get('b').should.be.equal(common[2][1]);
+    list.get('c').should.be.equal(common[3][1]);
+  });
 });
