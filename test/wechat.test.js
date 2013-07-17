@@ -1,221 +1,295 @@
-require('should');
+var crypto = require('crypto');
+var xml2js = require('xml2js');
+var ejs = require('ejs');
+var BufferHelper = require('bufferhelper');
+var Session = require('./session');
+var List = require('./list');
 
-var querystring = require('querystring');
-var request = require('supertest');
-var template = require('./support').template;
-var tail = require('./support').tail;
+var checkSignature = function (query, token) {
+  var signature = query.signature;
+  var timestamp = query.timestamp;
+  var nonce = query.nonce;
 
-var connect = require('connect');
-var wechat = require('../');
+  var shasum = crypto.createHash('sha1');
+  var arr = [token, timestamp, nonce].sort();
+  shasum.update(arr.join(''));
 
-var app = connect();
-app.use(connect.query());
-app.use('/wechat', wechat('some token', function (req, res, next) {
-  // 微信输入信息都在req.weixin上
-  var info = req.weixin;
-  // 回复屌丝(普通回复)
-  if (info.FromUserName === 'diaosi') {
-    res.reply('hehe');
-  } else if (info.FromUserName === 'hehe') {
-    res.reply({
-      title: "来段音乐吧<",
-      description: "一无所有>",
-      musicUrl: "http://mp3.com/xx.mp3?a=b&c=d",
-      hqMusicUrl: "http://mp3.com/xx.mp3?foo=bar"
-    });
-  } else {
-  // 回复高富帅(图文回复)
-    res.reply([
-      {
-        title: '你来我家接我吧',
-        description: '这是女神与高富帅之间的对话',
-        picurl: 'http://nodeapi.cloudfoundry.com/qrcode.jpg',
-        url: 'http://nodeapi.cloudfoundry.com/'
-      }
-    ]);
+  return shasum.digest('hex') === signature;
+};
+
+var tpl = ['<xml>',
+    '<ToUserName><![CDATA[<%-toUsername%>]]></ToUserName>',
+    '<FromUserName><![CDATA[<%-fromUsername%>]]></FromUserName>',
+    '<CreateTime><%=createTime%></CreateTime>',
+    '<MsgType><![CDATA[<%=msgType%>]]></MsgType>',
+  '<% if (msgType === "news") { %>',
+    '<ArticleCount><%=content.length%></ArticleCount>',
+    '<Articles>',
+    '<% content.forEach(function(item){ %>',
+      '<item>',
+        '<Title><![CDATA[<%-item.title%>]]></Title>',
+        '<Description><![CDATA[<%-item.description%>]]></Description>',
+        '<PicUrl><![CDATA[<%-item.picUrl || item.picurl || item.pic %>]]></PicUrl>',
+        '<Url><![CDATA[<%-item.url%>]]></Url>',
+      '</item>',
+    '<% }); %>',
+    '</Articles>',
+  '<% } else if (msgType === "music") { %>',
+    '<Music>',
+      '<Title><![CDATA[<%-content.title%>]]></Title>',
+      '<Description><![CDATA[<%-content.description%>]]></Description>',
+      '<MusicUrl><![CDATA[<%-content.musicUrl || content.url %>]]></MusicUrl>',
+      '<HQMusicUrl><![CDATA[<%-content.hqMusicUrl || content.hqUrl %>]]></HQMusicUrl>',
+    '</Music>',
+  '<% } else { %>',
+    '<Content><![CDATA[<%-content%>]]></Content>',
+  '<% } %>',
+    '<FuncFlag><%=funcFlag%></FuncFlag>',
+  '</xml>'].join('');
+
+var compiled = ejs.compile(tpl);
+
+var getMessage = function (stream, callback) {
+  var buf = new BufferHelper();
+  buf.load(stream, function (err, buf) {
+    if (err) {
+      return callback(err);
+    }
+    var xml = buf.toString('utf-8');
+    xml2js.parseString(xml, {trim: true}, callback);
+  });
+};
+
+var isEmpty = function (thing) {
+  return typeof thing === "object" && (thing != null) && Object.keys(thing).length === 0;
+};
+
+var formatMessage = function (result) {
+  var message = {};
+  for (var key in result.xml) {
+    var val = result.xml[key][0];
+    message[key] = (isEmpty(val) ? '' : val).trim();
   }
-}));
+  return message;
+};
 
-describe('wechat.js', function () {
-
-  describe('valid GET', function () {
-    it('should 401', function (done) {
-      request(app)
-      .get('/wechat')
-      .expect(401)
-      .expect('Invalid signature', done);
-    });
-
-    it('should 200', function (done) {
-      var q = {
-        timestamp: new Date().getTime(),
-        nonce: parseInt((Math.random() * 10e10), 10)
-      };
-      var s = ['some token', q.timestamp, q.nonce].sort().join('');
-      q.signature = require('crypto').createHash('sha1').update(s).digest('hex');
-      q.echostr = 'hehe';
-      request(app)
-      .get('/wechat?' + querystring.stringify(q))
-      .expect(200)
-      .expect('hehe', done);
-    });
-
-    it('should 401 invalid signature', function (done) {
-      var q = {
-        timestamp: new Date().getTime(),
-        nonce: parseInt((Math.random() * 10e10), 10)
-      };
-      q.signature = 'invalid_signature';
-      q.echostr = 'hehe';
-      request(app)
-      .get('/wechat?' + querystring.stringify(q))
-      .expect(401)
-      .expect('Invalid signature', done);
-    });
-  });
-
-  describe('valid POST', function () {
-    it('should 401', function (done) {
-      request(app)
-      .post('/wechat')
-      .expect(401)
-      .expect('Invalid signature', done);
-    });
-
-    it('should 401 invalid signature', function (done) {
-      var q = {
-        timestamp: new Date().getTime(),
-        nonce: parseInt((Math.random() * 10e10), 10)
-      };
-      q.signature = 'invalid_signature';
-      q.echostr = 'hehe';
-      request(app)
-      .post('/wechat?' + querystring.stringify(q))
-      .expect(401)
-      .expect('Invalid signature', done);
-    });
-  });
-
-  describe('valid other method', function () {
-    it('should 200', function (done) {
-      var q = {
-        timestamp: new Date().getTime(),
-        nonce: parseInt((Math.random() * 10e10), 10)
-      };
-      var s = ['some token', q.timestamp, q.nonce].sort().join('');
-      q.signature = require('crypto').createHash('sha1').update(s).digest('hex');
-      q.echostr = 'hehe';
-      request(app)
-      .head('/wechat?' + querystring.stringify(q))
-      .expect(501, done);
-    });
-  });
-
-  describe('respond', function () {
-    it('should ok', function (done) {
-      var info = {
-        sp: 'nvshen',
-        user: 'diaosi',
-        type: 'text',
-        text: '测试中'
+var respond = function (handler) {
+  return function (req, res, next) {
+    getMessage(req, function (err, result) {
+      if (err) {
+        err.name = 'BadMessage' + err.name;
+        return next(err);
+      }
+      var message = formatMessage(result);
+      var callback = handler.getHandler(message.MsgType);
+      req.weixin = message;
+      res.reply = function (content, funcFlag) {
+        var info = {};
+        info.content = content || '';
+        if (Array.isArray(content)) {
+          type = 'news';
+        } else if (typeof content === 'object') {
+          if (content.type === 'text') {
+            type = 'text';
+            info.content = content.content;
+          } else {
+            type = 'music';
+          }
+        } else {
+          type = 'text';
+        }
+        info.msgType = type;
+        info.createTime = new Date().getTime();
+        info.funcFlag = funcFlag ? 1 : 0;
+        info.toUsername = message.FromUserName;
+        info.fromUsername = message.ToUserName;
+        res.writeHead(200);
+        res.end(compiled(info));
       };
 
-      request(app)
-      .post('/wechat' + tail())
-      .send(template(info))
-      .expect(200)
-      .end(function(err, res){
-        if (err) return done(err);
-        var body = res.text.toString();
-        body.should.include('<ToUserName><![CDATA[diaosi]]></ToUserName>');
-        body.should.include('<FromUserName><![CDATA[nvshen]]></FromUserName>');
-        body.should.match(/<CreateTime>\d{13}<\/CreateTime>/);
-        body.should.include('<MsgType><![CDATA[text]]></MsgType>');
-        body.should.include('<Content><![CDATA[hehe]]></Content>');
-        body.should.include('<FuncFlag>0</FuncFlag>');
+      var done = function () {
+        // 如果session中有_wait标记
+        if (message.MsgType === 'text' && req.wxsession && req.wxsession._wait) {
+          var list = List.get(req.wxsession._wait);
+          var handle = list.get(message.Content);
+          var wrapper = function (message) {
+            return handler.handle ? function(req, res) {
+              res.reply(message);
+            } : function (info, req, res) {
+              res.reply(message);
+            };
+          };
+
+          // 如果回复命中规则，则用预置的方法回复
+          if (handle) {
+            callback = typeof handle === 'string' ? wrapper(handle) : handle;
+          }
+        }
+
+        // 兼容旧API
+        if (handler.handle) {
+          callback(req, res, next);
+        } else {
+          callback(message, req, res, next);
+        }
+      };
+
+      if (req.sessionStore) {
+        var storage = req.sessionStore;
+        var _end = res.end;
+        var openid = message.FromUserName;
+        res.end = function () {
+          _end.apply(res, arguments);
+          if (req.wxsession) {
+            req.wxsession.save();
+          }
+        };
+        // 等待列表
+        res.wait = function (name) {
+          var list = List.get(name);
+          if (list) {
+            req.wxsession._wait = name;
+            res.reply(list.description);
+          } else {
+            var err = new Error('Undefined list: ' + name);
+            err.name = 'UndefinedListError';
+            console.error(err.stack);
+            res.writeHead(500);
+            res.end(err.name);
+          }
+        };
+
+        // 清除等待列表
+        res.nowait = function () {
+          delete req.wxsession._wait;
+          res.reply.apply(res, arguments);
+        };
+
+        storage.get(openid, function (err, session) {
+          if (!session) {
+            req.wxsession = new Session(openid, req);
+            req.wxsession.cookie = req.session.cookie;
+          } else {
+            req.wxsession = new Session(openid, req, session);
+          }
+          done();
+        });
+      } else {
         done();
-      });
+      }
     });
+  };
+};
 
-    it('should ok with news', function (done) {
-      var info = {
-        sp: 'nvshen',
-        user: 'gaofushuai',
-        type: 'text',
-        text: '测试中'
-      };
+var Handler = function (token, handle) {
+  this.token = token;
+  this.handlers = {};
+  this.handle = handle;
+};
 
-      request(app)
-      .post('/wechat' + tail())
-      .send(template(info))
-      .expect(200)
-      .end(function(err, res){
-        if (err) return done(err);
-        var body = res.text.toString();
-        body.should.include('<ToUserName><![CDATA[gaofushuai]]></ToUserName>');
-        body.should.include('<FromUserName><![CDATA[nvshen]]></FromUserName>');
-        body.should.match(/<CreateTime>\d{13}<\/CreateTime>/);
-        body.should.include('<MsgType><![CDATA[news]]></MsgType>');
-        body.should.include('<ArticleCount>1</ArticleCount>');
-        body.should.include('<Title><![CDATA[你来我家接我吧]]></Title>');
-        body.should.include('<Description><![CDATA[这是女神与高富帅之间的对话]]></Description>');
-        body.should.include('<PicUrl><![CDATA[http://nodeapi.cloudfoundry.com/qrcode.jpg]]></PicUrl>');
-        body.should.include('<Url><![CDATA[http://nodeapi.cloudfoundry.com/]]></Url>');
-        body.should.include('<FuncFlag>0</FuncFlag>');
-        done();
-      });
-    });
+Handler.prototype.setHandler = function (type, fn) {
+  this.handlers[type] = fn;
+  return this;
+};
 
-    it('should ok with music', function (done) {
-      var info = {
-        sp: 'nvshen',
-        user: 'hehe',
-        type: 'text',
-        text: '测试中'
-      };
-
-      request(app)
-      .post('/wechat' + tail())
-      .send(template(info))
-      .expect(200)
-      .end(function(err, res){
-        if (err) return done(err);
-        var body = res.text.toString();
-        body.should.include('<ToUserName><![CDATA[hehe]]></ToUserName>');
-        body.should.include('<FromUserName><![CDATA[nvshen]]></FromUserName>');
-        body.should.match(/<CreateTime>\d{13}<\/CreateTime>/);
-        body.should.include('<MsgType><![CDATA[music]]></MsgType>');
-        body.should.include('<Music>');
-        body.should.include('</Music>');
-        body.should.include('<Title><![CDATA[来段音乐吧<]]></Title>');
-        body.should.include('<Description><![CDATA[一无所有>]]></Description>');
-        body.should.include('<MusicUrl><![CDATA[http://mp3.com/xx.mp3?a=b&c=d]]></MusicUrl>');
-        body.should.include('<HQMusicUrl><![CDATA[http://mp3.com/xx.mp3?foo=bar]]></HQMusicUrl>');
-        body.should.include('<FuncFlag>0</FuncFlag>');
-        done();
-      });
-    });
-  });
-
-  describe('exception', function () {
-    var xml = '<xml><ToUserName><![CDATA[gh_d3e07d51b513]]></ToUserName>\
-      <FromUserName><![CDATA[diaosi]]></FromUserName>\
-      <CreateTime>1362161914</CreateTime>\
-      <MsgType><![CDATA[location]]></MsgType>\
-      <Location_X>30.283878</Location_X>\
-      <Location_Y>120.063370</Location_Y>\
-      <Scale>15</Scale>\
-      <Label><![CDATA[]]></Label>\
-      <MsgId>5850440872586764820</MsgId>\
-      </xml>';
-    it('should ok', function () {
-      request(app)
-      .post('/wechat' + tail())
-      .send(xml)
-      .expect(200)
-      .end(function(err, res){
-        if (err) return done(err);
-      });
-    });
-  });
+Handler.prototype.getHandler = function (type) {
+  return this.handle || this.handlers[type] || function (info, req, res, next) {
+    next();
+  };
+};
+['text', 'image', 'location', 'voice', 'link', 'event'].forEach(function (method) {
+  Handler.prototype[method] = function (fn) {
+    return this.setHandler(method, fn);
+  };
 });
+
+Handler.prototype.middlewarify = function () {
+  var token = this.token;
+  var _respond = respond(this);
+  return function (req, res, next) {
+    // 动态token，在前置中间件中设置该值req.wechat_token，优先选用
+    if (!checkSignature(req.query, req.wechat_token || token)) {
+      res.writeHead(401);
+      res.end('Invalid signature');
+      return;
+    }
+    var method = req.method;
+    if (method === 'GET') {
+      res.writeHead(200);
+      res.end(req.query.echostr);
+    } else if (method === 'POST') {
+      _respond(req, res, next);
+    } else {
+      res.writeHead(501);
+      res.end('Not Implemented');
+    }
+  };
+};
+
+/**
+ * Examples:
+ * ```
+ * wechat(token, function (req, res, next) {});
+ * wechat(token, wechat.text(function (message, req, res, next) {
+ * }).location(function (message, req, res, next) {
+ * }));
+ * wechat(token)
+ *  .text(function (message, req, res, next) {})
+ *  .location(function (message, req, res, next) {})
+ *  .middleware();
+ * ```
+ * @param {String} token 在微信平台填写的口令
+ * @param {Function} handle 生成的回调函数，参见示例
+ */
+var middleware = function (token, handle) {
+  if (arguments.length === 1) {
+    return new Handler(token);
+  }
+
+  if (arguments.length === 2) {
+    if (handle instanceof Handler) {
+      handle.token = token;
+      return handle.middlewarify();
+    } else {
+      return new Handler(token, handle).middlewarify();
+    }
+  }
+};
+
+/**
+ * 文字推送处理
+ * @param {Function} fn 处理文字推送的回调函数，接受参数为(text, req, res, next)。
+ */
+
+/**
+ * 图片推送处理
+ * @param {Function} fn 处理图片推送的回调函数，接受参数为(image, req, res, next)。
+ */
+
+/**
+ * 位置推送处理
+ * @param {Function} fn 处理位置推送的回调函数，接受参数为(location, req, res, next)。
+ */
+
+/**
+ * 声音推送处理
+ * @param {Function} fn 处理声音推送的回调函数，接受参数为(voice, req, res, next)。
+ */
+
+/**
+ * 链接推送处理
+ * @param {Function} fn 处理链接推送的回调函数，接受参数为(link, req, res, next)。
+ */
+
+/**
+ * 事件推送处理
+ * @param {Function} fn 处理事件推送的回调函数，接受参数为(event, req, res, next)。
+ */
+['text', 'image', 'location', 'voice', 'link', 'event'].forEach(function (method) {
+  middleware[method] = function (fn) {
+    return (new Handler())[method](fn);
+  };
+});
+
+module.exports = middleware;
+module.exports.toXML = compiled;
