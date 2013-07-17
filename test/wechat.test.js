@@ -16,6 +16,11 @@ app.use('/wechat', wechat('some token', function (req, res, next) {
   // 回复屌丝(普通回复)
   if (info.FromUserName === 'diaosi') {
     res.reply('hehe');
+  } else if (info.FromUserName === 'test') {
+    res.reply({
+      content: 'text object',
+      type: 'text'
+    });
   } else if (info.FromUserName === 'hehe') {
     res.reply({
       title: "来段音乐吧<",
@@ -132,6 +137,31 @@ describe('wechat.js', function () {
         body.should.match(/<CreateTime>\d{13}<\/CreateTime>/);
         body.should.include('<MsgType><![CDATA[text]]></MsgType>');
         body.should.include('<Content><![CDATA[hehe]]></Content>');
+        body.should.include('<FuncFlag>0</FuncFlag>');
+        done();
+      });
+    });
+
+    it('should ok with text type object', function (done) {
+      var info = {
+        sp: 'nvshen',
+        user: 'test',
+        type: 'text',
+        text: '测试中'
+      };
+
+      request(app)
+      .post('/wechat' + tail())
+      .send(template(info))
+      .expect(200)
+      .end(function(err, res){
+        if (err) return done(err);
+        var body = res.text.toString();
+        body.should.include('<ToUserName><![CDATA[test]]></ToUserName>');
+        body.should.include('<FromUserName><![CDATA[nvshen]]></FromUserName>');
+        body.should.match(/<CreateTime>\d{13}<\/CreateTime>/);
+        body.should.include('<MsgType><![CDATA[text]]></MsgType>');
+        body.should.include('<Content><![CDATA[text object]]></Content>');
         body.should.include('<FuncFlag>0</FuncFlag>');
         done();
       });
