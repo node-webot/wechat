@@ -1,6 +1,6 @@
 {
   "name": "wechat",
-  "version": "0.4.6",
+  "version": "0.4.7",
   "description": "微信公共平台自动回复接口服务",
   "main": "index.js",
   "scripts": {
@@ -12,7 +12,7 @@
       }
     },
     "travis-cov": {
-      "threshold": 90
+      "threshold": 98
     }
   },
   "repository": {
@@ -34,7 +34,9 @@
     "should": "*",
     "connect": "*",
     "blanket": "*",
-    "travis-cov": "*"
+    "travis-cov": "*",
+    "coveralls": "*",
+    "mocha-lcov-reporter": "*"
   },
   "author": "Jackson Tian",
   "license": "MIT",
