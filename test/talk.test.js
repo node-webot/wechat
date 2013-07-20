@@ -1,4 +1,4 @@
-require('should');
+var should = require('should');
 
 var request = require('supertest');
 var template = require('./support').template;
@@ -15,9 +15,13 @@ app.use(connect.cookieParser());
 app.use(connect.session({secret: 'keyboard cat', cookie: {maxAge: 60000}}));
 app.use('/wechat', wechat('some token', wechat.text(function (info, req, res, next) {
   if (info.Content === 'list') {
-    res.wait('view');
+    res.wait('view', function (err) {
+      should.not.exist(err);
+    });
   } else if (info.Content === 'undefinedlist') {
-    res.wait('undefined');
+    res.wait('undefined', function (err) {
+      should.exist(err);
+    });
   } else {
     res.reply('hehe');
   }

@@ -26,7 +26,6 @@ describe('list', function() {
     List.add('view', [
       ['回复{c}查看我的性取向', '这样的事情怎么好意思告诉你啦- -']
     ]);
-    // console.log(JSON.stringify(List.get('view')));
     var info = {
       sp: 'test',
       user: 'test',
@@ -38,9 +37,10 @@ describe('list', function() {
     .post('/wechat' + tail())
     .send(template(info))
     .expect(200)
-    .end(function(err, res){
-      if (err) return done(err);
-      done();
+    .end(function (err, res) {
+      if (err) {
+        return done(err);
+      }
 
       info = {
         sp: 'test',
@@ -54,9 +54,12 @@ describe('list', function() {
       .send(template(info))
       .expect(200)
       .end(function(err, res){
-        if (err) return done(err);
+        if (err) {
+          return done(err);
+        }
         var body = res.text.toString();
         body.should.include('这样的事情怎么好意思告诉你啦');
+        done();
       });
     });
   });
