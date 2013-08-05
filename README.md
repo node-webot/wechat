@@ -129,7 +129,7 @@ List.add('view', [
 ## Show cases
 ### Node.js API自动回复
 
-![](http://nodeapi.cloudfoundry.com/qrcode.jpg)
+![Node.js API自动回复机器人](http://nodeapi.diveintonode.org/assets/qrcode.jpg)
 
 欢迎关注。
 
