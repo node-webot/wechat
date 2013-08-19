@@ -37,7 +37,8 @@
     "blanket": "*",
     "travis-cov": "*",
     "coveralls": "*",
-    "mocha-lcov-reporter": "*"
+    "mocha-lcov-reporter": "*",
+    "muk": "*"
   },
   "author": "Jackson Tian",
   "license": "MIT",
