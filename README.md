@@ -126,6 +126,74 @@ List.add('view', [
 
 如果用户触发等待回复事务后，没有按照`{}`中的进行回复，那么将会由原有的默认函数进行处理。在原有函数中，可以选择调用`res.nowait()`中断事务。`nowait()`除了能中断事务外，与`reply`的行为一致。
 
+### 菜单操作
+#### 获取口令
+获取访问口令，用于进一步操作菜单。
+
+```
+var API = require('wechat').API;
+var api = new API('appid', 'secret');
+api.getAccessToken(function (err, token) {
+  // token
+  // {"access_token":"ACCESS_TOKEN","expires_in":7200}
+});
+```
+
+#### 创建菜单
+获取口令之后，就能创建菜单了。
+
+```
+var menu =  {
+  "button":[
+    {  
+      "type":"click",
+      "name":"今日歌曲",
+      "key":"V1001_TODAY_MUSIC"
+    },
+    {
+      "type":"click",
+      "name":"歌手简介",
+      "key":"V1001_TODAY_SINGER"
+    },
+    {
+      "name":"菜单",
+      "sub_button":[
+        {
+          "type":"click",
+          "name":"hello word",
+          "key":"V1001_HELLO_WORLD"
+        },
+        {
+          "type":"click",
+          "name":"赞一下我们",
+          "key":"V1001_GOOD"
+        }
+      ]
+  }]
+};
+api.createMenu(menu, function (err, data) {
+  // TODO
+});
+```
+
+#### 获取菜单
+创建菜单之后，就可以获取菜单了：
+
+```
+api.getMenu(function (err, menu) {
+  // menu
+});
+```
+
+#### 删除菜单
+也可以删除掉菜单：
+
+```
+api.removeMenu(function (err, data) {
+  // TODO
+});
+```
+
 ## Show cases
 ### Node.js API自动回复
 

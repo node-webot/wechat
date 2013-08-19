@@ -1,6 +1,6 @@
 {
   "name": "wechat",
-  "version": "0.4.8",
+  "version": "0.5.0",
   "description": "微信公共平台自动回复接口服务",
   "main": "index.js",
   "scripts": {
@@ -26,7 +26,8 @@
   "dependencies": {
     "xml2js": "0.2.6",
     "ejs": ">=0.8.3",
-    "bufferhelper": ">=0.2.0"
+    "bufferhelper": ">=0.2.0",
+    "urllib": ">=0.3.4"
   },
   "devDependencies": {
     "supertest": "*",
@@ -36,7 +37,8 @@
     "blanket": "*",
     "travis-cov": "*",
     "coveralls": "*",
-    "mocha-lcov-reporter": "*"
+    "mocha-lcov-reporter": "*",
+    "muk": "*"
   },
   "author": "Jackson Tian",
   "license": "MIT",
