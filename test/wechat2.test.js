@@ -126,7 +126,6 @@ describe('wechat.js 0.2.0', function () {
         body.should.match(/<CreateTime>\d{13}<\/CreateTime>/);
         body.should.include('<MsgType><![CDATA[text]]></MsgType>');
         body.should.include('<Content><![CDATA[hehe]]></Content>');
-        body.should.include('<FuncFlag>0</FuncFlag>');
         done();
       });
     });
@@ -155,7 +154,6 @@ describe('wechat.js 0.2.0', function () {
         body.should.include('<Description><![CDATA[这是女神与高富帅之间的对话]]></Description>');
         body.should.include('<PicUrl><![CDATA[http://nodeapi.cloudfoundry.com/qrcode.jpg]]></PicUrl>');
         body.should.include('<Url><![CDATA[http://nodeapi.cloudfoundry.com/]]></Url>');
-        body.should.include('<FuncFlag>0</FuncFlag>');
         done();
       });
     });
@@ -180,7 +178,6 @@ describe('wechat.js 0.2.0', function () {
         body.should.match(/<CreateTime>\d{13}<\/CreateTime>/);
         body.should.include('<MsgType><![CDATA[text]]></MsgType>');
         body.should.include('<Content><![CDATA[image]]></Content>');
-        body.should.include('<FuncFlag>0</FuncFlag>');
         done();
       });
     });
@@ -208,7 +205,6 @@ describe('wechat.js 0.2.0', function () {
         body.should.match(/<CreateTime>\d{13}<\/CreateTime>/);
         body.should.include('<MsgType><![CDATA[text]]></MsgType>');
         body.should.include('<Content><![CDATA[location]]></Content>');
-        body.should.include('<FuncFlag>0</FuncFlag>');
         done();
       });
     });
@@ -234,7 +230,6 @@ describe('wechat.js 0.2.0', function () {
         body.should.match(/<CreateTime>\d{13}<\/CreateTime>/);
         body.should.include('<MsgType><![CDATA[text]]></MsgType>');
         body.should.include('<Content><![CDATA[voice]]></Content>');
-        body.should.include('<FuncFlag>0</FuncFlag>');
         done();
       });
     });
@@ -261,7 +256,6 @@ describe('wechat.js 0.2.0', function () {
         body.should.match(/<CreateTime>\d{13}<\/CreateTime>/);
         body.should.include('<MsgType><![CDATA[text]]></MsgType>');
         body.should.include('<Content><![CDATA[link]]></Content>');
-        body.should.include('<FuncFlag>0</FuncFlag>');
         done();
       });
     });
@@ -289,7 +283,6 @@ describe('wechat.js 0.2.0', function () {
         body.should.match(/<CreateTime>\d{13}<\/CreateTime>/);
         body.should.include('<MsgType><![CDATA[text]]></MsgType>');
         body.should.include('<Content><![CDATA[event]]></Content>');
-        body.should.include('<FuncFlag>0</FuncFlag>');
         done();
       });
     });
@@ -314,7 +307,6 @@ describe('wechat.js 0.2.0', function () {
         body.should.match(/<CreateTime>\d{13}<\/CreateTime>/);
         body.should.include('<MsgType><![CDATA[text]]></MsgType>');
         body.should.include('<Content><![CDATA[event]]></Content>');
-        body.should.include('<FuncFlag>0</FuncFlag>');
         done();
       });
     });
