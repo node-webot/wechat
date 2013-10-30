@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>wechat Documentation</title>
+    <meta name="keywords" content="weixin,wechat" />
+    <meta name="description" content="微信公共平台自动回复接口服务" />
+    <script src="assets/prettify.js"></script>
+    <script src="assets/jquery-1.8.2.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.js"></script>
+    <link rel="stylesheet" type="text/css" href="assets/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="assets/bootstrap/css/bootstrap-responsive.min.css" />
+    <link rel="stylesheet" type="text/css" href="assets/base.css" />
+  </head>
+  <body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="./index.html">wechat</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+            
+              <li>
+                <a href="./api.html">API Docs</a>
+              </li>
+            
+            
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <header class="jumbotron subhead">
+      <div class="container">
+        <h1>wechat <small>Version: 0.6.0 By @Jackson Tian</small></h1>
+        <p class="lead">
+          微信公共平台自动回复接口服务
+        </p>
+      </div>
+    </header>
+<div class="container content">
+  <div class="row">
+    <div class="span3 bs-docs-sidebar">
+      <ul class="nav nav-list bs-docs-sidenav affix">
+
+  <li>
+    <a href="#api_common"><i class="icon-chevron-right"></i>common</a>
+  </li>
+
+  <li>
+    <a href="#api_list"><i class="icon-chevron-right"></i>list</a>
+  </li>
+
+  <li>
+    <a href="#api_menu"><i class="icon-chevron-right"></i>menu</a>
+  </li>
+
+  <li>
+    <a href="#api_session"><i class="icon-chevron-right"></i>session</a>
+  </li>
+
+  <li>
+    <a href="#api_wechat"><i class="icon-chevron-right"></i>wechat</a>
+  </li>
+
+</ul>
+
+    </div>
+    <div class="span9">
+      
+        <section id="api_common" class="api">
+  <h2>common: API索引</h2>
+  <ul class="indexs">
+  
+    <li>
+      <a href="#_getAccessToken">getAccessToken</a>
+    </li>
+
+    <li>
+      <a href="#_createMenu">createMenu</a>
+    </li>
+
+    <li>
+      <a href="#_getMenu">getMenu</a>
+    </li>
+
+    <li>
+      <a href="#_removeMenu">removeMenu</a>
+    </li>
+
+    <li>
+      <a href="#_getQRCode">getQRCode</a>
+    </li>
+
+    <li>
+      <a href="#_createTmpQRCode">createTmpQRCode</a>
+    </li>
+
+    <li>
+      <a href="#_createLimitQRCode">createLimitQRCode</a>
+    </li>
+
+    <li>
+      <a href="#_showQRCodeURL">showQRCodeURL</a>
+    </li>
+
+    <li>
+      <a href="#_getGroups">getGroups</a>
+    </li>
+
+    <li>
+      <a href="#_createGroup">createGroup</a>
+    </li>
+
+    <li>
+      <a href="#_updateGroup">updateGroup</a>
+    </li>
+
+    <li>
+      <a href="#_moveUserToGroup">moveUserToGroup</a>
+    </li>
+
+    <li>
+      <a href="#_getUser">getUser</a>
+    </li>
+
+    <li>
+      <a href="#_getFollowers">getFollowers</a>
+    </li>
+
+    <li>
+      <a href="#_sendText">sendText</a>
+    </li>
+
+    <li>
+      <a href="#_sendImage">sendImage</a>
+    </li>
+
+    <li>
+      <a href="#_sendVoice">sendVoice</a>
+    </li>
+
+    <li>
+      <a href="#_sendVideo">sendVideo</a>
+    </li>
+
+    <li>
+      <a href="#_sendMusic">sendMusic</a>
+    </li>
+
+    <li>
+      <a href="#_sendNews">sendNews</a>
+    </li>
+
+    <li>
+      <a href="#_getMedia">getMedia</a>
+    </li>
+
+  </ul>
+  <hr />
+
+  
+  <h3 id="_getAccessToken">
+    getAccessToken
+  </h3>
+  
+
+  <p>根据appid和appsecret获取access token</p>
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>API.prototype.getAccessToken()</td> 
+      <td></td>
+      <td>getAccessToken</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>appid(String)</td>
+      <td colspan="2">appid</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>appsecret(String)</td>
+      <td colspan="2">secret</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>callback(Function)</td>
+      <td colspan="2">回调函数</td>
+    </tr>
+  
+
+  
+  </table>
+  
+  
+  <h3 id="_createMenu">
+    createMenu
+  </h3>
+  
+
+  <p>创建菜单</p>
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>API.prototype.createMenu()</td> 
+      <td></td>
+      <td>createMenu</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>menu(Object)</td>
+      <td colspan="2">菜单对象</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>callback(Function)</td>
+      <td colspan="2">回调函数</td>
+    </tr>
+  
+
+  
+  </table>
+  
+  
+  <h3 id="_getMenu">
+    getMenu
+  </h3>
+  
+
+  <p>获取菜单</p>
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>API.prototype.getMenu()</td> 
+      <td></td>
+      <td>getMenu</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>callback(Function)</td>
+      <td colspan="2">回调函数</td>
+    </tr>
+  
+
+  
+  </table>
+  
+  
+  <h3 id="_removeMenu">
+    removeMenu
+  </h3>
+  
+
+  <p>删除菜单</p>
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>API.prototype.removeMenu()</td> 
+      <td></td>
+      <td>removeMenu</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>callback(Function)</td>
+      <td colspan="2">回调函数</td>
+    </tr>
+  
+
+  
+  </table>
+  
+  
+  <h3 id="_getQRCode">
+    getQRCode
+  </h3>
+  
+
+  <p>获取二维码</p>
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>API.prototype.getQRCode()</td> 
+      <td></td>
+      <td>getQRCode</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>data(Object)</td>
+      <td colspan="2">二维码数据</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>callback(Function)</td>
+      <td colspan="2">回调函数</td>
+    </tr>
+  
+
+  
+  </table>
+  
+  
+  <h3 id="_createTmpQRCode">
+    createTmpQRCode
+  </h3>
+  
+
+  <p>创建临时二维码</p>
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>API.prototype.createTmpQRCode()</td> 
+      <td></td>
+      <td>createTmpQRCode</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>sceneId(String)</td>
+      <td colspan="2">场景ID</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>expire(Number)</td>
+      <td colspan="2">过期时间，单位秒。最大不超过1800</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>callback(Function)</td>
+      <td colspan="2">回调函数</td>
+    </tr>
+  
+
+  
+  </table>
+  
+  
+  <h3 id="_createLimitQRCode">
+    createLimitQRCode
+  </h3>
+  
+
+  <p>创建永久二维码</p>
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>API.prototype.createLimitQRCode()</td> 
+      <td></td>
+      <td>createLimitQRCode</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>sceneId(String)</td>
+      <td colspan="2">场景ID。ID不能大于1000</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>callback(Function)</td>
+      <td colspan="2">回调函数</td>
+    </tr>
+  
+
+  
+  </table>
+  
+  
+  <h3 id="_showQRCodeURL">
+    showQRCodeURL
+  </h3>
+  
+
+  <p>生成显示二维码的链接</p>
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>API.prototype.showQRCodeURL()</td> 
+      <td></td>
+      <td>showQRCodeURL</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>ticket(String)</td>
+      <td colspan="2">二维码Ticket</td>
+    </tr>
+  
+
+  
+  </table>
+  
+  
+  <h3 id="_getGroups">
+    getGroups
+  </h3>
+  
+
+  <p>获取分组列表</p>
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>API.prototype.getGroups()</td> 
+      <td></td>
+      <td>getGroups</td>
+    </tr>
+  
+
+  
+  </table>
+  
+  
+  <h3 id="_createGroup">
+    createGroup
+  </h3>
+  
+
+  <p>创建分组</p>
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>API.prototype.createGroup()</td> 
+      <td></td>
+      <td>createGroup</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>name(String)</td>
+      <td colspan="2">分组名字</td>
+    </tr>
+  
+
+  
+  </table>
+  
+  
+  <h3 id="_updateGroup">
+    updateGroup
+  </h3>
+  
+
+  <p>更新分组名字</p>
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>API.prototype.updateGroup()</td> 
+      <td></td>
+      <td>updateGroup</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>id(Number)</td>
+      <td colspan="2">分组ID</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>name(String)</td>
+      <td colspan="2">新的分组名字</td>
+    </tr>
+  
+
+  
+  </table>
+  
+  
+  <h3 id="_moveUserToGroup">
+    moveUserToGroup
+  </h3>
+  
+
+  <p>移动用户进分组</p>
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>API.prototype.moveUserToGroup()</td> 
+      <td></td>
+      <td>moveUserToGroup</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>openid(String)</td>
+      <td colspan="2">用户的openid</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>groupId(Number)</td>
+      <td colspan="2">分组ID</td>
+    </tr>
+  
+
+  
+  </table>
+  
+  
+  <h3 id="_getUser">
+    getUser
+  </h3>
+  
+
+  <p>获取用户信息</p>
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>API.prototype.getUser()</td> 
+      <td></td>
+      <td>getUser</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>openid(String)</td>
+      <td colspan="2">用户的openid</td>
+    </tr>
+  
+
+  
+  </table>
+  
+  
+  <h3 id="_getFollowers">
+    getFollowers
+  </h3>
+  
+
+  <p>获取关注者列表<br />详细细节 <a href='http://mp.weixin.qq.com/wiki/index.php?title=%E8%8E%B7%E5%8F%96%E5%85%B3%E6%B3%A8%E8%80%85%E5%88%97%E8%A1%A8'>http://mp.weixin.qq.com/wiki/index.php?title=%E8%8E%B7%E5%8F%96%E5%85%B3%E6%B3%A8%E8%80%85%E5%88%97%E8%A1%A8</a></p>
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>API.prototype.getFollowers()</td> 
+      <td></td>
+      <td>getFollowers</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>nextOpenid(String)</td>
+      <td colspan="2">调用一次之后，传递回来的nextOpenid。第一次获取时可不填</td>
+    </tr>
+  
+
+  
+  </table>
+  
+  
+  <h3 id="_sendText">
+    sendText
+  </h3>
+  
+
+  <p>发送文字消息</p>
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>API.prototype.sendText()</td> 
+      <td></td>
+      <td>sendText</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>openid(String)</td>
+      <td colspan="2">用户的openid</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>text(String)</td>
+      <td colspan="2">发送的消息内容</td>
+    </tr>
+  
+
+  
+  </table>
+  
+  
+  <h3 id="_sendImage">
+    sendImage
+  </h3>
+  
+
+  <p>发送图片消息</p>
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>API.prototype.sendImage()</td> 
+      <td></td>
+      <td>sendImage</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>openid(String)</td>
+      <td colspan="2">用户的openid</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>mediaId(String)</td>
+      <td colspan="2">媒体文件的ID</td>
+    </tr>
+  
+
+  
+  </table>
+  
+  
+  <h3 id="_sendVoice">
+    sendVoice
+  </h3>
+  
+
+  <p>发送语音消息</p>
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>API.prototype.sendVoice()</td> 
+      <td></td>
+      <td>sendVoice</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>openid(String)</td>
+      <td colspan="2">用户的openid</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>mediaId(String)</td>
+      <td colspan="2">媒体文件的ID</td>
+    </tr>
+  
+
+  
+  </table>
+  
+  
+  <h3 id="_sendVideo">
+    sendVideo
+  </h3>
+  
+
+  <p>发送视频消息</p>
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>API.prototype.sendVideo()</td> 
+      <td></td>
+      <td>sendVideo</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>openid(String)</td>
+      <td colspan="2">用户的openid</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>mediaId(String)</td>
+      <td colspan="2">媒体文件的ID</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>thumbMediaId(String)</td>
+      <td colspan="2">缩略图文件的ID</td>
+    </tr>
+  
+
+  
+  </table>
+  
+  
+  <h3 id="_sendMusic">
+    sendMusic
+  </h3>
+  
+
+  <p>发送音乐消息</p>
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>API.prototype.sendMusic()</td> 
+      <td></td>
+      <td>sendMusic</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>openid(String)</td>
+      <td colspan="2">用户的openid</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>music(Object)</td>
+      <td colspan="2">音乐文件</td>
+    </tr>
+  
+
+  
+  </table>
+  
+  
+  <h3 id="_sendNews">
+    sendNews
+  </h3>
+  
+
+  <p>发送图文消息</p>
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>API.prototype.sendNews()</td> 
+      <td></td>
+      <td>sendNews</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>openid(String)</td>
+      <td colspan="2">用户的openid</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>articles(Array)</td>
+      <td colspan="2">图文列表</td>
+    </tr>
+  
+
+  
+  </table>
+  
+  
+  <h3 id="_getMedia">
+    getMedia
+  </h3>
+  
+
+  <p>根据媒体ID获取媒体内容</p>
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>API.prototype.getMedia()</td> 
+      <td></td>
+      <td>getMedia</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>mediaId(String)</td>
+      <td colspan="2">媒体文件的ID</td>
+    </tr>
+  
+
+  
+  </table>
+  
+</section>
+
+      
+        <section id="api_list" class="api">
+  <h2>list: API索引</h2>
+  <ul class="indexs">
+  
+    <li>
+      <a href="#_listCache">listCache</a>
+    </li>
+
+  </ul>
+  <hr />
+
+  
+  <h3 id="_listCache">
+    listCache
+  </h3>
+  
+
+  
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>声明</td>
+      <td>listCache</td> 
+      <td></td>
+      <td>listCache</td>
+    </tr>
+  
+
+  
+  </table>
+  
+</section>
+
+      
+        <section id="api_menu" class="api">
+  <h2>menu: API索引</h2>
+  <ul class="indexs">
+  
+    <li>
+      <a href="#_Menu">Menu</a>
+    </li>
+
+  </ul>
+  <hr />
+
+  
+  <h3 id="_Menu">
+    Menu
+  </h3>
+  
+
+  
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>函数</td>
+      <td>Menu()</td> 
+      <td></td>
+      <td>Menu</td>
+    </tr>
+  
+
+  
+  </table>
+  
+</section>
+
+      
+        <section id="api_session" class="api">
+  <h2>session: API索引</h2>
+  <ul class="indexs">
+  
+    <li>
+      <a href="#_Session">Session</a>
+    </li>
+
+  </ul>
+  <hr />
+
+  
+  <h3 id="_Session">
+    Session
+  </h3>
+  
+
+  
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>函数</td>
+      <td>Session()</td> 
+      <td></td>
+      <td>Session</td>
+    </tr>
+  
+
+  
+  </table>
+  
+</section>
+
+      
+        <section id="api_wechat" class="api">
+  <h2>wechat: API索引</h2>
+  <ul class="indexs">
+  
+    <li>
+      <a href="#_middleware">middleware</a>
+    </li>
+
+  </ul>
+  <hr />
+
+  
+  <h3 id="_middleware">
+    middleware
+  </h3>
+  
+
+  <p>Examples:</p>
+
+<div class="highlight"><pre lang="">wechat(token, function (req, res, next) {});
+wechat(token, wechat.text(function (message, req, res, next) {
+}).location(function (message, req, res, next) {
+}));
+wechat(token)
+ .text(function (message, req, res, next) {})
+ .location(function (message, req, res, next) {})
+ .middleware();
+</pre></div>
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>函数</td>
+      <td>middleware()</td> 
+      <td></td>
+      <td>middleware</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>token(String)</td>
+      <td colspan="2">在微信平台填写的口令</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>handle(Function)</td>
+      <td colspan="2">生成的回调函数，参见示例</td>
+    </tr>
+  
+
+  
+  </table>
+  
+  
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+
+    <tr>
+      <td>参数</td>
+      <td>fn(Function)</td>
+      <td colspan="2">处理文字推送的回调函数，接受参数为(text, req, res, next)。</td>
+    </tr>
+  
+
+  
+  </table>
+  
+  
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+
+    <tr>
+      <td>参数</td>
+      <td>fn(Function)</td>
+      <td colspan="2">处理图片推送的回调函数，接受参数为(image, req, res, next)。</td>
+    </tr>
+  
+
+  
+  </table>
+  
+  
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+
+    <tr>
+      <td>参数</td>
+      <td>fn(Function)</td>
+      <td colspan="2">处理图片推送的回调函数，接受参数为(image, req, res, next)。</td>
+    </tr>
+  
+
+  
+  </table>
+  
+  
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+
+    <tr>
+      <td>参数</td>
+      <td>fn(Function)</td>
+      <td colspan="2">处理声音推送的回调函数，接受参数为(voice, req, res, next)。</td>
+    </tr>
+  
+
+  
+  </table>
+  
+  
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+
+    <tr>
+      <td>参数</td>
+      <td>fn(Function)</td>
+      <td colspan="2">处理位置推送的回调函数，接受参数为(location, req, res, next)。</td>
+    </tr>
+  
+
+  
+  </table>
+  
+  
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+
+    <tr>
+      <td>参数</td>
+      <td>fn(Function)</td>
+      <td colspan="2">处理链接推送的回调函数，接受参数为(link, req, res, next)。</td>
+    </tr>
+  
+
+  
+  </table>
+  
+  
+
+  <p>事件推送处理</p>
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+
+    <tr>
+      <td>参数</td>
+      <td>fn(Function)</td>
+      <td colspan="2">处理事件推送的回调函数，接受参数为(event, req, res, next)。</td>
+    </tr>
+  
+
+  
+  </table>
+  
+</section>
+
+      
+    </div>
+  </div>
+</div>
+      <footer class="footer">
+        <div class="container">
+          <p class="pull-right">
+            <a href="#">Back to top</a>
+          </p>
+          <p>此文档通过doxmate生成。主题借鉴Bootstrap API文档风格，注解基于<a href="https://github.com/visionmedia/dox">Dox</a>。欢迎关注doxmate作者<a href="http://weibo.com/shyvo" target="_blank">@朴灵</a></p>
+          <ul class="footer-links">
+            <li><a href="https://github.com/visionmedia/dox">Dox主页</a></li>
+            <li><a href="http://html5ify.com/doxmate">Doxmate主页</a></li>
+            <li><a href="https://github.com/JacksonTian/doxmate">Doxmate源码</a></li>
+            <li><a href="https://github.com/JacksonTian/doxmate/issues?state=open">提交bug</a></li>
+          </ul>
+      </div>
+    </footer>
+    <script>
+      $(function() {
+        $('pre').addClass('prettyprint');
+        $('td pre').removeClass('prettyprint');
+        prettyPrint();
+        var $window = $(window);
+        $('.bs-docs-sidenav').affix({
+          offset: {
+            top: function () {
+              return $window.width() <= 980 ? 290 : 210
+            },
+            bottom: 270
+          }
+        });
+        $(".content").find('h1, h2, h3, h4, h5, h6').each(function () {
+          var node = $(this);
+          if (!node.attr("id")) {
+            node.attr("id", "index_" + node.text());
+          }
+          node.css("paddingTop", 40);
+        });
+      });
+    </script>
+  
+  </body>
+</html>
