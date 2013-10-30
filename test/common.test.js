@@ -164,6 +164,95 @@ describe('common.js', function () {
         done();
       });
     });
+
+    it('getUser should not ok', function (done) {
+      api.getUser('openid', function (err, data, res) {
+        should.exist(err);
+        err.name.should.be.equal('WeChatAPIError');
+        err.message.should.be.equal('invalid credential');
+        done();
+      });
+    });
+
+    it('getFollowers should not ok', function (done) {
+      api.getFollowers(function (err, data, res) {
+        should.exist(err);
+        err.name.should.be.equal('WeChatAPIError');
+        err.message.should.be.equal('invalid credential');
+        done();
+      });
+    });
+
+    it('getFollowers with nextOpenId should not ok', function (done) {
+      api.getFollowers('openid', function (err, data, res) {
+        should.exist(err);
+        err.name.should.be.equal('WeChatAPIError');
+        err.message.should.be.equal('invalid credential');
+        done();
+      });
+    });
+
+    it('sendText should not ok', function (done) {
+      api.sendText('openid', 'Hellow World', function (err, data, res) {
+        should.exist(err);
+        err.name.should.be.equal('WeChatAPIError');
+        err.message.should.be.equal('invalid credential');
+        done();
+      });
+    });
+
+    it('sendImage should not ok', function (done) {
+      api.sendImage('openid', 'imageId', function (err, data, res) {
+        should.exist(err);
+        err.name.should.be.equal('WeChatAPIError');
+        err.message.should.be.equal('invalid credential');
+        done();
+      });
+    });
+
+    it('sendVideo should not ok', function (done) {
+      api.sendVideo('openid', 'mediaId', 'thumbMediaId', function (err, data, res) {
+        should.exist(err);
+        err.name.should.be.equal('WeChatAPIError');
+        err.message.should.be.equal('invalid credential');
+        done();
+      });
+    });
+
+    it('sendMusic should not ok', function (done) {
+      var music = {
+        "title":"MUSIC_TITLE", // 可选
+        "description":"MUSIC_DESCRIPTION", // 可选
+        "musicurl":"MUSIC_URL",
+        "hqmusicurl":"HQ_MUSIC_URL",
+        "thumb_media_id":"THUMB_MEDIA_ID" 
+      };
+
+      api.sendMusic('openid', music, function (err, data, res) {
+        should.exist(err);
+        err.name.should.be.equal('WeChatAPIError');
+        err.message.should.be.equal('invalid credential');
+        done();
+      });
+    });
+
+    it('sendNews should not ok', function (done) {
+      var articles = [
+        {
+          "title":"Happy Day",
+          "description":"Is Really A Happy Day",
+          "url":"URL",
+          "picurl":"PIC_URL"
+        }
+      ];
+
+      api.sendNews('openid', articles, function (err, data, res) {
+        should.exist(err);
+        err.name.should.be.equal('WeChatAPIError');
+        err.message.should.be.equal('invalid credential');
+        done();
+      });
+    });
   });
 
   describe('mock', function () {
