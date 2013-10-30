@@ -210,6 +210,15 @@ describe('common.js', function () {
       });
     });
 
+    it('sendVoice should not ok', function (done) {
+      api.sendVoice('openid', 'imageId', function (err, data, res) {
+        should.exist(err);
+        err.name.should.be.equal('WeChatAPIError');
+        err.message.should.be.equal('invalid credential');
+        done();
+      });
+    });
+
     it('sendVideo should not ok', function (done) {
       api.sendVideo('openid', 'mediaId', 'thumbMediaId', function (err, data, res) {
         should.exist(err);
