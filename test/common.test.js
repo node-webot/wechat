@@ -106,6 +106,64 @@ describe('common.js', function () {
         done();
       });
     });
+
+    it('createTmpQRCode should not ok', function (done) {
+      api.createTmpQRCode(123, 1800, function (err, data, res) {
+        should.exist(err);
+        err.name.should.be.equal('WeChatAPIError');
+        err.message.should.be.equal('invalid credential');
+        done();
+      });
+    });
+
+    it('createLimitQRCode should not ok', function (done) {
+      api.createLimitQRCode(123, function (err, data, res) {
+        should.exist(err);
+        err.name.should.be.equal('WeChatAPIError');
+        err.message.should.be.equal('invalid credential');
+        done();
+      });
+    });
+
+    it('showQRCodeURL should not ok', function () {
+      api.showQRCodeURL('ticket').should.be.equal('https://api.weixin.qq.com/cgi-bin/showqrcode?ticket=ticket');
+    });
+
+    it('getGroups should not ok', function (done) {
+      api.getGroups(function (err, data, res) {
+        should.exist(err);
+        err.name.should.be.equal('WeChatAPIError');
+        err.message.should.be.equal('invalid credential');
+        done();
+      });
+    });
+
+    it('createGroup should not ok', function (done) {
+      api.createGroup('new group', function (err, data, res) {
+        should.exist(err);
+        err.name.should.be.equal('WeChatAPIError');
+        err.message.should.be.equal('invalid credential');
+        done();
+      });
+    });
+
+    it('updateGroup should not ok', function (done) {
+      api.updateGroup(123, 'new group', function (err, data, res) {
+        should.exist(err);
+        err.name.should.be.equal('WeChatAPIError');
+        err.message.should.be.equal('invalid credential');
+        done();
+      });
+    });
+
+    it('moveUserToGroup should not ok', function (done) {
+      api.moveUserToGroup('openid', 123, function (err, data, res) {
+        should.exist(err);
+        err.name.should.be.equal('WeChatAPIError');
+        err.message.should.be.equal('invalid credential');
+        done();
+      });
+    });
   });
 
   describe('mock', function () {
