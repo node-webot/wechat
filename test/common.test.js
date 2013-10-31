@@ -1,6 +1,7 @@
 var should = require('should');
 var urllib = require('urllib');
 var muk = require('muk');
+var path = require('path');
 var API = require('../').API;
 
 describe('common.js', function () {
@@ -260,6 +261,128 @@ describe('common.js', function () {
         err.name.should.be.equal('WeChatAPIError');
         err.message.should.be.equal('invalid credential');
         done();
+      });
+    });
+
+    describe('upload media', function () {
+      ['Image', 'Voice', 'Video', 'Thumb'].forEach(function (method) {
+        before(function () {
+          muk(urllib, 'request', function (url, args, callback) {
+            var resp = {
+              "type":"image",
+              "media_id":"usr5xL_gcxapoRjwH3bQZw_zKvcXL-DU4tRJtLtrtN71-3bXL52p3xX63ebp7tqA",
+              "created_at":1383233542
+            };
+            process.nextTick(function () {
+              callback(null, resp);
+            });
+          });
+        });
+
+        after(function () {
+          muk.restore();
+        });
+        it('upload' + method + ' should ok', function (done) {
+          api['upload' + method](path.join(__dirname, './fixture/image.jpg'), function (err, data, res) {
+            should.not.exist(err);
+            data.should.have.property('type', 'image');
+            data.should.have.property('media_id');
+            data.should.have.property('created_at');
+            done();
+          });
+        });
+
+        it('upload' + method + ' should not ok', function (done) {
+          api['upload' + method](path.join(__dirname, './fixture/inexist.jpg'), function (err, data, res) {
+            should.exist(err);
+            err.should.have.property('name', 'Error');
+            err.should.have.property('code', 'ENOENT');
+            done();
+          });
+        });
+      });
+    });
+
+    describe('get media with buffer', function () {
+      before(function () {
+        muk(urllib, 'request', function (url, args, callback) {
+          var buffer = new Buffer('Hello world!');
+          var res =  {
+            headers: {
+              'content-type': 'image/jpeg'
+            }
+          };
+          process.nextTick(function () {
+            callback(null, buffer, res);
+          });
+        });
+      });
+
+      after(function () {
+        muk.restore();
+      });
+
+      it('getMedia with buffer', function (done) {
+        api.getMedia('media_id', function (err, data, res) {
+          should.not.exist(err);
+          data.toString().should.be.equal('Hello world!');
+          done();
+        });
+      });
+    });
+
+    describe('get media with json', function () {
+      before(function () {
+        muk(urllib, 'request', function (url, args, callback) {
+          var data = JSON.stringify({"errcode":40007, "errmsg":"invalid media_id"});
+          var res =  {
+            headers: {
+              'content-type': 'application/json'
+            }
+          };
+          process.nextTick(function () {
+            callback(null, data, res);
+          });
+        });
+      });
+
+      after(function () {
+        muk.restore();
+      });
+      it('getMedia with json', function (done) {
+        api.getMedia('media_id', function (err, data, res) {
+          should.exist(err);
+          err.should.have.property('name', 'WeChatAPIError');
+          err.should.have.property('message', 'invalid media_id');
+          done();
+        });
+      });
+    });
+
+    describe('get media with err json', function () {
+      before(function () {
+        muk(urllib, 'request', function (url, args, callback) {
+          var data = '{"errcode":40007, "errmsg":"invalid media_id"';
+          var res =  {
+            headers: {
+              'content-type': 'application/json'
+            }
+          };
+          process.nextTick(function () {
+            callback(null, data, res);
+          });
+        });
+      });
+
+      after(function () {
+        muk.restore();
+      });
+      it('getMedia with err json', function (done) {
+        api.getMedia('media_id', function (err, data, res) {
+          should.exist(err);
+          err.should.have.property('name', 'SyntaxError');
+          done();
+        });
       });
     });
   });
