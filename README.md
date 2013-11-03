@@ -63,6 +63,64 @@ app.use('/wechat', wechat('some token', function (req, res, next) {
 ```
 备注：token在[微信平台上申请](http://mp.weixin.qq.com/cgi-bin/callbackprofile?type=info&t=wxm-developer-ahead&lang=zh_CN)
 
+### 回复消息
+当用户发送消息到微信公众账号，自动回复一条消息。这条消息可以是文本、图片、语音、视频、音乐、图文。详见：[官方文档](http://mp.weixin.qq.com/wiki/index.php?title=发送被动响应消息)
+
+#### 回复文本
+```
+res.reply('Hello world!');
+// 或者
+res.reply({type: "text", content: 'Hello world!'});
+```
+#### 回复图片
+```
+res.reply({
+  type: "image",
+  content: {
+    mediaId: 'mediaId'
+  }
+});
+```
+#### 回复语音
+```
+res.reply({
+  type: "voice",
+  content: {
+    mediaId: 'mediaId'
+  }
+});
+```
+#### 回复视频
+```
+res.reply({
+  type: "video",
+  content: {
+    mediaId: 'mediaId',
+    thumbMediaId: 'thumbMediaId'
+  }
+});
+```
+#### 回复音乐
+```
+res.reply({
+  title: "来段音乐吧",
+  description: "一无所有",
+  musicUrl: "http://mp3.com/xx.mp3",
+  hqMusicUrl: "http://mp3.com/xx.mp3"
+});
+```
+#### 回复图文
+```
+res.reply([
+  {
+    title: '你来我家接我吧',
+    description: '这是女神与高富帅之间的对话',
+    picurl: 'http://nodeapi.cloudfoundry.com/qrcode.jpg',
+    url: 'http://nodeapi.cloudfoundry.com/'
+  }
+]);
+```
+
 ### WXSession支持
 由于公共平台应用的客户端实际上是微信，所以采用传统的Cookie来实现会话并不现实，为此中间件模块在openid的基础上添加了Session支持。一旦服务端启用了`connect.session`中间件，在业务中就可以访问`req.wxsession`属性。这个属性与`req.session`行为类似。
 
@@ -153,8 +211,8 @@ List.add('view', [
 ## 详细API
 原始API文档请参见：[消息接口指南](http://mp.weixin.qq.com/wiki/index.php?title=消息接口指南)。
 
-目前微信公共平台能接收到6种内容：文字、图片、位置、音频、事件、链接。其中音频还未正式开放。支持三种回复：纯文本、图文、音乐。
-针对目前的业务形态，发布了0.3.x版本，该版本支持六种内容分别处理，以保持业务逻辑的简洁性。
+目前微信公共平台能接收到7种内容：文字、图片、音频、视频、位置、链接、事件。支持6种回复：纯文本、图文、音乐、音频、图片、视频。
+针对目前的业务形态，发布了0.6.x版本，该版本支持六种内容分别处理，以保持业务逻辑的简洁性。
 
 ```
 app.use('/wechat', wechat('some token', wechat.text(function (message, req, res, next) {
@@ -172,7 +230,26 @@ app.use('/wechat', wechat('some token', wechat.text(function (message, req, res,
   // CreateTime: '1359124971',
   // MsgType: 'image',
   // PicUrl: 'http://mmsns.qpic.cn/mmsns/bfc815ygvIWcaaZlEXJV7NzhmA3Y2fc4eBOxLjpPI60Q1Q6ibYicwg/0',
+  // MediaId: 'media_id',
   // MsgId: '5837397301622104395' }
+}).voice(function (message, req, res, next) {
+  // message为音频内容
+  // { ToUserName: 'gh_d3e07d51b513',
+  // FromUserName: 'oPKu7jgOibOA-De4u8J2RuNKpZRw',
+  // CreateTime: '1359125022',
+  // MsgType: 'voice',
+  // MediaId: 'OMYnpghh8fRfzHL8obuboDN9rmLig4s0xdpoNT6a5BoFZWufbE6srbCKc_bxduzS',
+  // Format: 'amr',
+  // MsgId: '5837397520665436492' }
+}).video(function (message, req, res, next) {
+  // message为视频内容
+  // { ToUserName: 'gh_d3e07d51b513',
+  // FromUserName: 'oPKu7jgOibOA-De4u8J2RuNKpZRw',
+  // CreateTime: '1359125022',
+  // MsgType: 'video',
+  // MediaId: 'OMYnpghh8fRfzHL8obuboDN9rmLig4s0xdpoNT6a5BoFZWufbE6srbCKc_bxduzS',
+  // ThumbMediaId: 'media_id',
+  // MsgId: '5837397520665436492' }
 }).location(function (message, req, res, next) {
   // message为位置内容
   // { ToUserName: 'gh_d3e07d51b513',
@@ -184,16 +261,6 @@ app.use('/wechat', wechat('some token', wechat.text(function (message, req, res,
   // Scale: '15',
   // Label: {},
   // MsgId: '5837398761910985062' }
-}).voice(function (message, req, res, next) {
-  // message为音频内容
-  // 微信官方还未正式开放音频内容，但是可以获取到部分信息，内容如下：
-  // { ToUserName: 'gh_d3e07d51b513',
-  // FromUserName: 'oPKu7jgOibOA-De4u8J2RuNKpZRw',
-  // CreateTime: '1359125022',
-  // MsgType: 'voice',
-  // MediaId: 'OMYnpghh8fRfzHL8obuboDN9rmLig4s0xdpoNT6a5BoFZWufbE6srbCKc_bxduzS',
-  // Format: 'amr',
-  // MsgId: '5837397520665436492' }
 }).link(function (message, req, res, next) {
   // message为链接内容
   // { ToUserName: 'gh_d3e07d51b513',
@@ -218,7 +285,7 @@ app.use('/wechat', wechat('some token', wechat.text(function (message, req, res,
 })));
 ```
 
-注意： `text`, `image`, `location`, `voice`, `link`, `event`方法请至少指定一个。
+注意： `text`, `image`, `voice`, `video`, `location`, `link`, `event`方法请至少指定一个。
 这六个方法的设计适用于按内容类型区分处理的场景。如果需要更复杂的场景，请使用第一个例子中的API。
 
 ### 更简化的API设计
@@ -229,9 +296,11 @@ app.use('/wechat', wechat('some token').text(function (message, req, res, next) 
   // TODO
 }).image(function (message, req, res, next) {
   // TODO
-}).location(function (message, req, res, next) {
-  // TODO
 }).voice(function (message, req, res, next) {
+  // TODO
+}).video(function (message, req, res, next) {
+  // TODO
+}).location(function (message, req, res, next) {
   // TODO
 }).link(function (message, req, res, next) {
   // TODO
