@@ -1,7 +1,7 @@
 wechat [![NPM version](https://badge.fury.io/js/wechat.png)](http://badge.fury.io/js/wechat) [![Build Status](https://travis-ci.org/node-webot/wechat.png?branch=master)](https://travis-ci.org/node-webot/wechat) [![Dependencies Status](https://david-dm.org/node-webot/wechat.png)](https://david-dm.org/node-webot/wechat) [![Coverage Status](https://coveralls.io/repos/node-webot/wechat/badge.png)](https://coveralls.io/r/node-webot/wechat)
 ======
 
-微信公共平台消息接口服务中间件
+微信公共平台消息接口服务中间件与API SDK
 
 ## 功能列表
 - 自动回复（文本、图片、语音、视频、音乐、图文）
@@ -13,6 +13,8 @@ wechat [![NPM version](https://badge.fury.io/js/wechat.png)](http://badge.fury.i
 - 媒体文件（上传、获取）
 - 等待回复（用于调查问卷、问答等场景）
 - 会话支持（创新功能）
+
+详细参见[API文档](http://node-webot.github.io/wechat/)
 
 ## Installation
 
@@ -137,74 +139,6 @@ List.add('view', [
 
 如果用户触发等待回复事务后，没有按照`{}`中的进行回复，那么将会由原有的默认函数进行处理。在原有函数中，可以选择调用`res.nowait()`中断事务。`nowait()`除了能中断事务外，与`reply`的行为一致。
 
-### 菜单操作
-#### 获取口令
-获取访问口令，用于进一步操作菜单。
-
-```
-var API = require('wechat').API;
-var api = new API('appid', 'secret');
-api.getAccessToken(function (err, token) {
-  // token
-  // {"access_token":"ACCESS_TOKEN","expires_in":7200}
-});
-```
-
-#### 创建菜单
-获取口令之后，就能创建菜单了。
-
-```
-var menu =  {
-  "button":[
-    {  
-      "type":"click",
-      "name":"今日歌曲",
-      "key":"V1001_TODAY_MUSIC"
-    },
-    {
-      "type":"click",
-      "name":"歌手简介",
-      "key":"V1001_TODAY_SINGER"
-    },
-    {
-      "name":"菜单",
-      "sub_button":[
-        {
-          "type":"click",
-          "name":"hello word",
-          "key":"V1001_HELLO_WORLD"
-        },
-        {
-          "type":"click",
-          "name":"赞一下我们",
-          "key":"V1001_GOOD"
-        }
-      ]
-  }]
-};
-api.createMenu(menu, function (err, data) {
-  // TODO
-});
-```
-
-#### 获取菜单
-创建菜单之后，就可以获取菜单了：
-
-```
-api.getMenu(function (err, menu) {
-  // menu
-});
-```
-
-#### 删除菜单
-也可以删除掉菜单：
-
-```
-api.removeMenu(function (err, data) {
-  // TODO
-});
-```
-
 ## Show cases
 ### Node.js API自动回复
 
@@ -217,7 +151,7 @@ api.removeMenu(function (err, data) {
 你可以在[CloudFoundry](http://www.cloudfoundry.com/)、[appfog](https://www.appfog.com/)、[BAE](http://developer.baidu.com/wiki/index.php?title=docs/cplat/rt/node.js)等搭建自己的机器人。
 
 ## 详细API
-原始API文档请参见：[消息接口指南](http://mp.weixin.qq.com/wiki/index.php?title=%E6%B6%88%E6%81%AF%E6%8E%A5%E5%8F%A3%E6%8C%87%E5%8D%97)。
+原始API文档请参见：[消息接口指南](http://mp.weixin.qq.com/wiki/index.php?title=消息接口指南)。
 
 目前微信公共平台能接收到6种内容：文字、图片、位置、音频、事件、链接。其中音频还未正式开放。支持三种回复：纯文本、图文、音乐。
 针对目前的业务形态，发布了0.3.x版本，该版本支持六种内容分别处理，以保持业务逻辑的简洁性。
