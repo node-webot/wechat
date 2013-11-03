@@ -91,7 +91,7 @@
     <div class="span9">
       <section>
         <h1>wechat <a href="http://badge.fury.io/js/wechat"><img src="https://badge.fury.io/js/wechat.png" alt="NPM version"></a> <a href="https://travis-ci.org/node-webot/wechat"><img src="https://travis-ci.org/node-webot/wechat.png?branch=master" alt="Build Status"></a> <a href="https://david-dm.org/node-webot/wechat"><img src="https://david-dm.org/node-webot/wechat.png" alt="Dependencies Status"></a> <a href="https://coveralls.io/r/node-webot/wechat"><img src="https://coveralls.io/repos/node-webot/wechat/badge.png" alt="Coverage Status"></a></h1>
-<p>微信公共平台消息接口服务中间件</p>
+<p>微信公共平台消息接口服务中间件与API SDK</p>
 <h2>功能列表</h2>
 <ul>
 <li>自动回复（文本、图片、语音、视频、音乐、图文）</li>
@@ -104,6 +104,7 @@
 <li>等待回复（用于调查问卷、问答等场景）</li>
 <li>会话支持（创新功能）</li>
 </ul>
+<p>详细参见<a href="http://node-webot.github.io/wechat/">API文档</a></p>
 <h2>Installation</h2>
 <pre><code>npm install wechat</code></pre>
 <h2>Use with Connect/Express</h2>
@@ -198,58 +199,6 @@ app.use(&#39;/wechat&#39;, wechat(&#39;some token&#39;, wechat.text(function (in
   [&#39;回复{c}查看我的性取向&#39;, &#39;这样的事情怎么好意思告诉你啦- -&#39;]
 ]);</code></pre>
 <p>如果用户触发等待回复事务后，没有按照<code>{}</code>中的进行回复，那么将会由原有的默认函数进行处理。在原有函数中，可以选择调用<code>res.nowait()</code>中断事务。<code>nowait()</code>除了能中断事务外，与<code>reply</code>的行为一致。</p>
-<h3>菜单操作</h3>
-<h4>获取口令</h4>
-<p>获取访问口令，用于进一步操作菜单。</p>
-<pre><code>var API = require(&#39;wechat&#39;).API;
-var api = new API(&#39;appid&#39;, &#39;secret&#39;);
-api.getAccessToken(function (err, token) {
-  // token
-  // {&quot;access_token&quot;:&quot;ACCESS_TOKEN&quot;,&quot;expires_in&quot;:7200}
-});</code></pre>
-<h4>创建菜单</h4>
-<p>获取口令之后，就能创建菜单了。</p>
-<pre><code>var menu =  {
-  &quot;button&quot;:[
-    {  
-      &quot;type&quot;:&quot;click&quot;,
-      &quot;name&quot;:&quot;今日歌曲&quot;,
-      &quot;key&quot;:&quot;V1001_TODAY_MUSIC&quot;
-    },
-    {
-      &quot;type&quot;:&quot;click&quot;,
-      &quot;name&quot;:&quot;歌手简介&quot;,
-      &quot;key&quot;:&quot;V1001_TODAY_SINGER&quot;
-    },
-    {
-      &quot;name&quot;:&quot;菜单&quot;,
-      &quot;sub_button&quot;:[
-        {
-          &quot;type&quot;:&quot;click&quot;,
-          &quot;name&quot;:&quot;hello word&quot;,
-          &quot;key&quot;:&quot;V1001_HELLO_WORLD&quot;
-        },
-        {
-          &quot;type&quot;:&quot;click&quot;,
-          &quot;name&quot;:&quot;赞一下我们&quot;,
-          &quot;key&quot;:&quot;V1001_GOOD&quot;
-        }
-      ]
-  }]
-};
-api.createMenu(menu, function (err, data) {
-  // TODO
-});</code></pre>
-<h4>获取菜单</h4>
-<p>创建菜单之后，就可以获取菜单了：</p>
-<pre><code>api.getMenu(function (err, menu) {
-  // menu
-});</code></pre>
-<h4>删除菜单</h4>
-<p>也可以删除掉菜单：</p>
-<pre><code>api.removeMenu(function (err, data) {
-  // TODO
-});</code></pre>
 <h2>Show cases</h2>
 <h3>Node.js API自动回复</h3>
 <p><img src="http://nodeapi.diveintonode.org/assets/qrcode.jpg" alt="Node.js API自动回复机器人"></p>
@@ -257,7 +206,7 @@ api.createMenu(menu, function (err, data) {
 <p>代码：<a href="https://github.com/JacksonTian/api-doc-service">https://github.com/JacksonTian/api-doc-service</a></p>
 <p>你可以在<a href="http://www.cloudfoundry.com/">CloudFoundry</a>、<a href="https://www.appfog.com/">appfog</a>、<a href="http://developer.baidu.com/wiki/index.php?title=docs/cplat/rt/node.js">BAE</a>等搭建自己的机器人。</p>
 <h2>详细API</h2>
-<p>原始API文档请参见：<a href="http://mp.weixin.qq.com/wiki/index.php?title=%E6%B6%88%E6%81%AF%E6%8E%A5%E5%8F%A3%E6%8C%87%E5%8D%97">消息接口指南</a>。</p>
+<p>原始API文档请参见：<a href="http://mp.weixin.qq.com/wiki/index.php?title=消息接口指南">消息接口指南</a>。</p>
 <p>目前微信公共平台能接收到6种内容：文字、图片、位置、音频、事件、链接。其中音频还未正式开放。支持三种回复：纯文本、图文、音乐。
 针对目前的业务形态，发布了0.3.x版本，该版本支持六种内容分别处理，以保持业务逻辑的简洁性。</p>
 <pre><code>app.use(&#39;/wechat&#39;, wechat(&#39;some token&#39;, wechat.text(function (message, req, res, next) {
