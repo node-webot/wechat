@@ -63,12 +63,30 @@ describe('common.js', function () {
     });
   });
 
+  describe('isAccessTokenValid', function () {
+    var api = new API('appid', 'secret');
+    it('should invalid', function () {
+      api.isAccessTokenValid().should.be.equal(false);
+    });
+
+    it('should valid', function () {
+      api.token = 'token';
+      api.expireTime = new Date().getTime() + 7200 * 1000;
+      api.isAccessTokenValid().should.be.equal(true);
+    });
+  });
+
   describe('invalid token', function () {
     var api = new API('appid', 'secret');
-    before(function (done) {
-      api.getAccessToken(function (err) {
-        done();
-      });
+    var isAccessTokenValid = api.isAccessTokenValid;
+    before(function () {
+      api.isAccessTokenValid = function () {
+        return true;
+      };
+    });
+
+    after(function () {
+      api.isAccessTokenValid = isAccessTokenValid;
     });
 
     it('createMenu should not ok', function (done) {
