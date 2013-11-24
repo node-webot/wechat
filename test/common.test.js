@@ -75,7 +75,7 @@ describe('common.js', function () {
       api.createMenu('{}', function (err, menu) {
         should.exist(err);
         err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid credential');
+        err.message.should.be.equal('invalid appid');
         done();
       });
     });
@@ -84,7 +84,7 @@ describe('common.js', function () {
       api.getMenu(function (err, menu) {
         should.exist(err);
         err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid credential');
+        err.message.should.be.equal('invalid appid');
         done();
       });
     });
@@ -93,7 +93,7 @@ describe('common.js', function () {
       api.removeMenu(function (err, token) {
         should.exist(err);
         err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid credential');
+        err.message.should.be.equal('invalid appid');
         done();
       });
     });
@@ -103,7 +103,7 @@ describe('common.js', function () {
       api.getQRCode(ticket, function (err, data, res) {
         should.exist(err);
         err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid credential');
+        err.message.should.be.equal('invalid appid');
         done();
       });
     });
@@ -112,7 +112,7 @@ describe('common.js', function () {
       api.createTmpQRCode(123, 1800, function (err, data, res) {
         should.exist(err);
         err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid credential');
+        err.message.should.be.equal('invalid appid');
         done();
       });
     });
@@ -121,7 +121,7 @@ describe('common.js', function () {
       api.createLimitQRCode(123, function (err, data, res) {
         should.exist(err);
         err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid credential');
+        err.message.should.be.equal('invalid appid');
         done();
       });
     });
@@ -134,7 +134,7 @@ describe('common.js', function () {
       api.getGroups(function (err, data, res) {
         should.exist(err);
         err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid credential');
+        err.message.should.be.equal('invalid appid');
         done();
       });
     });
@@ -143,7 +143,7 @@ describe('common.js', function () {
       api.createGroup('new group', function (err, data, res) {
         should.exist(err);
         err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid credential');
+        err.message.should.be.equal('invalid appid');
         done();
       });
     });
@@ -152,7 +152,7 @@ describe('common.js', function () {
       api.updateGroup(123, 'new group', function (err, data, res) {
         should.exist(err);
         err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid credential');
+        err.message.should.be.equal('invalid appid');
         done();
       });
     });
@@ -161,7 +161,7 @@ describe('common.js', function () {
       api.moveUserToGroup('openid', 123, function (err, data, res) {
         should.exist(err);
         err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid credential');
+        err.message.should.be.equal('invalid appid');
         done();
       });
     });
@@ -170,7 +170,7 @@ describe('common.js', function () {
       api.getUser('openid', function (err, data, res) {
         should.exist(err);
         err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid credential');
+        err.message.should.be.equal('invalid appid');
         done();
       });
     });
@@ -179,7 +179,7 @@ describe('common.js', function () {
       api.getFollowers(function (err, data, res) {
         should.exist(err);
         err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid credential');
+        err.message.should.be.equal('invalid appid');
         done();
       });
     });
@@ -188,7 +188,7 @@ describe('common.js', function () {
       api.getFollowers('openid', function (err, data, res) {
         should.exist(err);
         err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid credential');
+        err.message.should.be.equal('invalid appid');
         done();
       });
     });
@@ -197,7 +197,7 @@ describe('common.js', function () {
       api.sendText('openid', 'Hellow World', function (err, data, res) {
         should.exist(err);
         err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid credential');
+        err.message.should.be.equal('invalid appid');
         done();
       });
     });
@@ -206,7 +206,7 @@ describe('common.js', function () {
       api.sendImage('openid', 'imageId', function (err, data, res) {
         should.exist(err);
         err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid credential');
+        err.message.should.be.equal('invalid appid');
         done();
       });
     });
@@ -215,7 +215,7 @@ describe('common.js', function () {
       api.sendVoice('openid', 'imageId', function (err, data, res) {
         should.exist(err);
         err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid credential');
+        err.message.should.be.equal('invalid appid');
         done();
       });
     });
@@ -224,7 +224,7 @@ describe('common.js', function () {
       api.sendVideo('openid', 'mediaId', 'thumbMediaId', function (err, data, res) {
         should.exist(err);
         err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid credential');
+        err.message.should.be.equal('invalid appid');
         done();
       });
     });
@@ -241,7 +241,7 @@ describe('common.js', function () {
       api.sendMusic('openid', music, function (err, data, res) {
         should.exist(err);
         err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid credential');
+        err.message.should.be.equal('invalid appid');
         done();
       });
     });
@@ -259,7 +259,7 @@ describe('common.js', function () {
       api.sendNews('openid', articles, function (err, data, res) {
         should.exist(err);
         err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid credential');
+        err.message.should.be.equal('invalid appid');
         done();
       });
     });
