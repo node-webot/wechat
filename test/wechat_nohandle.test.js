@@ -1,6 +1,5 @@
 require('should');
 
-var querystring = require('querystring');
 var request = require('supertest');
 var template = require('./support').template;
 var tail = require('./support').tail;
