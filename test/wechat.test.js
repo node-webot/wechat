@@ -221,6 +221,35 @@ describe('wechat.js', function () {
         done();
       });
     });
+
+    it('should pass to next', function (done) {
+      var info = {
+        sp: 'nvshen',
+        user: 'hehe',
+        type: 'next',
+        text: '测试中'
+      };
+
+      request(app)
+      .post('/wechat' + tail())
+      .send(template(info))
+      .expect(200)
+      .end(function(err, res){
+        if (err) return done(err);
+        var body = res.text.toString();
+        body.should.include('<ToUserName><![CDATA[hehe]]></ToUserName>');
+        body.should.include('<FromUserName><![CDATA[nvshen]]></FromUserName>');
+        body.should.match(/<CreateTime>\d{13}<\/CreateTime>/);
+        body.should.include('<MsgType><![CDATA[music]]></MsgType>');
+        body.should.include('<Music>');
+        body.should.include('</Music>');
+        body.should.include('<Title><![CDATA[来段音乐吧<]]></Title>');
+        body.should.include('<Description><![CDATA[一无所有>]]></Description>');
+        body.should.include('<MusicUrl><![CDATA[http://mp3.com/xx.mp3?a=b&c=d]]></MusicUrl>');
+        body.should.include('<HQMusicUrl><![CDATA[http://mp3.com/xx.mp3?foo=bar]]></HQMusicUrl>');
+        done();
+      });
+    });
   });
 
   describe('exception', function () {

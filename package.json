@@ -39,7 +39,8 @@
     "travis-cov": "*",
     "coveralls": "*",
     "mocha-lcov-reporter": "*",
-    "muk": "*"
+    "muk": "*",
+    "rewire": "*"
   },
   "author": "Jackson Tian",
   "license": "MIT",
