@@ -32,7 +32,7 @@
     </div>
     <header class="jumbotron subhead">
       <div class="container">
-        <h1>wechat <small>Version: 0.6.0 By @Jackson Tian</small></h1>
+        <h1>wechat <small>Version: 0.6.3 By @Jackson Tian</small></h1>
         <p class="lead">
           微信公共平台自动回复接口服务
         </p>
@@ -78,6 +78,14 @@
 
     <li>
       <a href="#_getAccessToken">getAccessToken</a>
+    </li>
+
+    <li>
+      <a href="#_isAccessTokenValid">isAccessTokenValid</a>
+    </li>
+
+    <li>
+      <a href="#_preRequest">preRequest</a>
     </li>
 
     <li>
@@ -247,6 +255,67 @@ var api = new API('appid', 'secret');
       <td>参数</td>
       <td>callback(Function)</td>
       <td colspan="2">回调函数</td>
+    </tr>
+  
+
+  
+  </table>
+  
+  
+  <h3 id="_isAccessTokenValid">
+    isAccessTokenValid
+  </h3>
+  
+
+  <p>检查AccessToken是否有效，检查规则为当前时间和过期时间进行对比</p>
+
+<p>Examples:</p>
+
+<div class="highlight"><pre lang="">api.isAccessTokenValid();
+</pre></div>
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>API.prototype.isAccessTokenValid()</td> 
+      <td></td>
+      <td>isAccessTokenValid</td>
+    </tr>
+  
+
+  
+  </table>
+  
+  
+  <h3 id="_preRequest">
+    preRequest
+  </h3>
+  
+
+  <p>需要access token的接口调用如果采用preRequest进行封装后，就可以直接调用<br />无需依赖getAccessToken为前置调用</p>
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>API.prototype.preRequest()</td> 
+      <td></td>
+      <td>preRequest</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>method(Function)</td>
+      <td colspan="2">需要封装的方法</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>args(Array)</td>
+      <td colspan="2">方法需要的参数</td>
     </tr>
   
 
@@ -1010,7 +1079,7 @@ api.getFollowers(nextOpenid, callback);
   </h3>
   
 
-  <p>发送图片消息<br />详细细节 <a href='http://mp.weixin.qq.com/wiki/index.php?title=发送客服消息'>http://mp.weixin.qq.com/wiki/index.php?title=发送客服消息</a><br />Examples:</p>
+  <p>客服消息，发送图片消息<br />详细细节 <a href='http://mp.weixin.qq.com/wiki/index.php?title=发送客服消息'>http://mp.weixin.qq.com/wiki/index.php?title=发送客服消息</a><br />Examples:</p>
 
 <div class="highlight"><pre lang="">api.sendImage('openid', 'media_id', callback);
 </pre></div>
@@ -1062,7 +1131,7 @@ api.getFollowers(nextOpenid, callback);
   </h3>
   
 
-  <p>发送语音消息<br />详细细节 <a href='http://mp.weixin.qq.com/wiki/index.php?title=发送客服消息'>http://mp.weixin.qq.com/wiki/index.php?title=发送客服消息</a><br />Examples:</p>
+  <p>客服消息，发送语音消息<br />详细细节 <a href='http://mp.weixin.qq.com/wiki/index.php?title=发送客服消息'>http://mp.weixin.qq.com/wiki/index.php?title=发送客服消息</a><br />Examples:</p>
 
 <div class="highlight"><pre lang="">api.sendVoice('openid', 'media_id', callback);
 </pre></div>
@@ -1114,7 +1183,7 @@ api.getFollowers(nextOpenid, callback);
   </h3>
   
 
-  <p>发送视频消息<br />详细细节 <a href='http://mp.weixin.qq.com/wiki/index.php?title=发送客服消息'>http://mp.weixin.qq.com/wiki/index.php?title=发送客服消息</a><br />Examples:</p>
+  <p>客服消息，发送视频消息<br />详细细节 <a href='http://mp.weixin.qq.com/wiki/index.php?title=发送客服消息'>http://mp.weixin.qq.com/wiki/index.php?title=发送客服消息</a><br />Examples:</p>
 
 <div class="highlight"><pre lang="">api.sendVideo('openid', 'media_id', 'thumb_media_id', callback);
 </pre></div>
@@ -1173,7 +1242,7 @@ api.getFollowers(nextOpenid, callback);
   </h3>
   
 
-  <p>发送音乐消息<br />详细细节 <a href='http://mp.weixin.qq.com/wiki/index.php?title=发送客服消息'>http://mp.weixin.qq.com/wiki/index.php?title=发送客服消息</a><br />Examples:</p>
+  <p>客服消息，发送音乐消息<br />详细细节 <a href='http://mp.weixin.qq.com/wiki/index.php?title=发送客服消息'>http://mp.weixin.qq.com/wiki/index.php?title=发送客服消息</a><br />Examples:</p>
 
 <div class="highlight"><pre lang="">var music = {
  title: '音乐标题', // 可选
@@ -1232,7 +1301,7 @@ api.sendMusic('openid', music, callback);
   </h3>
   
 
-  <p>发送图文消息<br />详细细节 <a href='http://mp.weixin.qq.com/wiki/index.php?title=发送客服消息'>http://mp.weixin.qq.com/wiki/index.php?title=发送客服消息</a><br />Examples:</p>
+  <p>客服消息，发送图文消息<br />详细细节 <a href='http://mp.weixin.qq.com/wiki/index.php?title=发送客服消息'>http://mp.weixin.qq.com/wiki/index.php?title=发送客服消息</a><br />Examples:</p>
 
 <div class="highlight"><pre lang="">var articles = [
  {
@@ -1317,10 +1386,10 @@ api.sendNews('openid', articles, callback);
 <p>Shortcut:</p>
 
 <ul>
-<li>API.prototype.uploadImage(filepath, callback);</li>
-<li>API.prototype.uploadVoice(filepath, callback);</li>
-<li>API.prototype.uploadVideo(filepath, callback);</li>
-<li>API.prototype.uploadThumb(filepath, callback);</li>
+<li><code>API.prototype.uploadImage(filepath, callback);</code></li>
+<li><code>API.prototype.uploadVoice(filepath, callback);</code></li>
+<li><code>API.prototype.uploadVideo(filepath, callback);</code></li>
+<li><code>API.prototype.uploadThumb(filepath, callback);</code></li>
 </ul>
 
   <table class="table table-striped table-bordered table-hover table-condensed">
@@ -1411,27 +1480,162 @@ api.sendNews('openid', articles, callback);
   <ul class="indexs">
   
     <li>
-      <a href="#_listCache">listCache</a>
+      <a href="#_List">List</a>
+    </li>
+
+    <li>
+      <a href="#_get">get</a>
+    </li>
+
+    <li>
+      <a href="#List_add">add</a>
+    </li>
+
+    <li>
+      <a href="#List_get">get</a>
+    </li>
+
+    <li>
+      <a href="#List_clear">clear</a>
     </li>
 
   </ul>
   <hr />
 
   
-  <h3 id="_listCache">
-    listCache
+  <h3 id="_List">
+    List
   </h3>
   
 
-  
+  <p>回复列表类型</p>
 
   <table class="table table-striped table-bordered table-hover table-condensed">
   
     <tr>
-      <td>声明</td>
-      <td>listCache</td> 
+      <td>函数</td>
+      <td>List()</td> 
       <td></td>
-      <td>listCache</td>
+      <td>List</td>
+    </tr>
+  
+
+  
+  </table>
+  
+  
+  <h3 id="_get">
+    get
+  </h3>
+  
+
+  <p>从List对象中根据key取出对应的handler</p>
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>List.prototype.get()</td> 
+      <td></td>
+      <td>get</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>key(String)</td>
+      <td colspan="2">列表中的关键词</td>
+    </tr>
+  
+
+  
+  </table>
+  
+  
+  <h3 id="List_add">
+    add
+  </h3>
+  
+
+  <p>静态方法，根据items生成List对象，并放置到缓存中</p>
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>List.add()</td> 
+      <td>List</td>
+      <td>add</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>name(String)</td>
+      <td colspan="2">列表名字</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>items(Array)</td>
+      <td colspan="2">元素列表</td>
+    </tr>
+  
+
+  
+  </table>
+  
+  
+  <h3 id="List_get">
+    get
+  </h3>
+  
+
+  <p>静态方法，从缓存中根据名字取出List对象</p>
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>List.get()</td> 
+      <td>List</td>
+      <td>get</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>name(String)</td>
+      <td colspan="2">列表名字</td>
+    </tr>
+  
+
+  
+  </table>
+  
+  
+  <h3 id="List_clear">
+    clear
+  </h3>
+  
+
+  <p>静态方法，清空缓存的所有的List对象</p>
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>List.clear()</td> 
+      <td>List</td>
+      <td>clear</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>name(String)</td>
+      <td colspan="2">列表名字</td>
     </tr>
   
 
@@ -1613,12 +1817,157 @@ api.sendNews('openid', articles, callback);
   <ul class="indexs">
   
     <li>
+      <a href="#_Handler">Handler</a>
+    </li>
+
+    <li>
+      <a href="#_setHandler">setHandler</a>
+    </li>
+
+    <li>
+      <a href="#_getHandler">getHandler</a>
+    </li>
+
+    <li>
+      <a href="#_middlewarify">middlewarify</a>
+    </li>
+
+    <li>
       <a href="#_middleware">middleware</a>
     </li>
 
   </ul>
   <hr />
 
+  
+  <h3 id="_Handler">
+    Handler
+  </h3>
+  
+
+  <p>微信自动回复平台的内部的Handler对象</p>
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>函数</td>
+      <td>Handler()</td> 
+      <td></td>
+      <td>Handler</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>token(String)</td>
+      <td colspan="2">口令</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>handle(Function)</td>
+      <td colspan="2">hande对象</td>
+    </tr>
+  
+
+  
+  </table>
+  
+  
+  <h3 id="_setHandler">
+    setHandler
+  </h3>
+  
+
+  <p>设置handler对象<br />按消息设置handler对象的快捷方式</p>
+
+<ul>
+<li><code>text(fn)</code></li>
+<li><code>image(fn)</code></li>
+<li><code>voice(fn)</code></li>
+<li><code>video(fn)</code></li>
+<li><code>location(fn)</code></li>
+<li><code>link(fn)</code></li>
+<li><code>event(fn)</code></li>
+</ul>
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>Handler.prototype.setHandler()</td> 
+      <td></td>
+      <td>setHandler</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>type(String)</td>
+      <td colspan="2">handler处理的消息类型</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>handle(Function)</td>
+      <td colspan="2">hande对象</td>
+    </tr>
+  
+
+  
+  </table>
+  
+  
+  <h3 id="_getHandler">
+    getHandler
+  </h3>
+  
+
+  <p>根据消息类型取出handler对象</p>
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>Handler.prototype.getHandler()</td> 
+      <td></td>
+      <td>getHandler</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>type(String)</td>
+      <td colspan="2">消息类型</td>
+    </tr>
+  
+
+  
+  </table>
+  
+  
+  <h3 id="_middlewarify">
+    middlewarify
+  </h3>
+  
+
+  <p>根据Handler对象生成响应方法，并最终生成中间件函数</p>
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>Handler.prototype.middlewarify()</td> 
+      <td></td>
+      <td>middlewarify</td>
+    </tr>
+  
+
+  
+  </table>
+  
   
   <h3 id="_middleware">
     middleware
@@ -1627,7 +1976,7 @@ api.sendNews('openid', articles, callback);
 
   <p>根据口令</p>
 
-<p>Examples:</p>
+<p>Examples:<br />使用wechat作为自动回复中间件的三种方式</p>
 
 <div class="highlight"><pre lang="">wechat(token, function (req, res, next) {});
 
@@ -1644,6 +1993,18 @@ wechat(token)
    // TODO
   }).middleware();
 </pre></div>
+
+<p>静态方法</p>
+
+<ul>
+<li><code>text</code>，处理文字推送的回调函数，接受参数为(text, req, res, next)。</li>
+<li><code>image</code>，处理图片推送的回调函数，接受参数为(image, req, res, next)。</li>
+<li><code>voice</code>，处理声音推送的回调函数，接受参数为(voice, req, res, next)。</li>
+<li><code>video</code>，处理视频推送的回调函数，接受参数为(video, req, res, next)。</li>
+<li><code>location</code>，处理位置推送的回调函数，接受参数为(location, req, res, next)。</li>
+<li><code>link</code>，处理链接推送的回调函数，接受参数为(link, req, res, next)。</li>
+<li><code>event</code>，处理事件推送的回调函数，接受参数为(event, req, res, next)。</li>
+</ul>
 
   <table class="table table-striped table-bordered table-hover table-condensed">
   
@@ -1666,113 +2027,6 @@ wechat(token)
       <td>参数</td>
       <td>handle(Function)</td>
       <td colspan="2">生成的回调函数，参见示例</td>
-    </tr>
-  
-
-  
-  </table>
-  
-  
-
-  <table class="table table-striped table-bordered table-hover table-condensed">
-  
-
-    <tr>
-      <td>参数</td>
-      <td>fn(Function)</td>
-      <td colspan="2">处理文字推送的回调函数，接受参数为(text, req, res, next)。</td>
-    </tr>
-  
-
-  
-  </table>
-  
-  
-
-  <table class="table table-striped table-bordered table-hover table-condensed">
-  
-
-    <tr>
-      <td>参数</td>
-      <td>fn(Function)</td>
-      <td colspan="2">处理图片推送的回调函数，接受参数为(image, req, res, next)。</td>
-    </tr>
-  
-
-  
-  </table>
-  
-  
-
-  <table class="table table-striped table-bordered table-hover table-condensed">
-  
-
-    <tr>
-      <td>参数</td>
-      <td>fn(Function)</td>
-      <td colspan="2">处理图片推送的回调函数，接受参数为(image, req, res, next)。</td>
-    </tr>
-  
-
-  
-  </table>
-  
-  
-
-  <table class="table table-striped table-bordered table-hover table-condensed">
-  
-
-    <tr>
-      <td>参数</td>
-      <td>fn(Function)</td>
-      <td colspan="2">处理声音推送的回调函数，接受参数为(voice, req, res, next)。</td>
-    </tr>
-  
-
-  
-  </table>
-  
-  
-
-  <table class="table table-striped table-bordered table-hover table-condensed">
-  
-
-    <tr>
-      <td>参数</td>
-      <td>fn(Function)</td>
-      <td colspan="2">处理位置推送的回调函数，接受参数为(location, req, res, next)。</td>
-    </tr>
-  
-
-  
-  </table>
-  
-  
-
-  <table class="table table-striped table-bordered table-hover table-condensed">
-  
-
-    <tr>
-      <td>参数</td>
-      <td>fn(Function)</td>
-      <td colspan="2">处理链接推送的回调函数，接受参数为(link, req, res, next)。</td>
-    </tr>
-  
-
-  
-  </table>
-  
-  
-
-  <p>事件推送处理</p>
-
-  <table class="table table-striped table-bordered table-hover table-condensed">
-  
-
-    <tr>
-      <td>参数</td>
-      <td>fn(Function)</td>
-      <td colspan="2">处理事件推送的回调函数，接受参数为(event, req, res, next)。</td>
     </tr>
   
 
