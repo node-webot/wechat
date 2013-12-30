@@ -43,10 +43,13 @@ app.use('/wechat', wechat('some token', function (req, res, next) {
   } else if (message.FromUserName === 'hehe') {
     // 回复一段音乐
     res.reply({
-      title: "来段音乐吧",
-      description: "一无所有",
-      musicUrl: "http://mp3.com/xx.mp3",
-      hqMusicUrl: "http://mp3.com/xx.mp3"
+      type: "music",
+      content: {
+        title: "来段音乐吧",
+        description: "一无所有",
+        musicUrl: "http://mp3.com/xx.mp3",
+        hqMusicUrl: "http://mp3.com/xx.mp3"
+      }
     });
   } else {
     // 回复高富帅(图文回复)
