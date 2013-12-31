@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <title>wechat Documentation</title>
     <meta name="keywords" content="weixin,wechat" />
-    <meta name="description" content="微信公共平台自动回复接口服务" />
+    <meta name="description" content="微信公共平台Node库" />
     <script src="assets/prettify.js"></script>
     <script src="assets/jquery-1.8.2.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.js"></script>
@@ -13,34 +13,42 @@
     <link rel="stylesheet" type="text/css" href="assets/base.css" />
   </head>
   <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <a class="brand" href="./index.html">wechat</a>
-          <div class="nav-collapse collapse">
-            <ul class="nav">
-            
-              <li>
-                <a href="./api.html">API Docs</a>
-              </li>
-            
-            
-            </ul>
-          </div>
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="./index.html">wechat</a>
         </div>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+          
+            <li>
+              <a href="./api.html">API Docs</a>
+            </li>
+          
+          
+          </ul>
+        </div><!-- /.navbar-collapse -->
       </div>
-    </div>
+    </nav>
     <header class="jumbotron subhead">
       <div class="container">
-        <h1>wechat <small>Version: 0.6.3 By @Jackson Tian</small></h1>
+        <h1>wechat <small>Version: 0.6.4 By @Jackson Tian</small></h1>
         <p class="lead">
-          微信公共平台自动回复接口服务
+          微信公共平台Node库
         </p>
       </div>
     </header>
+
 <div class="container content">
   <div class="row">
-  	<div class="span3 bs-docs-sidebar">
+  	<div class="col-md-3">
       <ul class="nav nav-list bs-docs-sidenav affix">
 
   <li class="level_2">
@@ -88,11 +96,11 @@
 </ul>
 
     </div>
-    <div class="span9">
+    <div class="col-md-9">
       <section>
-        <h1>wechat <a href="http://badge.fury.io/js/wechat"><img src="https://badge.fury.io/js/wechat.png" alt="NPM version"></a> <a href="https://travis-ci.org/node-webot/wechat"><img src="https://travis-ci.org/node-webot/wechat.png?branch=master" alt="Build Status"></a> <a href="https://david-dm.org/node-webot/wechat"><img src="https://david-dm.org/node-webot/wechat.png" alt="Dependencies Status"></a> <a href="https://coveralls.io/r/node-webot/wechat"><img src="https://coveralls.io/repos/node-webot/wechat/badge.png" alt="Coverage Status"></a></h1>
+        <h1 id="wechat-npm-version-https-badge-fury-io-js-wechat-png-http-badge-fury-io-js-wechat-build-status-https-travis-ci-org-node-webot-wechat-png-branch-master-https-travis-ci-org-node-webot-wechat-dependencies-status-https-david-dm-org-node-webot-wechat-png-https-david-dm-org-node-webot-wechat-coverage-status-https-coveralls-io-repos-node-webot-wechat-badge-png-https-coveralls-io-r-node-webot-wechat-">wechat <a href="http://badge.fury.io/js/wechat"><img src="https://badge.fury.io/js/wechat.png" alt="NPM version"></a> <a href="https://travis-ci.org/node-webot/wechat"><img src="https://travis-ci.org/node-webot/wechat.png?branch=master" alt="Build Status"></a> <a href="https://david-dm.org/node-webot/wechat"><img src="https://david-dm.org/node-webot/wechat.png" alt="Dependencies Status"></a> <a href="https://coveralls.io/r/node-webot/wechat"><img src="https://coveralls.io/repos/node-webot/wechat/badge.png" alt="Coverage Status"></a></h1>
 <p>微信公共平台消息接口服务中间件与API SDK</p>
-<h2>功能列表</h2>
+<h2 id="-">功能列表</h2>
 <ul>
 <li>自动回复（文本、图片、语音、视频、音乐、图文）</li>
 <li>客服消息（文本、图片、语音、视频、音乐、图文）</li>
@@ -103,11 +111,12 @@
 <li>媒体文件（上传、获取）</li>
 <li>等待回复（用于调查问卷、问答等场景）</li>
 <li>会话支持（创新功能）</li>
+<li>OAuth API（授权、获取基本信息）</li>
 </ul>
 <p>详细参见<a href="http://node-webot.github.io/wechat/api.html">API文档</a></p>
-<h2>Installation</h2>
-<pre><code>npm install wechat</code></pre>
-<h2>Use with Connect/Express</h2>
+<h2 id="installation">Installation</h2>
+<pre><code>npm install wechat
+</code></pre><h2 id="use-with-connect-express">Use with Connect/Express</h2>
 <pre><code>var wechat = require(&#39;wechat&#39;);
 
 app.use(connect.query()); // Or app.use(express.query());
@@ -126,10 +135,13 @@ app.use(&#39;/wechat&#39;, wechat(&#39;some token&#39;, function (req, res, next
   } else if (message.FromUserName === &#39;hehe&#39;) {
     // 回复一段音乐
     res.reply({
-      title: &quot;来段音乐吧&quot;,
-      description: &quot;一无所有&quot;,
-      musicUrl: &quot;http://mp3.com/xx.mp3&quot;,
-      hqMusicUrl: &quot;http://mp3.com/xx.mp3&quot;
+      type: &quot;music&quot;,
+      content: {
+        title: &quot;来段音乐吧&quot;,
+        description: &quot;一无所有&quot;,
+        musicUrl: &quot;http://mp3.com/xx.mp3&quot;,
+        hqMusicUrl: &quot;http://mp3.com/xx.mp3&quot;
+      }
     });
   } else {
     // 回复高富帅(图文回复)
@@ -142,44 +154,44 @@ app.use(&#39;/wechat&#39;, wechat(&#39;some token&#39;, function (req, res, next
       }
     ]);
   }
-}));</code></pre>
-<p>备注：token在<a href="http://mp.weixin.qq.com/cgi-bin/callbackprofile?type=info&amp;t=wxm-developer-ahead&amp;lang=zh_CN">微信平台上申请</a></p>
-<h3>回复消息</h3>
+}));
+</code></pre><p>备注：token在<a href="http://mp.weixin.qq.com/cgi-bin/callbackprofile?type=info&amp;t=wxm-developer-ahead&amp;lang=zh_CN">微信平台上申请</a></p>
+<h3 id="-">回复消息</h3>
 <p>当用户发送消息到微信公众账号，自动回复一条消息。这条消息可以是文本、图片、语音、视频、音乐、图文。详见：<a href="http://mp.weixin.qq.com/wiki/index.php?title=发送被动响应消息">官方文档</a></p>
-<h4>回复文本</h4>
+<h4 id="-">回复文本</h4>
 <pre><code>res.reply(&#39;Hello world!&#39;);
 // 或者
-res.reply({type: &quot;text&quot;, content: &#39;Hello world!&#39;});</code></pre>
-<h4>回复图片</h4>
+res.reply({type: &quot;text&quot;, content: &#39;Hello world!&#39;});
+</code></pre><h4 id="-">回复图片</h4>
 <pre><code>res.reply({
   type: &quot;image&quot;,
   content: {
     mediaId: &#39;mediaId&#39;
   }
-});</code></pre>
-<h4>回复语音</h4>
+});
+</code></pre><h4 id="-">回复语音</h4>
 <pre><code>res.reply({
   type: &quot;voice&quot;,
   content: {
     mediaId: &#39;mediaId&#39;
   }
-});</code></pre>
-<h4>回复视频</h4>
+});
+</code></pre><h4 id="-">回复视频</h4>
 <pre><code>res.reply({
   type: &quot;video&quot;,
   content: {
     mediaId: &#39;mediaId&#39;,
     thumbMediaId: &#39;thumbMediaId&#39;
   }
-});</code></pre>
-<h4>回复音乐</h4>
+});
+</code></pre><h4 id="-">回复音乐</h4>
 <pre><code>res.reply({
   title: &quot;来段音乐吧&quot;,
   description: &quot;一无所有&quot;,
   musicUrl: &quot;http://mp3.com/xx.mp3&quot;,
   hqMusicUrl: &quot;http://mp3.com/xx.mp3&quot;
-});</code></pre>
-<h4>回复图文</h4>
+});
+</code></pre><h4 id="-">回复图文</h4>
 <pre><code>res.reply([
   {
     title: &#39;你来我家接我吧&#39;,
@@ -187,8 +199,8 @@ res.reply({type: &quot;text&quot;, content: &#39;Hello world!&#39;});</code></pr
     picurl: &#39;http://nodeapi.cloudfoundry.com/qrcode.jpg&#39;,
     url: &#39;http://nodeapi.cloudfoundry.com/&#39;
   }
-]);</code></pre>
-<h3>WXSession支持</h3>
+]);
+</code></pre><h3 id="wxsession-">WXSession支持</h3>
 <p>由于公共平台应用的客户端实际上是微信，所以采用传统的Cookie来实现会话并不现实，为此中间件模块在openid的基础上添加了Session支持。一旦服务端启用了<code>connect.session</code>中间件，在业务中就可以访问<code>req.wxsession</code>属性。这个属性与<code>req.session</code>行为类似。</p>
 <pre><code>app.use(connect.cookieParser());
 app.use(connect.session({secret: &#39;keyboard cat&#39;, cookie: {maxAge: 60000}}));
@@ -202,9 +214,9 @@ app.use(&#39;/wechat&#39;, wechat(&#39;some token&#39;, wechat.text(function (in
     req.wxsession.text.push(info.Content);
     res.reply(&#39;收到&#39; + info.Content);
   }
-})));</code></pre>
-<p><code>req.wxsession</code>与<code>req.session</code>采用相同的存储引擎，这意味着如果采用redis作为存储，这样<code>wxsession</code>可以实现跨进程共享。</p>
-<h3>等待回复</h3>
+})));
+</code></pre><p><code>req.wxsession</code>与<code>req.session</code>采用相同的存储引擎，这意味着如果采用redis作为存储，这样<code>wxsession</code>可以实现跨进程共享。</p>
+<h3 id="-">等待回复</h3>
 <p>等待回复，类似于电话拨号业务。该功能在WXSession的基础上提供。需要为等待回复预置操作，中间件将其抽象为<code>List</code>对象，在提供服务前需要添加服务。</p>
 <pre><code>var List = require(&#39;wechat&#39;).List;
 List.add(&#39;view&#39;, [
@@ -215,8 +227,8 @@ List.add(&#39;view&#39;, [
     res.reply(&#39;我今年18岁&#39;);
   }],
   [&#39;回复{c}查看我的性取向&#39;, &#39;这样的事情怎么好意思告诉你啦- -&#39;]
-]);</code></pre>
-<p>然后在业务中触发等待回复事务，如下示例，当收到用户发送<code>list</code>后，调用<code>res.wait(&#39;view&#39;)</code>进入事务<code>view</code>中。</p>
+]);
+</code></pre><p>然后在业务中触发等待回复事务，如下示例，当收到用户发送<code>list</code>后，调用<code>res.wait(&#39;view&#39;)</code>进入事务<code>view</code>中。</p>
 <pre><code>var app = connect();
 app.use(connect.query());
 app.use(connect.cookieParser());
@@ -229,27 +241,27 @@ app.use(&#39;/wechat&#39;, wechat(&#39;some token&#39;, wechat.text(function (in
     // 或者中断等待回复事务
     // res.nowait(&#39;hehe&#39;);
   }
-})));</code></pre>
-<p>用户将收到如下回复：</p>
+})));
+</code></pre><p>用户将收到如下回复：</p>
 <pre><code>回复a查看我的性别
 回复b查看我的年龄
-回复c查看我的性取向</code></pre>
-<p>用户回复其中的<code>a</code>、<code>b</code>、<code>c</code>将会由注册的方法接管回复。回复可以是一个函数，也可以是一个字符串：</p>
+回复c查看我的性取向
+</code></pre><p>用户回复其中的<code>a</code>、<code>b</code>、<code>c</code>将会由注册的方法接管回复。回复可以是一个函数，也可以是一个字符串：</p>
 <pre><code>List.add(&#39;view&#39;, [
   [&#39;回复{a}查看我的性别&#39;, function (info, req, res, next) {
     res.reply(&#39;我是个妹纸哟&#39;);
   }],
   // 或者字符串
   [&#39;回复{c}查看我的性取向&#39;, &#39;这样的事情怎么好意思告诉你啦- -&#39;]
-]);</code></pre>
-<p>如果用户触发等待回复事务后，没有按照<code>{}</code>中的进行回复，那么将会由原有的默认函数进行处理。在原有函数中，可以选择调用<code>res.nowait()</code>中断事务。<code>nowait()</code>除了能中断事务外，与<code>reply</code>的行为一致。</p>
-<h2>Show cases</h2>
-<h3>Node.js API自动回复</h3>
+]);
+</code></pre><p>如果用户触发等待回复事务后，没有按照<code>{}</code>中的进行回复，那么将会由原有的默认函数进行处理。在原有函数中，可以选择调用<code>res.nowait()</code>中断事务。<code>nowait()</code>除了能中断事务外，与<code>reply</code>的行为一致。</p>
+<h2 id="show-cases">Show cases</h2>
+<h3 id="node-js-api-">Node.js API自动回复</h3>
 <p><img src="http://nodeapi.diveintonode.org/assets/qrcode.jpg" alt="Node.js API自动回复机器人"></p>
 <p>欢迎关注。</p>
 <p>代码：<a href="https://github.com/JacksonTian/api-doc-service">https://github.com/JacksonTian/api-doc-service</a></p>
 <p>你可以在<a href="http://www.cloudfoundry.com/">CloudFoundry</a>、<a href="https://www.appfog.com/">appfog</a>、<a href="http://developer.baidu.com/wiki/index.php?title=docs/cplat/rt/node.js">BAE</a>等搭建自己的机器人。</p>
-<h2>详细API</h2>
+<h2 id="-api">详细API</h2>
 <p>原始API文档请参见：<a href="http://mp.weixin.qq.com/wiki/index.php?title=消息接口指南">消息接口指南</a>。</p>
 <p>目前微信公共平台能接收到7种内容：文字、图片、音频、视频、位置、链接、事件。支持6种回复：纯文本、图文、音乐、音频、图片、视频。
 针对目前的业务形态，发布了0.6.x版本，该版本支持六种内容分别处理，以保持业务逻辑的简洁性。</p>
@@ -320,10 +332,10 @@ app.use(&#39;/wechat&#39;, wechat(&#39;some token&#39;, wechat.text(function (in
   // Longitude: &#39;113.352425&#39;,
   // Precision: &#39;119.385040&#39;,
   // MsgId: &#39;5837397520665436492&#39; }
-})));</code></pre>
-<p>注意： <code>text</code>, <code>image</code>, <code>voice</code>, <code>video</code>, <code>location</code>, <code>link</code>, <code>event</code>方法请至少指定一个。
+})));
+</code></pre><p>注意： <code>text</code>, <code>image</code>, <code>voice</code>, <code>video</code>, <code>location</code>, <code>link</code>, <code>event</code>方法请至少指定一个。
 这六个方法的设计适用于按内容类型区分处理的场景。如果需要更复杂的场景，请使用第一个例子中的API。</p>
-<h3>更简化的API设计</h3>
+<h3 id="-api-">更简化的API设计</h3>
 <p>示例如下：</p>
 <pre><code>app.use(&#39;/wechat&#39;, wechat(&#39;some token&#39;).text(function (message, req, res, next) {
   // TODO
@@ -339,14 +351,14 @@ app.use(&#39;/wechat&#39;, wechat(&#39;some token&#39;, wechat.text(function (in
   // TODO
 }).event(function (message, req, res, next) {
   // TODO
-}).middlewarify());</code></pre>
-<p>该接口从0.3.x提供。</p>
-<h3>流程图</h3>
+}).middlewarify());
+</code></pre><p>该接口从0.3.x提供。</p>
+<h3 id="-">流程图</h3>
 <p><img src="https://raw.github.com/node-webot/wechat/master/figures/wechat.png" alt="graph"></p>
 <p>诸多细节由wechat中间件提供，用户只要关注蓝色部分的业务逻辑即可。</p>
-<h2>License</h2>
+<h2 id="license">License</h2>
 <p>The MIT license.</p>
-<h2>捐赠</h2>
+<h2 id="-">捐赠</h2>
 <p>如果您觉得Wechat对您有帮助，欢迎请作者一杯咖啡</p>
 <p><a href="https://me.alipay.com/jacksontian"><img src="https://img.alipay.com/sys/personalprod/style/mc/btn-index.png" alt="捐赠wechat"></a></p>
 
@@ -388,7 +400,7 @@ app.use(&#39;/wechat&#39;, wechat(&#39;some token&#39;, wechat.text(function (in
           if (!node.attr("id")) {
             node.attr("id", "index_" + node.text());
           }
-          node.css("paddingTop", 40);
+          node.css("paddingTop", 50);
         });
       });
     </script>

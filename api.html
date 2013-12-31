@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <title>wechat Documentation</title>
     <meta name="keywords" content="weixin,wechat" />
-    <meta name="description" content="微信公共平台自动回复接口服务" />
+    <meta name="description" content="微信公共平台Node库" />
     <script src="assets/prettify.js"></script>
     <script src="assets/jquery-1.8.2.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.js"></script>
@@ -13,34 +13,42 @@
     <link rel="stylesheet" type="text/css" href="assets/base.css" />
   </head>
   <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <a class="brand" href="./index.html">wechat</a>
-          <div class="nav-collapse collapse">
-            <ul class="nav">
-            
-              <li>
-                <a href="./api.html">API Docs</a>
-              </li>
-            
-            
-            </ul>
-          </div>
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="./index.html">wechat</a>
         </div>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+          
+            <li>
+              <a href="./api.html">API Docs</a>
+            </li>
+          
+          
+          </ul>
+        </div><!-- /.navbar-collapse -->
       </div>
-    </div>
+    </nav>
     <header class="jumbotron subhead">
       <div class="container">
-        <h1>wechat <small>Version: 0.6.3 By @Jackson Tian</small></h1>
+        <h1>wechat <small>Version: 0.6.4 By @Jackson Tian</small></h1>
         <p class="lead">
-          微信公共平台自动回复接口服务
+          微信公共平台Node库
         </p>
       </div>
     </header>
+
 <div class="container content">
   <div class="row">
-    <div class="span3 bs-docs-sidebar">
+    <div class="col-md-3 bs-docs-sidebar">
       <ul class="nav nav-list bs-docs-sidenav affix">
 
   <li>
@@ -56,7 +64,15 @@
   </li>
 
   <li>
+    <a href="#api_oauth"><i class="icon-chevron-right"></i>oauth</a>
+  </li>
+
+  <li>
     <a href="#api_session"><i class="icon-chevron-right"></i>session</a>
+  </li>
+
+  <li>
+    <a href="#api_util"><i class="icon-chevron-right"></i>util</a>
   </li>
 
   <li>
@@ -66,7 +82,7 @@
 </ul>
 
     </div>
-    <div class="span9">
+    <div class="col-md-9">
       
         <section id="api_common" class="api">
   <h2>common: API索引</h2>
@@ -1680,6 +1696,304 @@ api.sendNews('openid', articles, callback);
 </section>
 
       
+        <section id="api_oauth" class="api">
+  <h2>oauth: API索引</h2>
+  <ul class="indexs">
+  
+    <li>
+      <a href="#_OAuth">OAuth</a>
+    </li>
+
+    <li>
+      <a href="#_getAuthorizeURL">getAuthorizeURL</a>
+    </li>
+
+    <li>
+      <a href="#_isAccessTokenValid">isAccessTokenValid</a>
+    </li>
+
+    <li>
+      <a href="#_getAccessToken">getAccessToken</a>
+    </li>
+
+    <li>
+      <a href="#_refreshAccessToken">refreshAccessToken</a>
+    </li>
+
+    <li>
+      <a href="#_getUser">getUser</a>
+    </li>
+
+  </ul>
+  <hr />
+
+  
+  <h3 id="_OAuth">
+    OAuth
+  </h3>
+  
+
+  <p>根据appid和appsecret创建OAuth接口的构造函数</p>
+
+<p>Examples:</p>
+
+<div class="highlight"><pre lang="">var OAuth = require('wechat').OAuth;
+var api = new OAuth('appid', 'secret');
+</pre></div>
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>函数</td>
+      <td>OAuth()</td> 
+      <td></td>
+      <td>OAuth</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>appid(String)</td>
+      <td colspan="2">在公众平台上申请得到的appid</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>appsecret(String)</td>
+      <td colspan="2">在公众平台上申请得到的app secret</td>
+    </tr>
+  
+
+  
+  </table>
+  
+  
+  <h3 id="_getAuthorizeURL">
+    getAuthorizeURL
+  </h3>
+  
+
+  <p>获取授权页面的URL地址</p>
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>OAuth.prototype.getAuthorizeURL()</td> 
+      <td></td>
+      <td>getAuthorizeURL</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>redirect(String)</td>
+      <td colspan="2">授权后要跳转的地址</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>state(String)</td>
+      <td colspan="2">开发者可提供的数据</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>scope(String)</td>
+      <td colspan="2">作用范围，值为snsapi_userinfo和snsapi_base，前者用于弹出，后者用于跳转</td>
+    </tr>
+  
+
+  
+  </table>
+  
+  
+  <h3 id="_isAccessTokenValid">
+    isAccessTokenValid
+  </h3>
+  
+
+  <p>返回当前的access token是否有效</p>
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>OAuth.prototype.isAccessTokenValid()</td> 
+      <td></td>
+      <td>isAccessTokenValid</td>
+    </tr>
+  
+
+  
+  </table>
+  
+  
+  <h3 id="_getAccessToken">
+    getAccessToken
+  </h3>
+  
+
+  <p>根据授权获取到的code，换取access token<br />获取openid之后，可以调用<code>wechat.API</code>来获取更多信息<br />Examples:</p>
+
+<div class="highlight"><pre lang="">api.getAccessToken(code, callback);
+</pre></div>
+
+<p>Callback:</p>
+
+<ul>
+<li><code>err</code>, 获取access token出现异常时的异常对象</li>
+<li><code>result</code>, 成功时得到的响应结果</li>
+</ul>
+
+<p>Result:</p>
+
+<div class="highlight"><pre lang="">{
+ "access_token": "ACCESS_TOKEN",
+ "expires_in": 7200,
+ "refresh_token": "REFRESH_TOKEN",
+ "openid": "OPENID",
+ "scope": "SCOPE"
+}
+</pre></div>
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>OAuth.prototype.getAccessToken()</td> 
+      <td></td>
+      <td>getAccessToken</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>code(String)</td>
+      <td colspan="2">授权获取到的code</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>callback(Function)</td>
+      <td colspan="2">回调函数</td>
+    </tr>
+  
+
+  
+  </table>
+  
+  
+  <h3 id="_refreshAccessToken">
+    refreshAccessToken
+  </h3>
+  
+
+  <p>根据refresh token，刷新access token，调用getAccessToken后才有效<br />Examples:</p>
+
+<div class="highlight"><pre lang="">api.refreshAccessToken(callback);
+</pre></div>
+
+<p>Callback:</p>
+
+<ul>
+<li><code>err</code>, 刷新access token出现异常时的异常对象</li>
+<li><code>result</code>, 成功时得到的响应结果</li>
+</ul>
+
+<p>Result:</p>
+
+<div class="highlight"><pre lang="">{
+ "access_token": "ACCESS_TOKEN",
+ "expires_in": 7200,
+ "refresh_token": "REFRESH_TOKEN",
+ "openid": "OPENID",
+ "scope": "SCOPE"
+}
+</pre></div>
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>OAuth.prototype.refreshAccessToken()</td> 
+      <td></td>
+      <td>refreshAccessToken</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>callback(Function)</td>
+      <td colspan="2">回调函数</td>
+    </tr>
+  
+
+  
+  </table>
+  
+  
+  <h3 id="_getUser">
+    getUser
+  </h3>
+  
+
+  <p>根据openid，获取用户信息。<br />当access token无效时，自动通过refresh token获取新的access token。然后再获取用户信息<br />Examples:</p>
+
+<div class="highlight"><pre lang="">api.refreshAccessToken(callback);
+</pre></div>
+
+<p>Callback:</p>
+
+<ul>
+<li><code>err</code>, 获取用户信息出现异常时的异常对象</li>
+<li><code>result</code>, 成功时得到的响应结果</li>
+</ul>
+
+<p>Result:</p>
+
+<div class="highlight"><pre lang="">{
+ "openid": "OPENID",
+ "nickname": "NICKNAME",
+ "sex": "1",
+ "province": "PROVINCE"
+ "city": "CITY",
+ "country": "COUNTRY",
+ "headimgurl": "<a href='http://wx.qlogo.cn/mmopen/g3MonUZtNHkdmzicIlibx6iaFqAc56vxLSUfpb6n5WKSYVY0ChQKkiaJSgQ1dZuTOgvLLrhJbERQQ4eMsv84eavHiaiceqxibJxCfHe/46'>http://wx.qlogo.cn/mmopen/g3MonUZtNHkdmzicIlibx6iaFqAc56vxLSUfpb6n5WKSYVY0ChQKkiaJSgQ1dZuTOgvLLrhJbERQQ4eMsv84eavHiaiceqxibJxCfHe/46</a>", 
+ "privilege": [
+   "PRIVILEGE1"
+   "PRIVILEGE2"
+ ]
+}
+</pre></div>
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>OAuth.prototype.getUser()</td> 
+      <td></td>
+      <td>getUser</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>callback(Function)</td>
+      <td colspan="2">回调函数</td>
+    </tr>
+  
+
+  
+  </table>
+  
+</section>
+
+      
         <section id="api_session" class="api">
   <h2>session: API索引</h2>
   <ul class="indexs">
@@ -1809,6 +2123,16 @@ api.sendNews('openid', articles, callback);
   
   </table>
   
+</section>
+
+      
+        <section id="api_util" class="api">
+  <h2>util: API索引</h2>
+  <ul class="indexs">
+  
+  </ul>
+  <hr />
+
 </section>
 
       
@@ -2072,10 +2396,11 @@ wechat(token)
           if (!node.attr("id")) {
             node.attr("id", "index_" + node.text());
           }
-          node.css("paddingTop", 40);
+          node.css("paddingTop", 50);
         });
       });
     </script>
   
   </body>
 </html>
+
