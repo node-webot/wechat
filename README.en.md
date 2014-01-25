@@ -1,23 +1,22 @@
 wechat [![NPM version](https://badge.fury.io/js/wechat.png)](http://badge.fury.io/js/wechat) [![Build Status](https://travis-ci.org/node-webot/wechat.png?branch=master)](https://travis-ci.org/node-webot/wechat) [![Dependencies Status](https://david-dm.org/node-webot/wechat.png)](https://david-dm.org/node-webot/wechat) [![Coverage Status](https://coveralls.io/repos/node-webot/wechat/badge.png)](https://coveralls.io/r/node-webot/wechat)
 ======
 
-微信公共平台消息接口服务中间件与API SDK
+Wechat is a middleware and SDK of Wechat Official Account Admin Platform (mp.weixin.qq.com).
 
-[Wechat document in English]('./README.en.md')
+## Features
 
-## 功能列表
-- 自动回复（文本、图片、语音、视频、音乐、图文）
-- 客服消息（文本、图片、语音、视频、音乐、图文）
-- 菜单操作（查询、创建、删除）
-- 二维码（创建临时、永久二维码，查看二维码URL）
-- 分组操作（查询、创建、修改、移动用户到分组）
-- 用户信息（查询用户基本信息、获取关注者列表）
-- 媒体文件（上传、获取）
-- 等待回复（用于调查问卷、问答等场景）
-- 会话支持（创新功能）
-- OAuth API（授权、获取基本信息）
+- Auto reply (text, image, videos, music, thumbnails posts are supported)
+- CRM message (text, image, videos, music, thumbnails posts are supported)
+- Menu settings (CRD are supported)
+- QR codes (CR are supported, both temporary and permanent)
+- Group settings (CRUD are supported)
+- Followers infomation (fetching user's info or followers list)
+- Media (upload or download)
+- Reply Waiter (good for surveys)
+- Sessions 
+- OAuth API
 
-详细参见[API文档](http://node-webot.github.io/wechat/api.html)
+API details located [here](http://node-webot.github.io/wechat/api.html)
 
 ## Installation
 
@@ -32,34 +31,34 @@ var wechat = require('wechat');
 
 app.use(connect.query()); // Or app.use(express.query());
 app.use('/wechat', wechat('some token', function (req, res, next) {
-  // 微信输入信息都在req.weixin上
+  // message is located in req.weixin
   var message = req.weixin;
   if (message.FromUserName === 'diaosi') {
-    // 回复屌丝(普通回复)
+    // reply with text
     res.reply('hehe');
   } else if (message.FromUserName === 'text') {
-    //你也可以这样回复text类型的信息
+    // another way to reply with text
     res.reply({
       content: 'text object',
       type: 'text'
     });
   } else if (message.FromUserName === 'hehe') {
-    // 回复一段音乐
+    // reply with music
     res.reply({
       type: "music",
       content: {
-        title: "来段音乐吧",
-        description: "一无所有",
+        title: "Just some music",
+        description: "I have nothing to lose",
         musicUrl: "http://mp3.com/xx.mp3",
         hqMusicUrl: "http://mp3.com/xx.mp3"
       }
     });
   } else {
-    // 回复高富帅(图文回复)
+    // reply with thumbnails posts
     res.reply([
       {
-        title: '你来我家接我吧',
-        description: '这是女神与高富帅之间的对话',
+        title: 'Come to fetch me',
+        description: 'or you want to play in another way ?',
         picurl: 'http://nodeapi.cloudfoundry.com/qrcode.jpg',
         url: 'http://nodeapi.cloudfoundry.com/'
       }
@@ -67,18 +66,20 @@ app.use('/wechat', wechat('some token', function (req, res, next) {
   }
 }));
 ```
-备注：token在[微信平台上申请](http://mp.weixin.qq.com/cgi-bin/callbackprofile?type=info&t=wxm-developer-ahead&lang=zh_CN)
 
-### 回复消息
-当用户发送消息到微信公众账号，自动回复一条消息。这条消息可以是文本、图片、语音、视频、音乐、图文。详见：[官方文档](http://mp.weixin.qq.com/wiki/index.php?title=发送被动响应消息)
+*Tips*: you'll have to apply `token` at [Wechat platform (this page is in Chinese)](http://mp.weixin.qq.com/cgi-bin/callbackprofile?type=info&t=wxm-developer-ahead&lang=zh_CN)
 
-#### 回复文本
+### Reply Messages
+
+auto reply a message when your followers send a message to you. also text, image, videos, music, thumbnails posts are supported. details API goes [here (official documents)](http://mp.weixin.qq.com/wiki/index.php?title=发送被动响应消息)
+
+#### Reply with text
 ```
 res.reply('Hello world!');
-// 或者
+// or
 res.reply({type: "text", content: 'Hello world!'});
 ```
-#### 回复图片
+#### Reply with Image
 ```
 res.reply({
   type: "image",
@@ -87,7 +88,7 @@ res.reply({
   }
 });
 ```
-#### 回复语音
+#### Reply with voice
 ```
 res.reply({
   type: "voice",
@@ -96,7 +97,7 @@ res.reply({
   }
 });
 ```
-#### 回复视频
+#### Reply with Video
 ```
 res.reply({
   type: "video",
@@ -106,29 +107,32 @@ res.reply({
   }
 });
 ```
-#### 回复音乐
+#### Reply with Music
 ```
 res.reply({
-  title: "来段音乐吧",
-  description: "一无所有",
+  title: "Just some music",
+  description: "I have nothing to lose",
   musicUrl: "http://mp3.com/xx.mp3",
   hqMusicUrl: "http://mp3.com/xx.mp3"
 });
 ```
-#### 回复图文
+#### Reply with Thumbnails posts
 ```
 res.reply([
   {
-    title: '你来我家接我吧',
-    description: '这是女神与高富帅之间的对话',
+    title: 'Come to fetch me',
+    description: 'or you want to play in another way ?',
     picurl: 'http://nodeapi.cloudfoundry.com/qrcode.jpg',
     url: 'http://nodeapi.cloudfoundry.com/'
   }
 ]);
 ```
 
-### WXSession支持
-由于公共平台应用的客户端实际上是微信，所以采用传统的Cookie来实现会话并不现实，为此中间件模块在openid的基础上添加了Session支持。一旦服务端启用了`connect.session`中间件，在业务中就可以访问`req.wxsession`属性。这个属性与`req.session`行为类似。
+### WXSession
+
+Wechat messages are not communicate like traditional C/S model, therefore nothing Cookies will be store in Wechat client. this WXSession is designed to support access user's infomation via `req.wxsession`, with `connect.session` backed.
+
+It's a simple demo:
 
 ```
 app.use(connect.cookieParser());
@@ -141,30 +145,31 @@ app.use('/wechat', wechat('some token', wechat.text(function (info, req, res, ne
   } else {
     req.wxsession.text = req.wxsession.text || [];
     req.wxsession.text.push(info.Content);
-    res.reply('收到' + info.Content);
+    res.reply('Message got ' + info.Content);
   }
 })));
 ```
 
-`req.wxsession`与`req.session`采用相同的存储引擎，这意味着如果采用redis作为存储，这样`wxsession`可以实现跨进程共享。
+`req.wxsession` and `req.session` shares same store. width `redis` as persistence database, across processes sharing are supportd.
 
-### 等待回复
-等待回复，类似于电话拨号业务。该功能在WXSession的基础上提供。需要为等待回复预置操作，中间件将其抽象为`List`对象，在提供服务前需要添加服务。
+### Reply Waiter
+
+a reply waiter is seems like a telephone menu system. it must be setup before activation. this function is supported upon WXSession. 
 
 ```
 var List = require('wechat').List;
 List.add('view', [
-  ['回复{a}查看我的性别', function (info, req, res) {
-    res.reply('我是个妹纸哟');
+  ['reply {a}', function (info, req, res) {
+    res.reply('Im Answer A');
   }],
-  ['回复{b}查看我的年龄', function (info, req, res) {
-    res.reply('我今年18岁');
+  ['reply {b}', function (info, req, res) {
+    res.reply('Im Answer B');
   }],
-  ['回复{c}查看我的性取向', '这样的事情怎么好意思告诉你啦- -']
+  ['reply {c}', 'Im Answer C (the shorthand method)']
 ]);
 ```
 
-然后在业务中触发等待回复事务，如下示例，当收到用户发送`list`后，调用`res.wait('view')`进入事务`view`中。
+active the reply waiter we setuped before:
 
 ```
 var app = connect();
@@ -173,56 +178,55 @@ app.use(connect.cookieParser());
 app.use(connect.session({secret: 'keyboard cat', cookie: {maxAge: 60000}}));
 app.use('/wechat', wechat('some token', wechat.text(function (info, req, res, next) {
   if (info.Content === 'list') {
-    res.wait('view');
+    res.wait('view'); // view is the very waiter we setuped before.
   } else {
     res.reply('hehe');
-    // 或者中断等待回复事务
+    // or stop the waiter and quit.
     // res.nowait('hehe');
   }
 })));
 ```
-用户将收到如下回复：
+
+if waiter `view` actived, user will receive messages below:
 
 ```
-回复a查看我的性别
-回复b查看我的年龄
-回复c查看我的性取向
+reply a
+reply b
+reply c
 ```
 
-用户回复其中的`a`、`b`、`c`将会由注册的方法接管回复。回复可以是一个函数，也可以是一个字符串：
+reply waiter acquires both function and text as a `callback` action
 
 ```
 List.add('view', [
-  ['回复{a}查看我的性别', function (info, req, res, next) {
-    res.reply('我是个妹纸哟');
+  ['reply {a}', function (info, req, res, next) {
+    // we callback as a function
+    res.reply('Answer A');
   }],
-  // 或者字符串
-  ['回复{c}查看我的性取向', '这样的事情怎么好意思告诉你啦- -']
+  // or text as shorthand
+  ['reply {c}', 'Answer C']
 ]);
 ```
 
-如果用户触发等待回复事务后，没有按照`{}`中的进行回复，那么将会由原有的默认函数进行处理。在原有函数中，可以选择调用`res.nowait()`中断事务。`nowait()`除了能中断事务外，与`reply`的行为一致。
+if user's message is not in waiter's trigger texts. this message will be processd in the `else` way and can be stoped by `res.nowait()`, `res.nowait` method actions like `reply` method.
 
 ## Show cases
-### Node.js API自动回复
+### Auto-reply robot based on Node.js
 
-![Node.js API自动回复机器人](http://nodeapi.diveintonode.org/assets/qrcode.jpg)
+![Node.js API Auto-reply robot](http://nodeapi.diveintonode.org/assets/qrcode.jpg)
 
-欢迎关注。
+Codes here <https://github.com/JacksonTian/api-doc-service>
 
-代码：<https://github.com/JacksonTian/api-doc-service>
+robots can be setup in PAASs like [CloudFoundry](http://www.cloudfoundry.com/), [appfog](https://www.appfog.com/) or [BAE](http://developer.baidu.com/wiki/index.php?title=docs/cplat/rt/node.js).
 
-你可以在[CloudFoundry](http://www.cloudfoundry.com/)、[appfog](https://www.appfog.com/)、[BAE](http://developer.baidu.com/wiki/index.php?title=docs/cplat/rt/node.js)等搭建自己的机器人。
+## API details
+official document locates here [Messages API Guide (in Chinese)](http://mp.weixin.qq.com/wiki/index.php?title=消息接口指南)。
 
-## 详细API
-原始API文档请参见：[消息接口指南](http://mp.weixin.qq.com/wiki/index.php?title=消息接口指南)。
-
-目前微信公共平台能接收到7种内容：文字、图片、音频、视频、位置、链接、事件。支持6种回复：纯文本、图文、音乐、音频、图片、视频。
-针对目前的业务形态，发布了0.6.x版本，该版本支持六种内容分别处理，以保持业务逻辑的简洁性。
+wachat 0.6.x supports shorthand methods below:
 
 ```
 app.use('/wechat', wechat('some token', wechat.text(function (message, req, res, next) {
-  // message为文本内容
+  // reply with text
   // { ToUserName: 'gh_d3e07d51b513',
   // FromUserName: 'oPKu7jgOibOA-De4u8J2RuNKpZRw',
   // CreateTime: '1359125035',
@@ -239,7 +243,7 @@ app.use('/wechat', wechat('some token', wechat.text(function (message, req, res,
   // MediaId: 'media_id',
   // MsgId: '5837397301622104395' }
 }).voice(function (message, req, res, next) {
-  // message为音频内容
+  // Reply with Voice
   // { ToUserName: 'gh_d3e07d51b513',
   // FromUserName: 'oPKu7jgOibOA-De4u8J2RuNKpZRw',
   // CreateTime: '1359125022',
@@ -248,7 +252,7 @@ app.use('/wechat', wechat('some token', wechat.text(function (message, req, res,
   // Format: 'amr',
   // MsgId: '5837397520665436492' }
 }).video(function (message, req, res, next) {
-  // message为视频内容
+  // Reply with Video
   // { ToUserName: 'gh_d3e07d51b513',
   // FromUserName: 'oPKu7jgOibOA-De4u8J2RuNKpZRw',
   // CreateTime: '1359125022',
@@ -257,7 +261,7 @@ app.use('/wechat', wechat('some token', wechat.text(function (message, req, res,
   // ThumbMediaId: 'media_id',
   // MsgId: '5837397520665436492' }
 }).location(function (message, req, res, next) {
-  // message为位置内容
+  // Reply with Location (geo)
   // { ToUserName: 'gh_d3e07d51b513',
   // FromUserName: 'oPKu7jgOibOA-De4u8J2RuNKpZRw',
   // CreateTime: '1359125311',
@@ -268,17 +272,17 @@ app.use('/wechat', wechat('some token', wechat.text(function (message, req, res,
   // Label: {},
   // MsgId: '5837398761910985062' }
 }).link(function (message, req, res, next) {
-  // message为链接内容
+  // Reply with Link
   // { ToUserName: 'gh_d3e07d51b513',
   // FromUserName: 'oPKu7jgOibOA-De4u8J2RuNKpZRw',
   // CreateTime: '1359125022',
   // MsgType: 'link',
-  // Title: '公众平台官网链接',
-  // Description: '公众平台官网链接',
+  // Title: 'A link',
+  // Description: 'A link has its desc',
   // Url: 'http://1024.com/',
   // MsgId: '5837397520665436492' }
 }).event(function (message, req, res, next) {
-  // message为事件内容
+  // Reply with Event
   // { ToUserName: 'gh_d3e07d51b513',
   // FromUserName: 'oPKu7jgOibOA-De4u8J2RuNKpZRw',
   // CreateTime: '1359125022',
@@ -291,11 +295,11 @@ app.use('/wechat', wechat('some token', wechat.text(function (message, req, res,
 })));
 ```
 
-注意： `text`, `image`, `voice`, `video`, `location`, `link`, `event`方法请至少指定一个。
-这六个方法的设计适用于按内容类型区分处理的场景。如果需要更复杂的场景，请使用第一个例子中的API。
+*Tips*: `text`, `image`, `voice`, `video`, `location`, `link`, `event` must be set at least one.
 
-### 更简化的API设计
-示例如下：
+### More simple APIs
+
+Supported in 0.3.x and above.
 
 ```
 app.use('/wechat', wechat('some token').text(function (message, req, res, next) {
@@ -314,16 +318,22 @@ app.use('/wechat', wechat('some token').text(function (message, req, res, next) 
   // TODO
 }).middlewarify());
 ```
-该接口从0.3.x提供。
 
-### 流程图
+### Functions Graph
 ![graph](https://raw.github.com/node-webot/wechat/master/figures/wechat.png)
 
-诸多细节由wechat中间件提供，用户只要关注蓝色部分的业务逻辑即可。
+*Tips*: Business logic in blue lines.
+
 ## License
 The MIT license.
 
-## 捐赠
-如果您觉得Wechat对您有帮助，欢迎请作者一杯咖啡
+## Donation
+buy me a cup of coffee please.
 
-[![捐赠wechat](https://img.alipay.com/sys/personalprod/style/mc/btn-index.png)](https://me.alipay.com/jacksontian)
+[![donate wechat](https://img.alipay.com/sys/personalprod/style/mc/btn-index.png)](https://me.alipay.com/jacksontian)
+
+## Translator
+
+this wechat document is translated by:
+
+- [Guo Yu](https://github.com/turingou/)
