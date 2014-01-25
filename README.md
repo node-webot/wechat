@@ -3,7 +3,7 @@ wechat [![NPM version](https://badge.fury.io/js/wechat.png)](http://badge.fury.i
 
 微信公共平台消息接口服务中间件与API SDK
 
-[Wechat document in English]('./README.en.md')
+[Wechat document in English](./README.en.md)
 
 ## 功能列表
 - 自动回复（文本、图片、语音、视频、音乐、图文）
