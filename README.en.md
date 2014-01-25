@@ -3,6 +3,8 @@ wechat [![NPM version](https://badge.fury.io/js/wechat.png)](http://badge.fury.i
 
 Wechat is a middleware and SDK of Wechat Official Account Admin Platform (mp.weixin.qq.com).
 
+This wechat document is translated by [Guo Yu](https://github.com/turingou/), if you have some understanding problems, please feel free open an issue [here](https://github.com/turingou/wechat/issues).
+
 ## Features
 
 - Auto reply (text, image, videos, music, thumbnails posts are supported)
@@ -331,9 +333,3 @@ The MIT license.
 buy me a cup of coffee please.
 
 [![donate wechat](https://img.alipay.com/sys/personalprod/style/mc/btn-index.png)](https://me.alipay.com/jacksontian)
-
-## Translator
-
-this wechat document is translated by:
-
-- [Guo Yu](https://github.com/turingou/)
