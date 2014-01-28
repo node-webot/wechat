@@ -464,7 +464,7 @@ describe('common.js', function () {
     });
 
     it('showQRCodeURL should not ok', function () {
-      api.showQRCodeURL('ticket').should.be.equal('https:/mp.weixin.qq.com/cgi-bin/showqrcode?ticket=ticket');
+      api.showQRCodeURL('ticket').should.be.equal('https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=ticket');
     });
 
     it('getGroups should not ok', function (done) {
