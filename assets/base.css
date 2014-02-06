@@ -23,7 +23,7 @@ h3 code {
 -------------------------------------------------- */
 
 /* Change the docs' brand */
-.navbar-brand {
+.navbar-inverse .navbar-brand {
   font-weight: bold;
   color: #000;
   text-shadow: 0 1px 0 rgba(255,255,255,.3), 0 0 30px rgba(255,255,255,.725);
@@ -31,12 +31,12 @@ h3 code {
      -moz-transition: all .2s linear;
           transition: all .2s linear;
 }
-.navbar-brand:hover {
+.navbar-inverse .navbar-brand:hover {
   color: #fff;
   text-decoration: none;
   text-shadow: 0 1px 0 rgba(255,255,255,.6), 0 0 30px rgba(255,255,255,.9);
 }
-.navbar-brand:first-letter {
+.navbar-inverse .navbar-brand:first-letter {
   text-transform: uppercase;
 }
 .navbar .nav > li a:first-letter {
