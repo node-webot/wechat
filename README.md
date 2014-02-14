@@ -327,3 +327,7 @@ The MIT license.
 如果您觉得Wechat对您有帮助，欢迎请作者一杯咖啡
 
 [![捐赠wechat](https://img.alipay.com/sys/personalprod/style/mc/btn-index.png)](https://me.alipay.com/jacksontian)
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/node-webot/wechat/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
