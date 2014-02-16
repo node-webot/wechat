@@ -104,6 +104,7 @@ describe('oauth.js', function () {
 
   describe('getUser', function () {
     var api = new OAuth('appid', 'secret');
+    api.accessToken = 'ACCESS_TOKEN';
 
     it('should invalid', function (done) {
       api._getUser('openid', function (err, data) {
@@ -170,6 +171,7 @@ describe('oauth.js', function () {
       });
 
       it('should not ok', function (done) {
+        api.accessToken = 'ACCESS_TOKEN';
         api.getUser('openid', function (err, data, res) {
           should.exist(err);
           err.should.have.property('name', 'WeChatAPIError');
