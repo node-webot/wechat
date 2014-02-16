@@ -9,12 +9,12 @@ describe('oauth.js', function () {
 
     it('should ok', function () {
       var url = auth.getAuthorizeURL('http://diveintonode.org/', 'hehe');
-      url.should.be.equal('https://open.weixin.qq.com/connect/oauth2/authorize?appid=appid&redirect_uri=http%253A%252F%252Fdiveintonode.org%252F&response_type=code&scope=snsapi_base&state=hehe#wechat_redirect');
+      url.should.be.equal('https://open.weixin.qq.com/connect/oauth2/authorize?appid=appid&redirect_uri=http%3A%2F%2Fdiveintonode.org%2F&response_type=code&scope=snsapi_base&state=hehe#wechat_redirect');
     });
 
     it('should ok', function () {
       var url = auth.getAuthorizeURL('http://diveintonode.org/', 'hehe', 'snsapi_userinfo');
-      url.should.be.equal('https://open.weixin.qq.com/connect/oauth2/authorize?appid=appid&redirect_uri=http%253A%252F%252Fdiveintonode.org%252F&response_type=code&scope=snsapi_userinfo&state=hehe#wechat_redirect');
+      url.should.be.equal('https://open.weixin.qq.com/connect/oauth2/authorize?appid=appid&redirect_uri=http%3A%2F%2Fdiveintonode.org%2F&response_type=code&scope=snsapi_userinfo&state=hehe#wechat_redirect');
     });
   });
 
@@ -104,6 +104,7 @@ describe('oauth.js', function () {
 
   describe('getUser', function () {
     var api = new OAuth('appid', 'secret');
+    api.accessToken = 'ACCESS_TOKEN';
 
     it('should invalid', function (done) {
       api._getUser('openid', function (err, data) {
@@ -170,6 +171,7 @@ describe('oauth.js', function () {
       });
 
       it('should not ok', function (done) {
+        api.accessToken = 'ACCESS_TOKEN';
         api.getUser('openid', function (err, data, res) {
           should.exist(err);
           err.should.have.property('name', 'WeChatAPIError');
