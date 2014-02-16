@@ -397,9 +397,8 @@ app.use(&#39;/wechat&#39;, wechat(&#39;some token&#39;, wechat.text(function (in
         });
         $(".content").find('h1, h2, h3, h4, h5, h6').each(function () {
           var node = $(this);
-          if (!node.attr("id")) {
-            node.attr("id", "index_" + node.text());
-          }
+          // 总是设置id
+          node.attr("id", "index_" + node.text());
           node.css("paddingTop", 50);
         });
       });
