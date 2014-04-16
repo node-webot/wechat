@@ -1943,7 +1943,7 @@ var api = new OAuth('appid', 'secret');
 
   <p>根据openid，获取用户信息。<br />当access token无效时，自动通过refresh token获取新的access token。然后再获取用户信息<br />Examples:</p>
 
-<div class="highlight"><pre lang="">api.refreshAccessToken(callback);
+<div class="highlight"><pre lang="">api.getUser(openid, callback);
 </pre></div>
 
 <p>Callback:</p>
@@ -2190,7 +2190,7 @@ var api = new OAuth('appid', 'secret');
     <tr>
       <td>参数</td>
       <td>handle(Function)</td>
-      <td colspan="2">hande对象</td>
+      <td colspan="2">handle对象</td>
     </tr>
   
 
@@ -2235,7 +2235,7 @@ var api = new OAuth('appid', 'secret');
     <tr>
       <td>参数</td>
       <td>handle(Function)</td>
-      <td colspan="2">hande对象</td>
+      <td colspan="2">handle对象</td>
     </tr>
   
 
