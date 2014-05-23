@@ -17,6 +17,7 @@ This wechat document is translated by [Guo Yu](https://github.com/turingou/), if
 - Reply Waiter (good for surveys)
 - Sessions 
 - OAuth API
+- Payment (deliver notify and order query)
 
 API details located [here](http://node-webot.github.io/wechat/api.html)
 

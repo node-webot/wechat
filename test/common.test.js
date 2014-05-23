@@ -282,6 +282,24 @@ describe('common.js', function () {
       });
     });
 
+    it('deliverNotify should not ok', function (done) {
+      api.deliverNotify('{}', function (err, menu) {
+        should.exist(err);
+        err.name.should.be.equal('WeChatAPIError');
+        err.message.should.be.equal('invalid credential');
+        done();
+      });
+    });
+
+    it('orderQuery should not ok', function (done) {
+      api.orderQuery('{}', function (err, menu) {
+        should.exist(err);
+        err.name.should.be.equal('WeChatAPIError');
+        err.message.should.be.equal('invalid credential');
+        done();
+      });
+    });
+
     describe('upload media', function () {
       ['Image', 'Voice', 'Video', 'Thumb'].forEach(function (method) {
         before(function () {
@@ -594,6 +612,24 @@ describe('common.js', function () {
       ];
 
       api.sendNews('openid', articles, function (err, data, res) {
+        should.exist(err);
+        err.name.should.be.equal('WeChatAPIError');
+        err.message.should.be.equal('invalid appid');
+        done();
+      });
+    });
+
+    it('deliverNotify should not ok', function (done) {
+      api.deliverNotify('{}', function (err, menu) {
+        should.exist(err);
+        err.name.should.be.equal('WeChatAPIError');
+        err.message.should.be.equal('invalid appid');
+        done();
+      });
+    });
+
+    it('orderQuery should not ok', function (done) {
+      api.orderQuery('{}', function (err, menu) {
         should.exist(err);
         err.name.should.be.equal('WeChatAPIError');
         err.message.should.be.equal('invalid appid');
