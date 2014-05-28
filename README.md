@@ -16,6 +16,7 @@ wechat [![NPM version](https://badge.fury.io/js/wechat.png)](http://badge.fury.i
 - 等待回复（用于调查问卷、问答等场景）
 - 会话支持（创新功能）
 - OAuth API（授权、获取基本信息）
+- 公众号支付（发货通知、订单查询）
 
 详细参见[API文档](http://node-webot.github.io/wechat/api.html)
 
