@@ -17,6 +17,7 @@ wechat [![NPM version](https://badge.fury.io/js/wechat.png)](http://badge.fury.i
 - 会话支持（创新功能）
 - OAuth API（授权、获取基本信息）
 - 公众号支付（发货通知、订单查询）
+- 微信小店（TODO，求赞助，细节请见[#68](https://github.com/node-webot/wechat/issues/68)）
 
 详细参见[API文档](http://node-webot.github.io/wechat/api.html)
 
