@@ -55,8 +55,8 @@ describe('common.js', function () {
       it('should ok', function (done) {
         api.getAccessToken(function (err, token) {
           should.not.exist(err);
-          token.should.have.property('access_token', 'ACCESS_TOKEN');
-          token.should.have.property('expires_in', 7200);
+          token.should.have.property('accessToken', 'ACCESS_TOKEN');
+          // token.should.have.property('expireTime', 7200);
           done();
         });
       });
@@ -64,15 +64,15 @@ describe('common.js', function () {
   });
 
   describe('isAccessTokenValid', function () {
-    var api = new API('appid', 'secret');
+    var api = new API('appid', 'secret', {});
     it('should invalid', function () {
-      api.isAccessTokenValid().should.be.equal(false);
+      api.token.isValid().should.be.equal(false);
     });
 
     it('should valid', function () {
-      api.token = 'token';
-      api.expireTime = new Date().getTime() + 7200 * 1000;
-      api.isAccessTokenValid().should.be.equal(true);
+      api.token.accessToken = 'token';
+      api.token.expireTime = new Date().getTime() + 7200 * 1000;
+      api.token.isValid().should.be.equal(true);
     });
   });
 
@@ -253,7 +253,7 @@ describe('common.js', function () {
         "description":"MUSIC_DESCRIPTION", // 可选
         "musicurl":"MUSIC_URL",
         "hqmusicurl":"HQ_MUSIC_URL",
-        "thumb_media_id":"THUMB_MEDIA_ID" 
+        "thumb_media_id":"THUMB_MEDIA_ID"
       };
 
       api.sendMusic('openid', music, function (err, data, res) {
@@ -590,7 +590,7 @@ describe('common.js', function () {
         "description":"MUSIC_DESCRIPTION", // 可选
         "musicurl":"MUSIC_URL",
         "hqmusicurl":"HQ_MUSIC_URL",
-        "thumb_media_id":"THUMB_MEDIA_ID" 
+        "thumb_media_id":"THUMB_MEDIA_ID"
       };
 
       api.sendMusic('openid', music, function (err, data, res) {
