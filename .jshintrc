@@ -24,7 +24,6 @@
   "forin": false,
   "immed": true,
   "latedef": true,
-  "newcap": true,
   "noarg": true,
   "noempty": true,
   "nonew": true,
