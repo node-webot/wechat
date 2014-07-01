@@ -1,14 +1,27 @@
 var should = require('should');
+var expect = require('expect.js');
 var urllib = require('urllib');
 var muk = require('muk');
 var path = require('path');
+var config = require('./config');
 var API = require('../').API;
+
+var puling = 'ofL4cs7hr04cJIcu600_W-ZwwxHg';
+var imageId = 'XDZxzuRWBPqI4R9n_nNR5uRVZVQCSneMoELyWKflwM2qF9K38vnVFzgaD97uCTUu';
 
 describe('common.js', function () {
   describe('getAccessToken', function () {
-    var api = new API('appid', 'secret');
+    it('should ok', function (done) {
+      var api = new API(config.appid, config.appsecret);
+      api.getAccessToken(function (err, token) {
+        should.not.exist(err);
+        expect(token).to.only.have.keys('accessToken', 'expireTime');
+        done();
+      });
+    });
 
     it('should not ok', function (done) {
+      var api = new API('appid', 'secret');
       api.getAccessToken(function (err, token) {
         should.exist(err);
         err.name.should.be.equal('WeChatAPIError');
@@ -31,6 +44,7 @@ describe('common.js', function () {
       });
 
       it('should get mock error', function (done) {
+        var api = new API('appid', 'secret');
         api.getAccessToken(function (err, token) {
           should.exist(err);
           err.name.should.be.equal('WeChatAPIUrllibError');
@@ -53,6 +67,7 @@ describe('common.js', function () {
       });
 
       it('should ok', function (done) {
+        var api = new API('appid', 'secret');
         api.getAccessToken(function (err, token) {
           should.not.exist(err);
           token.should.have.property('accessToken', 'ACCESS_TOKEN');
@@ -93,7 +108,7 @@ describe('common.js', function () {
       api.createMenu('{}', function (err, menu) {
         should.exist(err);
         err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid credential');
+        err.message.should.be.equal('invalid appid');
         done();
       });
     });
@@ -102,7 +117,7 @@ describe('common.js', function () {
       api.getMenu(function (err, menu) {
         should.exist(err);
         err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid credential');
+        err.message.should.be.equal('invalid appid');
         done();
       });
     });
@@ -111,17 +126,7 @@ describe('common.js', function () {
       api.removeMenu(function (err, token) {
         should.exist(err);
         err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid credential');
-        done();
-      });
-    });
-
-    it('getQRCode should not ok', function (done) {
-      var ticket = {"expire_seconds": 1800, "action_name": "SCAN_SCENE", "action_info": {"scene": {"scene_id": 123}}};
-      api.getQRCode(ticket, function (err, data, res) {
-        should.exist(err);
-        err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid credential');
+        err.message.should.be.equal('invalid appid');
         done();
       });
     });
@@ -130,7 +135,7 @@ describe('common.js', function () {
       api.createTmpQRCode(123, 1800, function (err, data, res) {
         should.exist(err);
         err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid credential');
+        err.message.should.be.equal('invalid appid');
         done();
       });
     });
@@ -139,7 +144,7 @@ describe('common.js', function () {
       api.createLimitQRCode(123, function (err, data, res) {
         should.exist(err);
         err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid credential');
+        err.message.should.be.equal('invalid appid');
         done();
       });
     });
@@ -152,7 +157,7 @@ describe('common.js', function () {
       api.getGroups(function (err, data, res) {
         should.exist(err);
         err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid credential');
+        err.message.should.be.equal('invalid appid');
         done();
       });
     });
@@ -161,7 +166,7 @@ describe('common.js', function () {
       api.createGroup('new group', function (err, data, res) {
         should.exist(err);
         err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid credential');
+        err.message.should.be.equal('invalid appid');
         done();
       });
     });
@@ -170,7 +175,7 @@ describe('common.js', function () {
       api.updateGroup(123, 'new group', function (err, data, res) {
         should.exist(err);
         err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid credential');
+        err.message.should.be.equal('invalid appid');
         done();
       });
     });
@@ -179,7 +184,7 @@ describe('common.js', function () {
       api.moveUserToGroup('openid', 123, function (err, data, res) {
         should.exist(err);
         err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid credential');
+        err.message.should.be.equal('invalid appid');
         done();
       });
     });
@@ -188,7 +193,7 @@ describe('common.js', function () {
       api.getUser('openid', function (err, data, res) {
         should.exist(err);
         err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid credential');
+        err.message.should.be.equal('invalid appid');
         done();
       });
     });
@@ -197,7 +202,7 @@ describe('common.js', function () {
       api.getFollowers(function (err, data, res) {
         should.exist(err);
         err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid credential');
+        err.message.should.be.equal('invalid appid');
         done();
       });
     });
@@ -206,7 +211,7 @@ describe('common.js', function () {
       api.getFollowers('openid', function (err, data, res) {
         should.exist(err);
         err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid credential');
+        err.message.should.be.equal('invalid appid');
         done();
       });
     });
@@ -215,7 +220,7 @@ describe('common.js', function () {
       api.sendText('openid', 'Hellow World', function (err, data, res) {
         should.exist(err);
         err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid credential');
+        err.message.should.be.equal('invalid appid');
         done();
       });
     });
@@ -224,7 +229,7 @@ describe('common.js', function () {
       api.sendImage('openid', 'imageId', function (err, data, res) {
         should.exist(err);
         err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid credential');
+        err.message.should.be.equal('invalid appid');
         done();
       });
     });
@@ -233,7 +238,7 @@ describe('common.js', function () {
       api.sendVoice('openid', 'imageId', function (err, data, res) {
         should.exist(err);
         err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid credential');
+        err.message.should.be.equal('invalid appid');
         done();
       });
     });
@@ -242,7 +247,7 @@ describe('common.js', function () {
       api.sendVideo('openid', 'mediaId', 'thumbMediaId', function (err, data, res) {
         should.exist(err);
         err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid credential');
+        err.message.should.be.equal('invalid appid');
         done();
       });
     });
@@ -259,7 +264,7 @@ describe('common.js', function () {
       api.sendMusic('openid', music, function (err, data, res) {
         should.exist(err);
         err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid credential');
+        err.message.should.be.equal('invalid appid');
         done();
       });
     });
@@ -277,7 +282,7 @@ describe('common.js', function () {
       api.sendNews('openid', articles, function (err, data, res) {
         should.exist(err);
         err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid credential');
+        err.message.should.be.equal('invalid appid');
         done();
       });
     });
@@ -286,7 +291,7 @@ describe('common.js', function () {
       api.deliverNotify('{}', function (err, menu) {
         should.exist(err);
         err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid credential');
+        err.message.should.be.equal('invalid appid');
         done();
       });
     });
@@ -295,7 +300,7 @@ describe('common.js', function () {
       api.orderQuery('{}', function (err, menu) {
         should.exist(err);
         err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid credential');
+        err.message.should.be.equal('invalid appid');
         done();
       });
     });
@@ -423,115 +428,154 @@ describe('common.js', function () {
     });
   });
 
-  describe('invalid appid', function () {
-    var api = new API('appid', 'secret');
+  describe('valid appid', function () {
+    var api = new API(config.appid, config.appsecret);
+    before(function (done) {
+      api.getAccessToken(done);
+    });
 
-    it('createMenu should not ok', function (done) {
-      api.createMenu('{}', function (err, menu) {
-        should.exist(err);
-        err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid appid');
+    it('createMenu should ok', function (done) {
+      var menu = JSON.stringify(require('./fixture/menu.json'));
+      api.createMenu(menu, function (err, result) {
+        expect(err).not.to.be.ok();
+        expect(result).to.have.property('errcode', 0);
+        expect(result).to.have.property('errmsg', 'ok');
         done();
       });
     });
 
-    it('getMenu should not ok', function (done) {
+    it('getMenu should ok', function (done) {
       api.getMenu(function (err, menu) {
-        should.exist(err);
-        err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid appid');
+        expect(err).not.to.be.ok();
+        expect(menu).to.have.property('menu');
+        expect(menu.menu).to.have.property('button');
+        expect(menu.menu.button).to.have.length(3);
         done();
       });
     });
 
-    it('removeMenu should not ok', function (done) {
-      api.removeMenu(function (err, token) {
-        should.exist(err);
-        err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid appid');
+    it('removeMenu should ok', function (done) {
+      api.removeMenu(function (err, result) {
+        expect(err).not.to.be.ok();
+        expect(result).to.have.property('errcode', 0);
+        expect(result).to.have.property('errmsg', 'ok');
         done();
       });
     });
 
-    it('getQRCode should not ok', function (done) {
-      var ticket = {"expire_seconds": 1800, "action_name": "SCAN_SCENE", "action_info": {"scene": {"scene_id": 123}}};
-      api.getQRCode(ticket, function (err, data, res) {
-        should.exist(err);
-        err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid appid');
-        done();
-      });
-    });
-
-    it('createTmpQRCode should not ok', function (done) {
+    it('createTmpQRCode should ok', function (done) {
       api.createTmpQRCode(123, 1800, function (err, data, res) {
-        should.exist(err);
-        err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid appid');
+        expect(err).not.to.be.ok();
+        expect(data).to.have.property('ticket');
+        expect(data).to.have.property('expire_seconds');
         done();
       });
     });
 
-    it('createLimitQRCode should not ok', function (done) {
+    it('createLimitQRCode should ok', function (done) {
       api.createLimitQRCode(123, function (err, data, res) {
-        should.exist(err);
-        err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid appid');
+        expect(err).not.to.be.ok();
+        expect(data).to.have.property('ticket');
         done();
       });
     });
 
-    it('showQRCodeURL should not ok', function () {
+    it('showQRCodeURL should ok', function () {
       api.showQRCodeURL('ticket').should.be.equal('https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=ticket');
     });
 
-    it('getGroups should not ok', function (done) {
+    it('getGroups should ok', function (done) {
       api.getGroups(function (err, data, res) {
-        should.exist(err);
-        err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid appid');
+        expect(err).not.to.be.ok();
+        expect(data).to.have.property('groups');
+        expect(data.groups).to.be.an('array');
         done();
       });
     });
 
-    it('createGroup should not ok', function (done) {
+    it('createGroup should ok', function (done) {
       api.createGroup('new group', function (err, data, res) {
-        should.exist(err);
-        err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid appid');
+        expect(err).not.to.be.ok();
+        expect(data).to.have.property('group');
+        expect(data.group).to.have.property('id');
+        expect(data.group).to.have.property('name');
         done();
       });
     });
 
-    it('updateGroup should not ok', function (done) {
-      api.updateGroup(123, 'new group', function (err, data, res) {
-        should.exist(err);
-        err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid appid');
+    it('updateGroup should ok', function (done) {
+      api.updateGroup(101, 'renamed group', function (err, data, res) {
+        expect(err).not.to.be.ok();
+        expect(data).to.have.property('errcode', 0);
+        expect(data).to.have.property('errmsg', 'ok');
         done();
       });
     });
 
-    it('moveUserToGroup should not ok', function (done) {
-      api.moveUserToGroup('openid', 123, function (err, data, res) {
-        should.exist(err);
-        err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid appid');
+    it('moveUserToGroup should ok', function (done) {
+      api.moveUserToGroup(puling, 102, function (err, data, res) {
+        expect(err).not.to.be.ok();
+        expect(data).to.have.property('errcode', 0);
+        expect(data).to.have.property('errmsg', 'ok');
         done();
       });
     });
 
-    it('getUser should not ok', function (done) {
-      api.getUser('openid', function (err, data, res) {
-        should.exist(err);
-        err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid appid');
+    it('getUser should ok', function (done) {
+      api.getUser(puling, function (err, data, res) {
+        expect(err).not.to.be.ok();
+        expect(data).to.only.have.keys('subscribe', 'openid', 'nickname',
+          'sex', 'language', 'city', 'province', 'country', 'headimgurl',
+          'subscribe_time', 'remark');
         done();
       });
     });
 
-    it('getFollowers should not ok', function (done) {
+    it('getFollowers should ok', function (done) {
       api.getFollowers(function (err, data, res) {
+        expect(err).not.to.be.ok();
+        expect(data).to.only.have.keys('total', 'count', 'data', 'next_openid');
+        done();
+      });
+    });
+
+    it('getFollowers with nextOpenId should ok', function (done) {
+      api.getFollowers(puling, function (err, data, res) {
+        expect(err).not.to.be.ok();
+        expect(data).to.have.key('next_openid');
+        done();
+      });
+    });
+
+    it('sendText should ok', function (done) {
+      api.sendText(puling, 'Hellow World', function (err, data, res) {
+        expect(err).not.to.be.ok();
+        expect(data).to.have.property('errcode', 0);
+        expect(data).to.have.property('errmsg', 'ok');
+        done();
+      });
+    });
+
+    it('sendImage should ok', function (done) {
+      api.sendImage(puling, imageId, function (err, data, res) {
+        expect(err).not.to.be.ok();
+        expect(data).to.have.property('errcode', 0);
+        expect(data).to.have.property('errmsg', 'ok');
+        done();
+      });
+    });
+
+    it('sendVoice should ok', function (done) {
+      api.sendVoice(puling, 'imageId', function (err, data, res) {
+        expect(err).not.to.be.ok();
+        expect(data).to.have.property('errcode', 0);
+        expect(data).to.have.property('errmsg', 'ok');
+        done();
+      });
+    });
+
+    it('sendVideo should ok', function (done) {
+      api.sendVideo(puling, 'mediaId', 'thumbMediaId', function (err, data, res) {
         should.exist(err);
         err.name.should.be.equal('WeChatAPIError');
         err.message.should.be.equal('invalid appid');
@@ -539,52 +583,7 @@ describe('common.js', function () {
       });
     });
 
-    it('getFollowers with nextOpenId should not ok', function (done) {
-      api.getFollowers('openid', function (err, data, res) {
-        should.exist(err);
-        err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid appid');
-        done();
-      });
-    });
-
-    it('sendText should not ok', function (done) {
-      api.sendText('openid', 'Hellow World', function (err, data, res) {
-        should.exist(err);
-        err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid appid');
-        done();
-      });
-    });
-
-    it('sendImage should not ok', function (done) {
-      api.sendImage('openid', 'imageId', function (err, data, res) {
-        should.exist(err);
-        err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid appid');
-        done();
-      });
-    });
-
-    it('sendVoice should not ok', function (done) {
-      api.sendVoice('openid', 'imageId', function (err, data, res) {
-        should.exist(err);
-        err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid appid');
-        done();
-      });
-    });
-
-    it('sendVideo should not ok', function (done) {
-      api.sendVideo('openid', 'mediaId', 'thumbMediaId', function (err, data, res) {
-        should.exist(err);
-        err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid appid');
-        done();
-      });
-    });
-
-    it('sendMusic should not ok', function (done) {
+    it('sendMusic should ok', function (done) {
       var music = {
         "title":"MUSIC_TITLE", // 可选
         "description":"MUSIC_DESCRIPTION", // 可选
@@ -593,7 +592,7 @@ describe('common.js', function () {
         "thumb_media_id":"THUMB_MEDIA_ID"
       };
 
-      api.sendMusic('openid', music, function (err, data, res) {
+      api.sendMusic(puling, music, function (err, data, res) {
         should.exist(err);
         err.name.should.be.equal('WeChatAPIError');
         err.message.should.be.equal('invalid appid');
@@ -601,25 +600,25 @@ describe('common.js', function () {
       });
     });
 
-    it('sendNews should not ok', function (done) {
+    it('sendNews should ok', function (done) {
       var articles = [
         {
           "title":"Happy Day",
           "description":"Is Really A Happy Day",
           "url":"URL",
-          "picurl":"PIC_URL"
+          "picurl": "PIC_URL"
         }
       ];
 
-      api.sendNews('openid', articles, function (err, data, res) {
-        should.exist(err);
-        err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid appid');
+      api.sendNews(puling, articles, function (err, data, res) {
+        expect(err).not.to.be.ok();
+        expect(data).to.have.property('errcode', 0);
+        expect(data).to.have.property('errmsg', 'ok');
         done();
       });
     });
 
-    it('deliverNotify should not ok', function (done) {
+    it('deliverNotify should ok', function (done) {
       api.deliverNotify('{}', function (err, menu) {
         should.exist(err);
         err.name.should.be.equal('WeChatAPIError');
@@ -628,7 +627,7 @@ describe('common.js', function () {
       });
     });
 
-    it('orderQuery should not ok', function (done) {
+    it('orderQuery should ok', function (done) {
       api.orderQuery('{}', function (err, menu) {
         should.exist(err);
         err.name.should.be.equal('WeChatAPIError');
@@ -639,25 +638,26 @@ describe('common.js', function () {
 
     describe('upload media', function () {
       ['Image', 'Voice', 'Video', 'Thumb'].forEach(function (method) {
-        before(function () {
-          muk(urllib, 'request', function (url, args, callback) {
-            var resp = {
-              "type":"image",
-              "media_id":"usr5xL_gcxapoRjwH3bQZw_zKvcXL-DU4tRJtLtrtN71-3bXL52p3xX63ebp7tqA",
-              "created_at":1383233542
-            };
-            process.nextTick(function () {
-              callback(null, resp);
-            });
-          });
-        });
+        // before(function () {
+        //   muk(urllib, 'request', function (url, args, callback) {
+        //     var resp = {
+        //       "type":"image",
+        //       "media_id":"usr5xL_gcxapoRjwH3bQZw_zKvcXL-DU4tRJtLtrtN71-3bXL52p3xX63ebp7tqA",
+        //       "created_at":1383233542
+        //     };
+        //     process.nextTick(function () {
+        //       callback(null, resp);
+        //     });
+        //   });
+        // });
 
-        after(function () {
-          muk.restore();
-        });
+        // after(function () {
+        //   muk.restore();
+        // });
         it('upload' + method + ' should ok', function (done) {
           api['upload' + method](path.join(__dirname, './fixture/image.jpg'), function (err, data, res) {
             should.not.exist(err);
+            console.log(data);
             data.should.have.property('type', 'image');
             data.should.have.property('media_id');
             data.should.have.property('created_at');

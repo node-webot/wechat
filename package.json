@@ -34,6 +34,7 @@
     "supertest": "*",
     "mocha": "*",
     "should": "*",
+    "expect.js": "*",
     "connect": "*",
     "blanket": "*",
     "travis-cov": "*",
