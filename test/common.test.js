@@ -8,6 +8,9 @@ var API = require('../').API;
 
 var puling = 'ofL4cs7hr04cJIcu600_W-ZwwxHg';
 var imageId = 'XDZxzuRWBPqI4R9n_nNR5uRVZVQCSneMoELyWKflwM2qF9K38vnVFzgaD97uCTUu';
+var voiceId = '9R5BhAum7AEaGhwku0WhgvtO4C_7Xs78NoiRvm6v7IyoTljE4HH5o8E_UfnPrL0p';
+var thumbId = 'BHxGDVy7WY6BCOcv3AwbywUE630Vw0tAV_V8bzBaCZid4Km5fwXrVOso3X0zas4n';
+var movieId = 'b4F8SfaZZQwalDxwPjd923ACV5IUeYvZ9-dYKf5ytXrS-IImXEkl2U8Fl5EH-jCF';
 
 describe('common.js', function () {
   describe('getAccessToken', function () {
@@ -493,6 +496,14 @@ describe('common.js', function () {
       });
     });
 
+    it('getWhichGroup should ok', function (done) {
+      api.getWhichGroup(puling, function (err, data, res) {
+        expect(err).not.to.be.ok();
+        expect(data).to.have.property('groupid');
+        done();
+      });
+    });
+
     it('createGroup should ok', function (done) {
       api.createGroup('new group', function (err, data, res) {
         expect(err).not.to.be.ok();
@@ -566,7 +577,7 @@ describe('common.js', function () {
     });
 
     it('sendVoice should ok', function (done) {
-      api.sendVoice(puling, 'imageId', function (err, data, res) {
+      api.sendVoice(puling, voiceId, function (err, data, res) {
         expect(err).not.to.be.ok();
         expect(data).to.have.property('errcode', 0);
         expect(data).to.have.property('errmsg', 'ok');
@@ -575,10 +586,10 @@ describe('common.js', function () {
     });
 
     it('sendVideo should ok', function (done) {
-      api.sendVideo(puling, 'mediaId', 'thumbMediaId', function (err, data, res) {
-        should.exist(err);
-        err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid appid');
+      api.sendVideo(puling, movieId, thumbId, function (err, data, res) {
+        expect(err).not.to.be.ok();
+        expect(data).to.have.property('errcode', 0);
+        expect(data).to.have.property('errmsg', 'ok');
         done();
       });
     });
@@ -589,13 +600,13 @@ describe('common.js', function () {
         "description":"MUSIC_DESCRIPTION", // 可选
         "musicurl":"MUSIC_URL",
         "hqmusicurl":"HQ_MUSIC_URL",
-        "thumb_media_id":"THUMB_MEDIA_ID"
+        "thumb_media_id": thumbId
       };
 
       api.sendMusic(puling, music, function (err, data, res) {
-        should.exist(err);
-        err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid appid');
+        expect(err).not.to.be.ok();
+        expect(data).to.have.property('errcode', 0);
+        expect(data).to.have.property('errmsg', 'ok');
         done();
       });
     });
@@ -618,48 +629,25 @@ describe('common.js', function () {
       });
     });
 
-    it('deliverNotify should ok', function (done) {
-      api.deliverNotify('{}', function (err, menu) {
-        should.exist(err);
-        err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid appid');
-        done();
-      });
-    });
-
-    it('orderQuery should ok', function (done) {
-      api.orderQuery('{}', function (err, menu) {
-        should.exist(err);
-        err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid appid');
-        done();
-      });
-    });
-
     describe('upload media', function () {
+      var fixture = {
+        'Image': path.join(__dirname, './fixture/image.jpg'),
+        'Voice': path.join(__dirname, './fixture/test.mp3'),
+        'Video': path.join(__dirname, './fixture/movie.mp4'),
+        'Thumb': path.join(__dirname, './fixture/pic.jpg')
+      };
       ['Image', 'Voice', 'Video', 'Thumb'].forEach(function (method) {
-        // before(function () {
-        //   muk(urllib, 'request', function (url, args, callback) {
-        //     var resp = {
-        //       "type":"image",
-        //       "media_id":"usr5xL_gcxapoRjwH3bQZw_zKvcXL-DU4tRJtLtrtN71-3bXL52p3xX63ebp7tqA",
-        //       "created_at":1383233542
-        //     };
-        //     process.nextTick(function () {
-        //       callback(null, resp);
-        //     });
-        //   });
-        // });
-
-        // after(function () {
-        //   muk.restore();
-        // });
         it('upload' + method + ' should ok', function (done) {
-          api['upload' + method](path.join(__dirname, './fixture/image.jpg'), function (err, data, res) {
+          // 上传文件比较慢
+          this.timeout(60000);
+          api['upload' + method](fixture[method], function (err, data, res) {
             should.not.exist(err);
-            console.log(data);
-            data.should.have.property('type', 'image');
-            data.should.have.property('media_id');
+            data.should.have.property('type', method.toLowerCase());
+            if (method === 'Thumb') {
+              data.should.have.property('thumb_media_id');
+            } else {
+              data.should.have.property('media_id');
+            }
             data.should.have.property('created_at');
             done();
           });
@@ -756,6 +744,27 @@ describe('common.js', function () {
           err.should.have.property('name', 'SyntaxError');
           done();
         });
+      });
+    });
+  });
+
+  describe('pay', function () {
+    var api = new API('appid', 'secret');
+    it('deliverNotify should ok', function (done) {
+      api.deliverNotify('{}', function (err, menu) {
+        should.exist(err);
+        err.name.should.be.equal('WeChatAPIError');
+        err.message.should.be.equal('invalid appid');
+        done();
+      });
+    });
+
+    it('orderQuery should ok', function (done) {
+      api.orderQuery('{}', function (err, menu) {
+        should.exist(err);
+        err.name.should.be.equal('WeChatAPIError');
+        err.message.should.be.equal('invalid appid');
+        done();
       });
     });
   });
