@@ -13,6 +13,18 @@ var thumbId = 'BHxGDVy7WY6BCOcv3AwbywUE630Vw0tAV_V8bzBaCZid4Km5fwXrVOso3X0zas4n'
 var movieId = 'b4F8SfaZZQwalDxwPjd923ACV5IUeYvZ9-dYKf5ytXrS-IImXEkl2U8Fl5EH-jCF';
 
 describe('common.js', function () {
+  describe('mixin', function () {
+    it('should ok', function () {
+      API.mixin({sayHi: function () {}});
+      expect(API.prototype).to.have.property('sayHi');
+    });
+
+    it('should not ok when override method', function () {
+      var obj = {sayHi: function () {}};
+      expect(API.mixin).withArgs(obj).to.throwException(/Don't allow override existed prototype method\./);
+    });
+  });
+
   describe('getAccessToken', function () {
     it('should ok', function (done) {
       var api = new API(config.appid, config.appsecret);
@@ -635,6 +647,36 @@ describe('common.js', function () {
         'Video': path.join(__dirname, './fixture/movie.mp4'),
         'Thumb': path.join(__dirname, './fixture/pic.jpg')
       };
+
+      before(function () {
+        muk(api, 'uploadVideo', function (filepath, callback) {
+          if (filepath === path.join(__dirname, './fixture/inexist.jpg')) {
+            return process.nextTick(function () {
+              var err = new Error();
+              err.code = 'ENOENT';
+              callback(err);
+            });
+          }
+          var data = {
+            created_at: '',
+            media_id: '',
+            type: 'video'
+          };
+          var res =  {
+            headers: {
+              'content-type': 'image/jpeg'
+            }
+          };
+          process.nextTick(function () {
+            callback(null, data, res);
+          });
+        });
+      });
+
+      after(function () {
+        muk.restore();
+      });
+
       ['Image', 'Voice', 'Video', 'Thumb'].forEach(function (method) {
         it('upload' + method + ' should ok', function (done) {
           // 上传文件比较慢
@@ -764,6 +806,7 @@ describe('common.js', function () {
       after(function () {
         muk.restore();
       });
+
       it('getRecords should ok', function (done) {
         var condition = {
           "starttime" : 123456789,
@@ -777,6 +820,61 @@ describe('common.js', function () {
           expect(err).not.to.be.ok();
           expect(data).to.have.property('recordlist');
           done();
+        });
+      });
+    });
+
+    describe('mass send', function () {
+      describe('mock', function () {
+        before(function () {
+          muk(api, 'massSend', function (opts, receivers, callback) {
+            var data = {
+              "errcode": 0,
+              "errmsg": "send job submission success",
+              "msg_id": 34182
+            };
+            var res =  {
+              headers: {
+                'content-type': 'application/json'
+              }
+            };
+            process.nextTick(function () {
+              callback(null, data, res);
+            });
+          });
+        });
+
+        after(function () {
+          muk.restore();
+        });
+        it('send to openids should ok', function (done) {
+          api.massSendText('群发消息', [puling], function (err, data) {
+            expect(err).not.to.be.ok();
+            expect(data).to.have.property('errcode', 0);
+            expect(data).to.have.property('errmsg', 'send job submission success');
+            expect(data).to.have.property('msg_id');
+            done();
+          });
+        });
+
+        it('send to group should ok', function (done) {
+          api.massSendText('群发消息', 'groupid', function (err, data) {
+            expect(err).not.to.be.ok();
+            expect(data).to.have.property('errcode', 0);
+            expect(data).to.have.property('errmsg', 'send job submission success');
+            expect(data).to.have.property('msg_id');
+            done();
+          });
+        });
+      });
+
+      describe('should not ok', function () {
+        it('should ok', function (done) {
+          api.massSendText('群发消息', [puling], function (err, data) {
+            expect(err).to.be.ok();
+            expect(err).to.have.property('message', 'api unauthorized');
+            done();
+          });
         });
       });
     });

@@ -15,7 +15,8 @@ API.mixin(require('./lib/api_media'));
 API.mixin(require('./lib/api_customer'));
 // 获取客服聊天记录
 API.mixin(require('./lib/api_custom_service'));
-
+// 高级群发接口
+API.mixin(require('./lib/api_mass_send'));
 // 支付接口
 API.mixin(require('./lib/api_pay'));
 
