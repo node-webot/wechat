@@ -9,10 +9,13 @@ API.mixin(require('./lib/api_group'));
 API.mixin(require('./lib/api_user'));
 // 二维码
 API.mixin(require('./lib/api_qrcode'));
-// 客服消息
-API.mixin(require('./lib/api_customer'));
 // 媒体管理（上传、下载）
 API.mixin(require('./lib/api_media'));
+// 客服消息
+API.mixin(require('./lib/api_customer'));
+// 获取客服聊天记录
+API.mixin(require('./lib/api_custom_service'));
+
 // 支付接口
 API.mixin(require('./lib/api_pay'));
 
