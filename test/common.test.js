@@ -82,15 +82,14 @@ describe('common.js', function () {
   });
 
   describe('isAccessTokenValid', function () {
-    var api = new API('appid', 'secret', {});
     it('should invalid', function () {
-      api.token.isValid().should.be.equal(false);
+      var token = new API.AccessToken('token', new Date().getTime() - 7200 * 1000);
+      token.isValid().should.be.equal(false);
     });
 
     it('should valid', function () {
-      api.token.accessToken = 'token';
-      api.token.expireTime = new Date().getTime() + 7200 * 1000;
-      api.token.isValid().should.be.equal(true);
+      var token = new API.AccessToken('token', new Date().getTime() + 7200 * 1000);
+      token.isValid().should.be.equal(true);
     });
   });
 
