@@ -33,7 +33,7 @@
   "devDependencies": {
     "supertest": "*",
     "mocha": "*",
-    "should": "*",
+    "should": "~3.0.0",
     "expect.js": "*",
     "connect": "*",
     "blanket": "*",
