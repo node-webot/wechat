@@ -15,6 +15,7 @@ API.mixin(require('./lib/api_customer'));
 API.mixin(require('./lib/api_media'));
 // 支付接口
 API.mixin(require('./lib/api_pay'));
+
 wechat.API = API;
 wechat.OAuth = require('./lib/oauth');
 wechat.util = require('./lib/util');

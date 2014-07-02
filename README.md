@@ -325,6 +325,9 @@ app.use('/wechat', wechat('some token').text(function (message, req, res, next) 
 ## License
 The MIT license.
 
+## 交流群
+QQ群：157964097，使用疑问，开发，贡献代码请加群。
+
 ## 捐赠
 如果您觉得Wechat对您有帮助，欢迎请作者一杯咖啡
 
