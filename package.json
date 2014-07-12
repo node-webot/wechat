@@ -4,7 +4,9 @@
   "description": "微信公共平台Node库",
   "main": "index.js",
   "scripts": {
-    "test": "make test-all",
+    "test": "make test-all"
+  },
+  "config":{
     "blanket": {
       "pattern": "wechat/lib",
       "data-cover-flags": {
@@ -35,13 +37,13 @@
     "mocha": "*",
     "should": "~3.0.0",
     "expect.js": "*",
-    "connect": "*",
-    "blanket": "*",
+    "connect": "2.5.*",
     "travis-cov": "*",
     "coveralls": "*",
     "mocha-lcov-reporter": "*",
     "muk": "*",
-    "rewire": "*"
+    "rewire": "*",
+    "istanbul": "*"
   },
   "author": "Jackson Tian",
   "license": "MIT",

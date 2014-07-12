@@ -3,3 +3,4 @@ lib-cov
 coverage.html
 example
 .DS_Store
+coverage
