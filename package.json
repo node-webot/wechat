@@ -37,13 +37,13 @@
     "mocha": "*",
     "should": "~3.0.0",
     "expect.js": "*",
-    "connect": "*",
-    "blanket": "*",
+    "connect": "2.5.*",
     "travis-cov": "*",
     "coveralls": "*",
     "mocha-lcov-reporter": "*",
     "muk": "*",
-    "rewire": "*"
+    "rewire": "*",
+    "istanbul": "*"
   },
   "author": "Jackson Tian",
   "license": "MIT",
