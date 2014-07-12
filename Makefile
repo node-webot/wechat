@@ -13,7 +13,8 @@ test:
 test-cov:
 	@$(ISTANBUL) cover --report html $(MOCHA) -- -R spec $(TESTS)
 
-test-coveralls: test-cov
+test-coveralls:
+	@$(ISTANBUL) cover --report lcovonly $(MOCHA) -- -R spec $(TESTS)
 	@echo TRAVIS_JOB_ID $(TRAVIS_JOB_ID)
 	@cat ./coverage/lcov.info | $(COVERALLS) && rm -rf ./coverage
 
