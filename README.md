@@ -7,7 +7,7 @@ wechat [![NPM version](https://badge.fury.io/js/wechat.png)](http://badge.fury.i
 
 ## 功能列表
 - 自动回复（文本、图片、语音、视频、音乐、图文）
-- 客服消息（文本、图片、语音、视频、音乐、图文）
+- 发送客服消息（文本、图片、语音、视频、音乐、图文）
 - 菜单操作（查询、创建、删除）
 - 二维码（创建临时、永久二维码，查看二维码URL）
 - 分组操作（查询、创建、修改、移动用户到分组）
@@ -16,6 +16,8 @@ wechat [![NPM version](https://badge.fury.io/js/wechat.png)](http://badge.fury.i
 - 等待回复（用于调查问卷、问答等场景）
 - 会话支持（创新功能）
 - OAuth API（授权、获取基本信息）
+- 群发消息（文本、图片、语音、视频、图文）
+- 客服记录
 - 公众号支付（发货通知、订单查询）
 - 微信小店（TODO，求赞助，细节请见[#68](https://github.com/node-webot/wechat/issues/68)）
 
