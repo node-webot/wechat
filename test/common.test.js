@@ -12,7 +12,19 @@ var voiceId = '9R5BhAum7AEaGhwku0WhgvtO4C_7Xs78NoiRvm6v7IyoTljE4HH5o8E_UfnPrL0p'
 var thumbId = 'BHxGDVy7WY6BCOcv3AwbywUE630Vw0tAV_V8bzBaCZid4Km5fwXrVOso3X0zas4n';
 var movieId = 'b4F8SfaZZQwalDxwPjd923ACV5IUeYvZ9-dYKf5ytXrS-IImXEkl2U8Fl5EH-jCF';
 
-describe('api_.js', function () {
+describe('common.js', function () {
+  describe('mixin', function () {
+    it('should ok', function () {
+      API.mixin({sayHi: function () {}});
+      expect(API.prototype).to.have.property('sayHi');
+    });
+
+    it('should not ok when override method', function () {
+      var obj = {sayHi: function () {}};
+      expect(API.mixin).withArgs(obj).to.throwException(/Don't allow override existed prototype method\./);
+    });
+  });
+
   describe('getAccessToken', function () {
     it('should ok', function (done) {
       var api = new API(config.appid, config.appsecret);

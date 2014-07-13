@@ -32,7 +32,7 @@ describe('api_mass_send.js', function () {
         }
       ]
     };
-    it('should ok', function (done) {
+    it('_uploadNews should ok', function (done) {
       api._uploadNews(news, function (err, data) {
         expect(err).to.be.ok();
         expect(err).to.have.property('message', 'invalid media_id');
@@ -40,7 +40,15 @@ describe('api_mass_send.js', function () {
       });
     });
 
-    describe('mock', function () {
+    it('uploadNews should ok', function (done) {
+      api.uploadNews(news, function (err, data) {
+        expect(err).to.be.ok();
+        expect(err).to.have.property('message', 'invalid media_id');
+        done();
+      });
+    });
+
+    describe('mock _uploadNews ok', function () {
       before(function () {
         muk(urllib, 'request', function (url, opts, callback) {
           var data = {
@@ -48,13 +56,8 @@ describe('api_mass_send.js', function () {
             "media_id":"CsEf3ldqkAYJAU6EJeIkStVDSvffUJ54vqbThMgplD-VJXXof6ctX5fI6-aYyUiQ",
             "created_at":1391857799
           };
-          var res =  {
-            headers: {
-              'content-type': 'application/json'
-            }
-          };
           process.nextTick(function () {
-            callback(null, data, res);
+            callback(null, data);
           });
         });
       });
@@ -69,14 +72,6 @@ describe('api_mass_send.js', function () {
           expect(data).to.only.have.keys('type', 'media_id', 'created_at');
           done();
         });
-      });
-    });
-
-    it('should ok', function (done) {
-      api.uploadNews(news, function (err, data) {
-        expect(err).to.be.ok();
-        expect(err).to.have.property('message', 'invalid media_id');
-        done();
       });
     });
   });
