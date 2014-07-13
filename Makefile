@@ -6,15 +6,15 @@ MOCHA = ./node_modules/mocha/bin/_mocha
 COVERALLS = ./node_modules/coveralls/bin/coveralls.js
 
 test:
-	@NODE_ENV=test $(MOCHA) -R $(REPORTER) --timeout $(TIMEOUT) \
+	@NODE_ENV=test $(MOCHA) -R $(REPORTER) -t $(TIMEOUT) \
 		$(MOCHA_OPTS) \
 		$(TESTS)
 
 test-cov:
-	@$(ISTANBUL) cover --report html $(MOCHA) -- -R spec $(TESTS)
+	@$(ISTANBUL) cover --report html $(MOCHA) -- -t $(TIMEOUT) -R spec $(TESTS)
 
 test-coveralls:
-	@$(ISTANBUL) cover --report lcovonly $(MOCHA) -- -R spec $(TESTS)
+	@$(ISTANBUL) cover --report lcovonly $(MOCHA) -- -t $(TIMEOUT) -R spec $(TESTS)
 	@echo TRAVIS_JOB_ID $(TRAVIS_JOB_ID)
 	@cat ./coverage/lcov.info | $(COVERALLS) && rm -rf ./coverage
 
