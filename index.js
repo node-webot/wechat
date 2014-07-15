@@ -17,6 +17,8 @@ API.mixin(require('./lib/api_customer'));
 API.mixin(require('./lib/api_custom_service'));
 // 高级群发接口
 API.mixin(require('./lib/api_mass_send'));
+// 微信小店商品管理接口
+API.mixin(require('./lib/api_shop_goods'));
 // 支付接口
 API.mixin(require('./lib/api_pay'));
 
