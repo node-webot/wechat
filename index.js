@@ -19,6 +19,18 @@ API.mixin(require('./lib/api_custom_service'));
 API.mixin(require('./lib/api_mass_send'));
 // 微信小店商品管理接口
 API.mixin(require('./lib/api_shop_goods'));
+// 微信小店库存管理接口
+API.mixin(require('./lib/api_shop_stock'));
+// 微信小店邮费模版管理接口
+API.mixin(require('./lib/api_shop_express'));
+// 微信小店分组管理接口
+API.mixin(require('./lib/api_shop_group'));
+// 微信小店货架管理接口
+API.mixin(require('./lib/api_shop_shelf'));
+// 微信小店订单管理接口
+API.mixin(require('./lib/api_shop_order'));
+// 微信小店功能管理接口
+API.mixin(require('./lib/api_shop_common'));
 // 支付接口
 API.mixin(require('./lib/api_pay'));
 
