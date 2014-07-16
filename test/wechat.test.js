@@ -28,6 +28,8 @@ app.use('/wechat', wechat('some token', function (req, res, next) {
       musicUrl: "http://mp3.com/xx.mp3?a=b&c=d",
       hqMusicUrl: "http://mp3.com/xx.mp3?foo=bar"
     });
+  } else if (info.FromUserName === 'cs') {
+    res.transfer2CustomerService();
   } else {
   // 回复高富帅(图文回复)
     res.reply([
@@ -218,6 +220,29 @@ describe('wechat.js', function () {
         body.should.include('<Description><![CDATA[一无所有>]]></Description>');
         body.should.include('<MusicUrl><![CDATA[http://mp3.com/xx.mp3?a=b&c=d]]></MusicUrl>');
         body.should.include('<HQMusicUrl><![CDATA[http://mp3.com/xx.mp3?foo=bar]]></HQMusicUrl>');
+        done();
+      });
+    });
+
+    it('should ok with customer service', function (done) {
+      var info = {
+        sp: 'gaofushuai',
+        user: 'cs',
+        type: 'text',
+        text: '测试中'
+      };
+
+      request(app)
+      .post('/wechat' + tail())
+      .send(template(info))
+      .expect(200)
+      .end(function(err, res){
+        if (err) return done(err);
+        var body = res.text.toString();
+        body.should.include('<ToUserName><![CDATA[cs]]></ToUserName>');
+        body.should.include('<FromUserName><![CDATA[gaofushuai]]></FromUserName>');
+        body.should.match(/<CreateTime>\d{13}<\/CreateTime>/);
+        body.should.include('<MsgType><![CDATA[transfer_customer_service]]></MsgType>');
         done();
       });
     });
