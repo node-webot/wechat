@@ -38,7 +38,7 @@
     </nav>
     <header class="jumbotron subhead">
       <div class="container">
-        <h1>wechat <small>Version: 0.8.3 By @Jackson Tian</small></h1>
+        <h1>wechat <small>Version: 0.8.4 By @Jackson Tian</small></h1>
         <p class="lead">
           微信公共平台Node库
         </p>
@@ -2222,14 +2222,305 @@ api.sendNews(&#39;openid&#39;, articles, callback);
   <h2>api_shop_express: API索引</h2>
   <ul class="indexs">
   
+    <li>
+      <a href="#api_shop_express_exports_addExpressTemplate">addExpressTemplate</a>
+    </li>
+
+    <li>
+      <a href="#api_shop_express_exports_deleteExpressTemplate">deleteExpressTemplate</a>
+    </li>
+
+    <li>
+      <a href="#api_shop_express_exports_updateExpressTemplate">updateExpressTemplate</a>
+    </li>
+
+    <li>
+      <a href="#api_shop_express_exports_getExpressTemplateById">getExpressTemplateById</a>
+    </li>
+
+    <li>
+      <a href="#api_shop_express_exports_getAllExpressTemplates">getAllExpressTemplates</a>
+    </li>
+
   </ul>
   <hr />
 
   
-
+  <h3 data-id="api_shop_express_exports_addExpressTemplate">
+    addExpressTemplate
+  </h3>
   
 
+  <p>增加邮费模板<br />详细请看：<a href="http://mp.weixin.qq.com/wiki/index.php?title=微信小店接口">http://mp.weixin.qq.com/wiki/index.php?title=微信小店接口</a><br />Examples:</p><pre><code>api.addExpress(express, callback);
+</code></pre><p>Express:</p><pre><code>{
+ &quot;delivery_template&quot;: {
+   &quot;Name&quot;: &quot;testexpress&quot;,
+   &quot;Assumer&quot;: 0,
+   &quot;Valuation&quot;: 0,
+   &quot;TopFee&quot;: [
+     {
+       &quot;Type&quot;: 10000027,
+       &quot;Normal&quot;: {
+         &quot;StartStandards&quot;: 1,
+         &quot;StartFees&quot;: 2,
+         &quot;AddStandards&quot;: 3,
+         &quot;AddFees&quot;: 1
+       },
+       &quot;Custom&quot;: [
+         {
+           &quot;StartStandards&quot;: 1,
+           &quot;StartFees&quot;: 100,
+           &quot;AddStandards&quot;: 1,
+           &quot;AddFees&quot;: 3,
+           &quot;DestCountry&quot;: &quot;中国&quot;,
+           &quot;DestProvince&quot;: &quot;广东省&quot;,
+           &quot;DestCity&quot;: &quot;广州市&quot;
+         }
+       ]
+     },
+     {
+       &quot;Type&quot;: 10000028,
+       &quot;Normal&quot;: {
+         &quot;StartStandards&quot;: 1,
+         &quot;StartFees&quot;: 3,
+         &quot;AddStandards&quot;: 3,
+         &quot;AddFees&quot;: 2
+       },
+       &quot;Custom&quot;: [
+         {
+           &quot;StartStandards&quot;: 1,
+           &quot;StartFees&quot;: 10,
+           &quot;AddStandards&quot;: 1,
+           &quot;AddFees&quot;: 30,
+           &quot;DestCountry&quot;: &quot;中国&quot;,
+           &quot;DestProvince&quot;: &quot;广东省&quot;,
+           &quot;DestCity&quot;: &quot;广州市&quot;
+         }
+       ]
+     },
+     {
+       &quot;Type&quot;: 10000029,
+       &quot;Normal&quot;: {
+         &quot;StartStandards&quot;: 1,
+         &quot;StartFees&quot;: 4,
+         &quot;AddStandards&quot;: 3,
+         &quot;AddFees&quot;: 3
+       },
+       &quot;Custom&quot;: [
+         {
+           &quot;StartStandards&quot;: 1,
+           &quot;StartFees&quot;: 8,
+           &quot;AddStandards&quot;: 2,
+           &quot;AddFees&quot;: 11,
+           &quot;DestCountry&quot;: &quot;中国&quot;,
+           &quot;DestProvince&quot;: &quot;广东省&quot;,
+           &quot;DestCity&quot;: &quot;广州市&quot;
+         }
+       ]
+     }
+   ]
+ }
+}
+</code></pre><p>Callback:</p><ul>
+<li><code>err</code>, 调用失败时得到的异常</li>
+<li><code>result</code>, 调用正常时得到的对象</li>
+</ul>
+<p>Result:</p><pre><code>{
+ &quot;errcode&quot;: 0,
+ &quot;errmsg&quot;: &quot;success&quot;
+ &quot;template_id&quot;: 123456
+}
+</code></pre>
+
   <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>exports.addExpressTemplate()</td> 
+      <td>exports</td>
+      <td>addExpressTemplate</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>express(Object)</td>
+      <td colspan="2">邮费模版</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>callback(Function)</td>
+      <td colspan="2">回调函数</td>
+    </tr>
+  
+
+  
+  </table>
+  
+  
+  <h3 data-id="api_shop_express_exports_deleteExpressTemplate">
+    deleteExpressTemplate
+  </h3>
+  
+
+  <p>修改邮费模板<br />详细请看：<a href="http://mp.weixin.qq.com/wiki/index.php?title=微信小店接口">http://mp.weixin.qq.com/wiki/index.php?title=微信小店接口</a><br />Examples:</p><pre><code>api.deleteExpressTemplate(templateId, callback);
+</code></pre><p>Callback:</p><ul>
+<li><code>err</code>, 调用失败时得到的异常</li>
+<li><code>result</code>, 调用正常时得到的对象</li>
+</ul>
+<p>Result:</p><pre><code>{
+ &quot;errcode&quot;: 0,
+ &quot;errmsg&quot;: &quot;success&quot;
+}
+</code></pre>
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>exports.deleteExpressTemplate()</td> 
+      <td>exports</td>
+      <td>deleteExpressTemplate</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>templateId(Number)</td>
+      <td colspan="2">邮费模版ID</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>callback(Function)</td>
+      <td colspan="2">回调函数</td>
+    </tr>
+  
+
+  
+  </table>
+  
+  
+  <h3 data-id="api_shop_express_exports_updateExpressTemplate">
+    updateExpressTemplate
+  </h3>
+  
+
+  <p>修改邮费模板<br />详细请看：<a href="http://mp.weixin.qq.com/wiki/index.php?title=微信小店接口">http://mp.weixin.qq.com/wiki/index.php?title=微信小店接口</a><br />Examples:</p><pre><code>api.updateExpressTemplate(template, callback);
+</code></pre><p>Callback:</p><ul>
+<li><code>err</code>, 调用失败时得到的异常</li>
+<li><code>result</code>, 调用正常时得到的对象</li>
+</ul>
+<p>Express:</p><pre><code>{
+ &quot;template_id&quot;: 123456,
+ &quot;delivery_template&quot;: ...
+}
+</code></pre><p>Result:</p><pre><code>{
+ &quot;errcode&quot;: 0,
+ &quot;errmsg&quot;: &quot;success&quot;
+}
+</code></pre>
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>exports.updateExpressTemplate()</td> 
+      <td>exports</td>
+      <td>updateExpressTemplate</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>template(Object)</td>
+      <td colspan="2">邮费模版</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>callback(Function)</td>
+      <td colspan="2">回调函数</td>
+    </tr>
+  
+
+  
+  </table>
+  
+  
+  <h3 data-id="api_shop_express_exports_getExpressTemplateById">
+    getExpressTemplateById
+  </h3>
+  
+
+  <p>获取指定ID的邮费模板<br />详细请看：<a href="http://mp.weixin.qq.com/wiki/index.php?title=微信小店接口">http://mp.weixin.qq.com/wiki/index.php?title=微信小店接口</a><br />Examples:</p><pre><code>api.getExpressTemplateById(templateId, callback);
+</code></pre><p>Callback:</p><ul>
+<li><code>err</code>, 调用失败时得到的异常</li>
+<li><code>result</code>, 调用正常时得到的对象</li>
+</ul>
+<pre><code>Result:
+</code></pre><p>{<br /> &quot;errcode&quot;: 0,<br /> &quot;errmsg&quot;: &quot;success&quot;,<br /> &quot;template_info&quot;: {<br />   &quot;Id&quot;: 103312916,<br />   &quot;Name&quot;: &quot;testexpress&quot;,<br />   &quot;Assumer&quot;: 0,<br />   &quot;Valuation&quot;: 0,<br />   &quot;TopFee&quot;: [<br />     {<br />       &quot;Type&quot;: 10000027,<br />       &quot;Normal&quot;: {<br />         &quot;StartStandards&quot;: 1,<br />         &quot;StartFees&quot;: 2,<br />         &quot;AddStandards&quot;: 3,<br />         &quot;AddFees&quot;: 1<br />       },<br />       &quot;Custom&quot;: [<br />         {<br />           &quot;StartStandards&quot;: 1,<br />           &quot;StartFees&quot;: 1000,<br />           &quot;AddStandards&quot;: 1,<br />           &quot;AddFees&quot;: 3,<br />           &quot;DestCountry&quot;: &quot;中国&quot;,<br />           &quot;DestProvince&quot;: &quot;广东省&quot;,<br />           &quot;DestCity&quot;: &quot;广州市&quot;<br />         }<br />       ]<br />     },<br />     ...<br />   ]<br /> }<br />}<br />```</p>
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>exports.getExpressTemplateById()</td> 
+      <td>exports</td>
+      <td>getExpressTemplateById</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>templateId(Number)</td>
+      <td colspan="2">邮费模版Id</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>callback(Function)</td>
+      <td colspan="2">回调函数</td>
+    </tr>
+  
+
+  
+  </table>
+  
+  
+  <h3 data-id="api_shop_express_exports_getAllExpressTemplates">
+    getAllExpressTemplates
+  </h3>
+  
+
+  <p>获取所有邮费模板的未封装版本<br />详细请看：<a href="http://mp.weixin.qq.com/wiki/index.php?title=微信小店接口">http://mp.weixin.qq.com/wiki/index.php?title=微信小店接口</a><br />Examples:</p><pre><code>api.getAllExpressTemplates(callback);
+</code></pre><p>Callback:</p><ul>
+<li><code>err</code>, 调用失败时得到的异常</li>
+<li><code>result</code>, 调用正常时得到的对象</li>
+</ul>
+<pre><code>Result:
+</code></pre><p>{<br /> &quot;errcode&quot;: 0,<br /> &quot;errmsg&quot;: &quot;success&quot;,<br /> &quot;templates_info&quot;: [<br />   {<br />     &quot;Id&quot;: 103312916,<br />     &quot;Name&quot;: &quot;testexpress1&quot;,<br />     &quot;Assumer&quot;: 0,<br />     &quot;Valuation&quot;: 0,<br />     &quot;TopFee&quot;: [...],<br />   },<br />   {<br />     &quot;Id&quot;: 103312917,<br />     &quot;Name&quot;: &quot;testexpress2&quot;,<br />     &quot;Assumer&quot;: 0,<br />     &quot;Valuation&quot;: 2,<br />     &quot;TopFee&quot;: [...],<br />   },<br />   {<br />     &quot;Id&quot;: 103312918,<br />     &quot;Name&quot;: &quot;testexpress3&quot;,<br />     &quot;Assumer&quot;: 0,<br />     &quot;Valuation&quot;: 1,<br />     &quot;TopFee&quot;: [...],<br />   }<br /> ]<br />}<br />```</p>
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>exports.getAllExpressTemplates()</td> 
+      <td>exports</td>
+      <td>getAllExpressTemplates</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>callback(Function)</td>
+      <td colspan="2">回调函数</td>
+    </tr>
   
 
   
@@ -2932,14 +3223,332 @@ api.sendNews(&#39;openid&#39;, articles, callback);
   <h2>api_shop_group: API索引</h2>
   <ul class="indexs">
   
+    <li>
+      <a href="#api_shop_group_exports_createGoodsGroup">createGoodsGroup</a>
+    </li>
+
+    <li>
+      <a href="#api_shop_group_exports_deleteGoodsGroup">deleteGoodsGroup</a>
+    </li>
+
+    <li>
+      <a href="#api_shop_group_exports_updateGoodsGroup">updateGoodsGroup</a>
+    </li>
+
+    <li>
+      <a href="#api_shop_group_exports_updateGoodsForGroup">updateGoodsForGroup</a>
+    </li>
+
+    <li>
+      <a href="#api_shop_group_exports_getAllGroups">getAllGroups</a>
+    </li>
+
+    <li>
+      <a href="#api_shop_group_exports_getGroupById">getGroupById</a>
+    </li>
+
   </ul>
   <hr />
 
   
-
+  <h3 data-id="api_shop_group_exports_createGoodsGroup">
+    createGoodsGroup
+  </h3>
   
 
+  <p>创建商品分组<br />详细请看：<a href="http://mp.weixin.qq.com/wiki/index.php?title=微信小店接口">http://mp.weixin.qq.com/wiki/index.php?title=微信小店接口</a><br />Examples:</p><pre><code>api.createGoodsGroup(groupName, productList, callback);
+</code></pre><p>Callback:</p><ul>
+<li><code>err</code>, 调用失败时得到的异常</li>
+<li><code>result</code>, 调用正常时得到的对象</li>
+</ul>
+<p>Result:</p><pre><code>{
+ &quot;errcode&quot;: 0,
+ &quot;errmsg&quot;: &quot;success&quot;,
+ &quot;group_id&quot;: 19
+}
+</code></pre>
+
   <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>exports.createGoodsGroup()</td> 
+      <td>exports</td>
+      <td>createGoodsGroup</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>groupName(String)</td>
+      <td colspan="2">分组名</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>productList(Array)</td>
+      <td colspan="2">该组商品列表</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>callback(Function)</td>
+      <td colspan="2">回调函数</td>
+    </tr>
+  
+
+  
+  </table>
+  
+  
+  <h3 data-id="api_shop_group_exports_deleteGoodsGroup">
+    deleteGoodsGroup
+  </h3>
+  
+
+  <p>删除商品分组<br />详细请看：<a href="http://mp.weixin.qq.com/wiki/index.php?title=微信小店接口">http://mp.weixin.qq.com/wiki/index.php?title=微信小店接口</a><br />Examples:</p><pre><code>api.deleteGoodsGroup(groupId, callback);
+</code></pre><p>Callback:</p><ul>
+<li><code>err</code>, 调用失败时得到的异常</li>
+<li><code>result</code>, 调用正常时得到的对象</li>
+</ul>
+<p>Result:</p><pre><code>{
+ &quot;errcode&quot;: 0,
+ &quot;errmsg&quot;: &quot;success&quot;
+}
+</code></pre>
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>exports.deleteGoodsGroup()</td> 
+      <td>exports</td>
+      <td>deleteGoodsGroup</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>groupId(String)</td>
+      <td colspan="2">分组ID</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>callback(Function)</td>
+      <td colspan="2">回调函数</td>
+    </tr>
+  
+
+  
+  </table>
+  
+  
+  <h3 data-id="api_shop_group_exports_updateGoodsGroup">
+    updateGoodsGroup
+  </h3>
+  
+
+  <p>修改商品分组属性<br />详细请看：<a href="http://mp.weixin.qq.com/wiki/index.php?title=微信小店接口">http://mp.weixin.qq.com/wiki/index.php?title=微信小店接口</a><br />Examples:</p><pre><code>api.updateGoodsGroup(groupId, groupName, callback);
+</code></pre><p>Callback:</p><ul>
+<li><code>err</code>, 调用失败时得到的异常</li>
+<li><code>result</code>, 调用正常时得到的对象</li>
+</ul>
+<p>Result:</p><pre><code>{
+ &quot;errcode&quot;: 0,
+ &quot;errmsg&quot;: &quot;success&quot;
+}
+</code></pre>
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>exports.updateGoodsGroup()</td> 
+      <td>exports</td>
+      <td>updateGoodsGroup</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>groupId(String)</td>
+      <td colspan="2">分组ID</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>groupName(String)</td>
+      <td colspan="2">分组名</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>callback(Function)</td>
+      <td colspan="2">回调函数</td>
+    </tr>
+  
+
+  
+  </table>
+  
+  
+  <h3 data-id="api_shop_group_exports_updateGoodsForGroup">
+    updateGoodsForGroup
+  </h3>
+  
+
+  <p>修改商品分组内的商品<br />详细请看：<a href="http://mp.weixin.qq.com/wiki/index.php?title=微信小店接口">http://mp.weixin.qq.com/wiki/index.php?title=微信小店接口</a><br />Examples:</p><pre><code>api.updateGoodsForGroup(groupId, addProductList, delProductList, callback);
+</code></pre><p>Callback:</p><ul>
+<li><code>err</code>, 调用失败时得到的异常</li>
+<li><code>result</code>, 调用正常时得到的对象</li>
+</ul>
+<p>Result:</p><pre><code>{
+ &quot;errcode&quot;: 0,
+ &quot;errmsg&quot;: &quot;success&quot;
+}
+</code></pre>
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>exports.updateGoodsForGroup()</td> 
+      <td>exports</td>
+      <td>updateGoodsForGroup</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>groupId(Object)</td>
+      <td colspan="2">分组ID</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>addProductList(Array)</td>
+      <td colspan="2">待添加的商品数组</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>delProductList(Array)</td>
+      <td colspan="2">待删除的商品数组</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>callback(Function)</td>
+      <td colspan="2">回调函数</td>
+    </tr>
+  
+
+  
+  </table>
+  
+  
+  <h3 data-id="api_shop_group_exports_getAllGroups">
+    getAllGroups
+  </h3>
+  
+
+  <p>获取所有商品分组<br />详细请看：<a href="http://mp.weixin.qq.com/wiki/index.php?title=微信小店接口">http://mp.weixin.qq.com/wiki/index.php?title=微信小店接口</a><br />Examples:</p><pre><code>api.getAllGroups(callback);
+</code></pre><p>Callback:</p><ul>
+<li><code>err</code>, 调用失败时得到的异常</li>
+<li><code>result</code>, 调用正常时得到的对象</li>
+</ul>
+<p>Result:</p><pre><code>{
+ &quot;errcode&quot;: 0,
+ &quot;errmsg&quot;: &quot;success&quot;
+ &quot;groups_detail&quot;: [
+   {
+     &quot;group_id&quot;: 200077549,
+     &quot;group_name&quot;: &quot;新品上架&quot;
+   },{
+     &quot;group_id&quot;: 200079772,
+     &quot;group_name&quot;: &quot;全球热卖&quot;
+   }
+ ]
+}
+</code></pre>
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>exports.getAllGroups()</td> 
+      <td>exports</td>
+      <td>getAllGroups</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>callback(Function)</td>
+      <td colspan="2">回调函数</td>
+    </tr>
+  
+
+  
+  </table>
+  
+  
+  <h3 data-id="api_shop_group_exports_getGroupById">
+    getGroupById
+  </h3>
+  
+
+  <p>根据ID获取商品分组<br />详细请看：<a href="http://mp.weixin.qq.com/wiki/index.php?title=微信小店接口">http://mp.weixin.qq.com/wiki/index.php?title=微信小店接口</a><br />Examples:</p><pre><code>api.getGroupById(groupId, callback);
+</code></pre><p>Callback:</p><ul>
+<li><code>err</code>, 调用失败时得到的异常</li>
+<li><code>result</code>, 调用正常时得到的对象</li>
+</ul>
+<p>Result:</p><pre><code>{
+ &quot;errcode&quot;: 0,
+ &quot;errmsg&quot;: &quot;success&quot;
+ &quot;group_detail&quot;: {
+   &quot;group_id&quot;: 200077549,
+   &quot;group_name&quot;: &quot;新品上架&quot;,
+   &quot;product_list&quot;: [
+     &quot;pDF3iYzZoY-Budrzt8O6IxrwIJAA&quot;,
+     &quot;pDF3iY3pnWSGJcO2MpS2Nxy3HWx8&quot;,
+     &quot;pDF3iY33jNt0Dj3M3UqiGlUxGrio&quot;
+   ]
+ }
+}
+</code></pre>
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>exports.getGroupById()</td> 
+      <td>exports</td>
+      <td>getGroupById</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>groupId(String)</td>
+      <td colspan="2">分组ID</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>callback(Function)</td>
+      <td colspan="2">回调函数</td>
+    </tr>
   
 
   
@@ -2952,14 +3561,298 @@ api.sendNews(&#39;openid&#39;, articles, callback);
   <h2>api_shop_order: API索引</h2>
   <ul class="indexs">
   
+    <li>
+      <a href="#api_shop_order_exports_getOrderById">getOrderById</a>
+    </li>
+
+    <li>
+      <a href="#api_shop_order_exports_getOrdersByStatus">getOrdersByStatus</a>
+    </li>
+
+    <li>
+      <a href="#api_shop_order_exports_setExpressForOrder">setExpressForOrder</a>
+    </li>
+
+    <li>
+      <a href="#api_shop_order_exports_closeOrder">closeOrder</a>
+    </li>
+
   </ul>
   <hr />
 
   
-
+  <h3 data-id="api_shop_order_exports_getOrderById">
+    getOrderById
+  </h3>
   
 
+  <p>根据订单Id获取订单详情<br />详细请看：<a href="http://mp.weixin.qq.com/wiki/index.php?title=微信小店接口">http://mp.weixin.qq.com/wiki/index.php?title=微信小店接口</a><br />Examples:</p><pre><code>api.getOrderById(orderId, callback);
+</code></pre><p>Callback:</p><ul>
+<li><code>err</code>, 调用失败时得到的异常</li>
+<li><code>result</code>, 调用正常时得到的对象</li>
+</ul>
+<p>Result:</p><pre><code>{
+  &quot;errcode&quot;: 0,
+  &quot;errmsg&quot;: &quot;success&quot;,
+  &quot;order&quot;: {
+    &quot;order_id&quot;: &quot;7197417460812533543&quot;,
+    &quot;order_status&quot;: 6,
+    &quot;order_total_price&quot;: 6,
+    &quot;order_create_time&quot;: 1394635817,
+    &quot;order_express_price&quot;: 5,
+    &quot;buyer_openid&quot;: &quot;oDF3iY17NsDAW4UP2qzJXPsz1S9Q&quot;,
+    &quot;buyer_nick&quot;: &quot;likeacat&quot;,
+    &quot;receiver_name&quot;: &quot;张小猫&quot;,
+    &quot;receiver_province&quot;: &quot;广东省&quot;,
+    &quot;receiver_city&quot;: &quot;广州市&quot;,
+    &quot;receiver_address&quot;: &quot;华景路一号南方通信大厦5楼&quot;,
+    &quot;receiver_mobile&quot;: &quot;123456789&quot;,
+    &quot;receiver_phone&quot;: &quot;123456789&quot;,
+    &quot;product_id&quot;: &quot;pDF3iYx7KDQVGzB7kDg6Tge5OKFo&quot;,
+    &quot;product_name&quot;: &quot;安莉芳E-BRA专柜女士舒适内衣蕾丝3/4薄杯聚拢上托性感文胸KB0716&quot;,
+    &quot;product_price&quot;: 1,
+    &quot;product_sku&quot;: &quot;10000983:10000995;10001007:10001010&quot;,
+    &quot;product_count&quot;: 1,
+    &quot;product_img&quot;: &quot;http://img2.paipaiimg.com/00000000/item-52B87243-63CCF66C00000000040100003565C1EA.0.300x300.jpg&quot;,
+    &quot;delivery_id&quot;: &quot;1900659372473&quot;,
+    &quot;delivery_company&quot;: &quot;059Yunda&quot;,
+    &quot;trans_id&quot;: &quot;1900000109201404103172199813&quot;
+  }
+}
+</code></pre>
+
   <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>exports.getOrderById()</td> 
+      <td>exports</td>
+      <td>getOrderById</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>orderId(String)</td>
+      <td colspan="2">订单Id</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>callback(Function)</td>
+      <td colspan="2">回调函数</td>
+    </tr>
+  
+
+  
+  </table>
+  
+  
+  <h3 data-id="api_shop_order_exports_getOrdersByStatus">
+    getOrdersByStatus
+  </h3>
+  
+
+  <p>根据订单状态/创建时间获取订单详情<br />详细请看：<a href="http://mp.weixin.qq.com/wiki/index.php?title=微信小店接口">http://mp.weixin.qq.com/wiki/index.php?title=微信小店接口</a><br />Examples:</p><pre><code>api.getOrdersByStatus([status,] [beginTime,] [endTime,] callback);
+</code></pre><p>Usage:<br />当只传入callback参数时，查询所有状态，所有时间的订单<br />当传入两个参数，第一个参数为Number类型，第二个参数为callback时，查询指定状态，所有时间的订单<br />当传入两个参数，第一个参数为Date类型，第二个参数为callback时，查询所有状态，指定订单创建起始时间的订单(待测试)<br />当传入三个参数，第一参数为订单状态码，第二参数为订单创建起始时间，第三参数为callback<br />当传入四个参数，第一参数为订单状态码，第二参数为订单创建起始时间，第三参数为订单创建终止时间，第四参数为callback<br />Callback:</p><ul>
+<li><code>err</code>, 调用失败时得到的异常</li>
+<li><code>result</code>, 调用正常时得到的对象</li>
+</ul>
+<p>Result:</p><pre><code>{
+  &quot;errcode&quot;: 0,
+  &quot;errmsg&quot;: &quot;success&quot;,
+  &quot;order_list&quot;: [
+    {
+      &quot;order_id&quot;: &quot;7197417460812533543&quot;,
+      &quot;order_status&quot;: 6,
+      &quot;order_total_price&quot;: 6,
+      &quot;order_create_time&quot;: 1394635817,
+      &quot;order_express_price&quot;: 5,
+      &quot;buyer_openid&quot;: &quot;oDF3iY17NsDAW4UP2qzJXPsz1S9Q&quot;,
+      &quot;buyer_nick&quot;: &quot;likeacat&quot;,
+      &quot;receiver_name&quot;: &quot;张小猫&quot;,
+      &quot;receiver_province&quot;: &quot;广东省&quot;,
+      &quot;receiver_city&quot;: &quot;广州市&quot;,
+      &quot;receiver_address&quot;: &quot;华景路一号南方通信大厦5楼&quot;,
+      &quot;receiver_mobile&quot;: &quot;123456&quot;,
+      &quot;receiver_phone&quot;: &quot;123456&quot;,
+      &quot;product_id&quot;: &quot;pDF3iYx7KDQVGzB7kDg6Tge5OKFo&quot;,
+      &quot;product_name&quot;: &quot;安莉芳E-BRA专柜女士舒适内衣蕾丝3/4薄杯聚拢上托性感文胸KB0716&quot;,
+      &quot;product_price&quot;: 1,
+      &quot;product_sku&quot;: &quot;10000983:10000995;10001007:10001010&quot;,
+      &quot;product_count&quot;: 1,
+      &quot;product_img&quot;: &quot;http://mmbiz.qpic.cn/mmbiz/4whpV1VZl2icND8WwMThBEcehjhDv2icY4GrDSG5RLM3B2qd9kOicWGVJcsAhvXfibhWRNoGOvCfMC33G9z5yQr2Qw/0&quot;,
+      &quot;delivery_id&quot;: &quot;1900659372473&quot;,
+      &quot;delivery_company&quot;: &quot;059Yunda&quot;,
+      &quot;trans_id&quot;: &quot;1900000109201404103172199813&quot;
+    },
+    {
+      &quot;order_id&quot;: &quot;7197417460812533569&quot;,
+      &quot;order_status&quot;: 8,
+      &quot;order_total_price&quot;: 1,
+      &quot;order_create_time&quot;: 1394636235,
+      &quot;order_express_price&quot;: 0,
+      &quot;buyer_openid&quot;: &quot;oDF3iY17NsDAW4UP2qzJXPsz1S9Q&quot;,
+      &quot;buyer_nick&quot;: &quot;likeacat&quot;,
+      &quot;receiver_name&quot;: &quot;张小猫&quot;,
+      &quot;receiver_province&quot;: &quot;广东省&quot;,
+      &quot;receiver_city&quot;: &quot;广州市&quot;,
+      &quot;receiver_address&quot;: &quot;华景路一号南方通信大厦5楼&quot;,
+      &quot;receiver_mobile&quot;: &quot;123456&quot;,
+      &quot;receiver_phone&quot;: &quot;123456&quot;,
+      &quot;product_id&quot;: &quot;pDF3iYx7KDQVGzB7kDg6Tge5OKFo&quot;,
+      &quot;product_name&quot;: &quot;项坠333&quot;,
+      &quot;product_price&quot;: 1,
+      &quot;product_sku&quot;: &quot;1075741873:1079742377&quot;,
+      &quot;product_count&quot;: 1,
+      &quot;product_img&quot;: &quot;http://mmbiz.qpic.cn/mmbiz/4whpV1VZl2icND8WwMThBEcehjhDv2icY4GrDSG5RLM3B2qd9kOicWGVJcsAhvXfibhWRNoGOvCfMC33G9z5yQr2Qw/0&quot;,
+      &quot;delivery_id&quot;: &quot;1900659372473&quot;,
+      &quot;delivery_company&quot;: &quot;059Yunda&quot;,
+      &quot;trans_id&quot;: &quot;1900000109201404103172199813&quot;
+    }
+  ]
+}
+</code></pre>
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>exports.getOrdersByStatus()</td> 
+      <td>exports</td>
+      <td>getOrdersByStatus</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>status(Number)</td>
+      <td colspan="2">状态码。(无此参数-全部状态, 2-待发货, 3-已发货, 5-已完成, 8-维权中)</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>beginTime(Date)</td>
+      <td colspan="2">订单创建时间起始时间。(无此参数则不按照时间做筛选)</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>endTime(Date)</td>
+      <td colspan="2">订单创建时间终止时间。(无此参数则不按照时间做筛选)</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>callback(Function)</td>
+      <td colspan="2">回调函数</td>
+    </tr>
+  
+
+  
+  </table>
+  
+  
+  <h3 data-id="api_shop_order_exports_setExpressForOrder">
+    setExpressForOrder
+  </h3>
+  
+
+  <p>设置订单发货信息<br />详细请看：<a href="http://mp.weixin.qq.com/wiki/index.php?title=微信小店接口">http://mp.weixin.qq.com/wiki/index.php?title=微信小店接口</a><br />Examples:</p><pre><code>api.setExpressForOrder(orderId, deliveryCompany, deliveryTrackNo, callback);
+</code></pre><p>Callback:</p><ul>
+<li><code>err</code>, 调用失败时得到的异常</li>
+<li><code>result</code>, 调用正常时得到的对象</li>
+</ul>
+<p>Result:</p><pre><code>{
+ &quot;errcode&quot;: 0,
+ &quot;errmsg&quot;: &quot;success&quot;
+}
+</code></pre>
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>exports.setExpressForOrder()</td> 
+      <td>exports</td>
+      <td>setExpressForOrder</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>orderId(String)</td>
+      <td colspan="2">订单Id</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>deliveryCompany(String)</td>
+      <td colspan="2">物流公司 (物流公司Id请参考微信小店API手册)</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>deliveryTrackNo(String)</td>
+      <td colspan="2">运单Id</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>callback(Function)</td>
+      <td colspan="2">回调函数</td>
+    </tr>
+  
+
+  
+  </table>
+  
+  
+  <h3 data-id="api_shop_order_exports_closeOrder">
+    closeOrder
+  </h3>
+  
+
+  <p>关闭订单<br />详细请看：<a href="http://mp.weixin.qq.com/wiki/index.php?title=微信小店接口">http://mp.weixin.qq.com/wiki/index.php?title=微信小店接口</a><br />Examples:</p><pre><code>api.closeOrder(orderId, callback);
+</code></pre><p>Callback:</p><ul>
+<li><code>err</code>, 调用失败时得到的异常</li>
+<li><code>result</code>, 调用正常时得到的对象</li>
+</ul>
+<p>Result:</p><pre><code>{
+ &quot;errcode&quot;: 0,
+ &quot;errmsg&quot;: &quot;success&quot;
+}
+</code></pre>
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>exports.closeOrder()</td> 
+      <td>exports</td>
+      <td>closeOrder</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>orderId(String)</td>
+      <td colspan="2">订单Id</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>callback(Function)</td>
+      <td colspan="2">回调函数</td>
+    </tr>
   
 
   
@@ -2972,14 +3865,378 @@ api.sendNews(&#39;openid&#39;, articles, callback);
   <h2>api_shop_shelf: API索引</h2>
   <ul class="indexs">
   
+    <li>
+      <a href="#api_shop_shelf_exports_createShelf">createShelf</a>
+    </li>
+
+    <li>
+      <a href="#api_shop_shelf_exports_deleteShelf">deleteShelf</a>
+    </li>
+
+    <li>
+      <a href="#api_shop_shelf_exports_updateShelf">updateShelf</a>
+    </li>
+
+    <li>
+      <a href="#api_shop_shelf_exports_getAllShelves">getAllShelves</a>
+    </li>
+
+    <li>
+      <a href="#api_shop_shelf_exports_getShelfById">getShelfById</a>
+    </li>
+
   </ul>
   <hr />
 
   
-
+  <h3 data-id="api_shop_shelf_exports_createShelf">
+    createShelf
+  </h3>
   
 
+  <p>增加货架<br />详细请看：<a href="http://mp.weixin.qq.com/wiki/index.php?title=微信小店接口">http://mp.weixin.qq.com/wiki/index.php?title=微信小店接口</a><br />Examples:</p><pre><code>api.createShelf(shelf, callback);
+</code></pre><p>Shelf:</p><pre><code>{
+  &quot;shelf_data&quot;: {
+    &quot;module_infos&quot;: [
+    {
+      &quot;group_info&quot;: {
+        &quot;filter&quot;: {
+          &quot;count&quot;: 2
+        },
+        &quot;group_id&quot;: 50
+      },
+      &quot;eid&quot;: 1
+    },
+    {
+      &quot;group_infos&quot;: {
+        &quot;groups&quot;: [
+          {
+            &quot;group_id&quot;: 49
+          },
+          {
+            &quot;group_id&quot;: 50
+          },
+          {
+            &quot;group_id&quot;: 51
+          }
+        ]
+      },
+      &quot;eid&quot;: 2
+    },
+    {
+      &quot;group_info&quot;: {
+        &quot;group_id&quot;: 52,
+        &quot;img&quot;: &quot;http://mmbiz.qpic.cn/mmbiz/4whpV1VZl29nqqObBwFwnIX3licVPnFV5Jm64z4I0TTicv0TjN7Vl9bykUUibYKIOjicAwIt6Oy0Y6a1Rjp5Tos8tg/0&quot;
+      },
+      &quot;eid&quot;: 3
+    },
+    {
+      &quot;group_infos&quot;: {
+        &quot;groups&quot;: [
+          {
+            &quot;group_id&quot;: 49,
+            &quot;img&quot;: &quot;http://mmbiz.qpic.cn/mmbiz/4whpV1VZl29nqqObBwFwnIX3licVPnFV5uUQx7TLx4tB9qZfbe3JmqR4NkkEmpb5LUWoXF1ek9nga0IkeSSFZ8g/0&quot;
+          },
+          {
+            &quot;group_id&quot;: 50,
+            &quot;img&quot;: &quot;http://mmbiz.qpic.cn/mmbiz/4whpV1VZl29nqqObBwFwnIX3licVPnFV5G1kdy3ViblHrR54gbCmbiaMnl5HpLGm5JFeENyO9FEZAy6mPypEpLibLA/0&quot;
+          },
+          {
+            &quot;group_id&quot;: 52,
+            &quot;img&quot;: &quot;http://mmbiz.qpic.cn/mmbiz/4whpV1VZl29nqqObBwFwnIX3licVPnFV5uUQx7TLx4tB9qZfbe3JmqR4NkkEmpb5LUWoXF1ek9nga0IkeSSFZ8g/0&quot;
+          }
+        ]
+      },
+      &quot;eid&quot;: 4
+    },
+    {
+      &quot;group_infos&quot;: {
+        &quot;groups&quot;: [
+          {
+            &quot;group_id&quot;: 43
+          },
+          {
+            &quot;group_id&quot;: 44
+          },
+          {
+            &quot;group_id&quot;: 45
+          },
+          {
+            &quot;group_id&quot;: 46
+          }
+        ],
+      &quot;img_background&quot;: &quot;http://mmbiz.qpic.cn/mmbiz/4whpV1VZl29nqqObBwFwnIX3licVPnFV5uUQx7TLx4tB9qZfbe3JmqR4NkkEmpb5LUWoXF1ek9nga0IkeSSFZ8g/0&quot;
+      },
+      &quot;eid&quot;: 5
+    }
+    ]
+  },
+  &quot;shelf_banner&quot;: &quot;http://mmbiz.qpic.cn/mmbiz/4whpV1VZl2ibrWQn8zWFUh1YznsMV0XEiavFfLzDWYyvQOBBszXlMaiabGWzz5B2KhNn2IDemHa3iarmCyribYlZYyw/0&quot;,
+  &quot;shelf_name&quot;: &quot;测试货架&quot;
+}
+</code></pre><p>Callback:</p><ul>
+<li><code>err</code>, 调用失败时得到的异常</li>
+<li><code>result</code>, 调用正常时得到的对象</li>
+</ul>
+<p>Result:</p><pre><code>{
+  &quot;errcode&quot;: 0,
+  &quot;errmsg&quot;: &quot;success&quot;,
+  &quot;shelf_id&quot;: 12
+}
+</code></pre>
+
   <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>exports.createShelf()</td> 
+      <td>exports</td>
+      <td>createShelf</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>shelf(Object)</td>
+      <td colspan="2">货架信息</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>callback(Function)</td>
+      <td colspan="2">回调函数</td>
+    </tr>
+  
+
+  
+  </table>
+  
+  
+  <h3 data-id="api_shop_shelf_exports_deleteShelf">
+    deleteShelf
+  </h3>
+  
+
+  <p>删除货架<br />详细请看：<a href="http://mp.weixin.qq.com/wiki/index.php?title=微信小店接口">http://mp.weixin.qq.com/wiki/index.php?title=微信小店接口</a><br />Examples:</p><pre><code>api.deleteShelf(shelfId, callback);
+</code></pre><p>Callback:</p><ul>
+<li><code>err</code>, 调用失败时得到的异常</li>
+<li><code>result</code>, 调用正常时得到的对象</li>
+</ul>
+<p>Result:</p><pre><code>{
+  &quot;errcode&quot;: 0,
+  &quot;errmsg&quot;: &quot;success&quot;
+}
+</code></pre>
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>exports.deleteShelf()</td> 
+      <td>exports</td>
+      <td>deleteShelf</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>shelfId(String)</td>
+      <td colspan="2">货架Id</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>callback(Function)</td>
+      <td colspan="2">回调函数</td>
+    </tr>
+  
+
+  
+  </table>
+  
+  
+  <h3 data-id="api_shop_shelf_exports_updateShelf">
+    updateShelf
+  </h3>
+  
+
+  <p>修改货架<br />详细请看：<a href="http://mp.weixin.qq.com/wiki/index.php?title=微信小店接口">http://mp.weixin.qq.com/wiki/index.php?title=微信小店接口</a><br />Examples:</p><pre><code>api.updateShelf(shelf, callback);
+</code></pre><p>Shelf:</p><pre><code>{
+  &quot;shelf_id&quot;: 12345,
+  &quot;shelf_data&quot;: ...,
+  &quot;shelf_banner&quot;: &quot;http://mmbiz.qpic.cn/mmbiz/ 4whpV1VZl2ibrWQn8zWFUh1YznsMV0XEiavFfLzDWYyvQOBBszXlMaiabGWzz5B2K hNn2IDemHa3iarmCyribYlZYyw/0&quot;,
+  &quot;shelf_name&quot;: &quot;货架名称&quot;
+}
+</code></pre><p>Callback:</p><ul>
+<li><code>err</code>, 调用失败时得到的异常</li>
+<li><code>result</code>, 调用正常时得到的对象</li>
+</ul>
+<p>Result:</p><pre><code>{
+  &quot;errcode&quot;: 0,
+  &quot;errmsg&quot;: &quot;success&quot;
+}
+</code></pre>
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>exports.updateShelf()</td> 
+      <td>exports</td>
+      <td>updateShelf</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>shelf(Object)</td>
+      <td colspan="2">货架信息</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>callback(Function)</td>
+      <td colspan="2">回调函数</td>
+    </tr>
+  
+
+  
+  </table>
+  
+  
+  <h3 data-id="api_shop_shelf_exports_getAllShelves">
+    getAllShelves
+  </h3>
+  
+
+  <p>获取所有货架<br />详细请看：<a href="http://mp.weixin.qq.com/wiki/index.php?title=微信小店接口">http://mp.weixin.qq.com/wiki/index.php?title=微信小店接口</a><br />Examples:</p><pre><code>api.getAllShelf(callback);
+</code></pre><p>Callback:</p><ul>
+<li><code>err</code>, 调用失败时得到的异常</li>
+<li><code>result</code>, 调用正常时得到的对象</li>
+</ul>
+<p>Result:</p><pre><code>{
+  &quot;errcode&quot;: 0,
+  &quot;errmsg&quot;: &quot;success&quot;,
+  &quot;shelves&quot;: [
+    {
+      &quot;shelf_info&quot;: {
+      &quot;module_infos&quot;: [
+        {
+        &quot;group_infos&quot;: {
+          &quot;groups&quot;: [
+          {
+            &quot;group_id&quot;: 200080093
+          },
+          {
+            &quot;group_id&quot;: 200080118
+          },
+          {
+            &quot;group_id&quot;: 200080119
+          },
+          {
+            &quot;group_id&quot;: 200080135
+          }
+          ],
+          &quot;img_background&quot;: &quot;http://mmbiz.qpic.cn/mmbiz/4whpV1VZl294FzPwnf9dAcaN7ButStztAZyy2yHY8pW6sTQKicIhAy5F0a2CqmrvDBjMFLtc2aEhAQ7uHsPow9A/0&quot;
+        },
+        &quot;eid&quot;: 5
+        }
+      ]
+      },
+      &quot;shelf_banner&quot;: &quot;http://mmbiz.qpic.cn/mmbiz/4whpV1VZl294FzPwnf9dAcaN7ButStztAZyy2yHY8pW6sTQKicIhAy5F0a2CqmrvDBjMFLtc2aEhAQ7uHsPow9A/0&quot;,
+      &quot;shelf_name&quot;: &quot;新新人类&quot;,
+      &quot;shelf_id&quot;: 22
+    },
+    {
+      &quot;shelf_info&quot;: {
+      &quot;module_infos&quot;: [
+        {
+          &quot;group_info&quot;: {
+            &quot;group_id&quot;: 200080119,
+            &quot;filter&quot;: {
+              &quot;count&quot;: 4
+            }
+          },
+          &quot;eid&quot;: 1
+        }
+      ]
+      },
+      &quot;shelf_banner&quot;: &quot;http://mmbiz.qpic.cn/mmbiz/4whpV1VZl294FzPwnf9dAcaN7ButStztAZyy2yHY8pW6sTQKicIhAy5F0a2CqmrvDBjMFLtc2aEhAQ7uHsPow9A/0&quot;,
+      &quot;shelf_name&quot;: &quot;店铺&quot;,
+      &quot;shelf_id&quot;: 23
+    }
+  ]
+}
+</code></pre>
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>exports.getAllShelves()</td> 
+      <td>exports</td>
+      <td>getAllShelves</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>callback(Function)</td>
+      <td colspan="2">回调函数</td>
+    </tr>
+  
+
+  
+  </table>
+  
+  
+  <h3 data-id="api_shop_shelf_exports_getShelfById">
+    getShelfById
+  </h3>
+  
+
+  <p>根据货架ID获取货架信息<br />详细请看：<a href="http://mp.weixin.qq.com/wiki/index.php?title=微信小店接口">http://mp.weixin.qq.com/wiki/index.php?title=微信小店接口</a><br />Examples:</p><pre><code>api.getShelfById(shelfId, callback);
+</code></pre><p>Callback:</p><ul>
+<li><code>err</code>, 调用失败时得到的异常</li>
+<li><code>result</code>, 调用正常时得到的对象</li>
+</ul>
+<p>Result:</p><pre><code>{
+  &quot;errcode&quot;: 0,
+  &quot;errmsg&quot;: &quot;success&quot;,
+  &quot;shelf_info&quot;: {
+    &quot;module_infos&quot;: [...]
+  },
+  &quot;shelf_banner&quot;: &quot;http://mmbiz.qpic.cn/mmbiz/4whpV1VZl2ibp2DgDXiaic6WdflMpNdInS8qUia2BztlPu1gPlCDLZXEjia2qBdjoLiaCGUno9zbs1UyoqnaTJJGeEew/0&quot;,
+  &quot;shelf_name&quot;: &quot;新建货架&quot;,
+  &quot;shelf_id&quot;: 97
+}
+</code></pre>
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>exports.getShelfById()</td> 
+      <td>exports</td>
+      <td>getShelfById</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>shelfId(String)</td>
+      <td colspan="2">货架Id</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>callback(Function)</td>
+      <td colspan="2">回调函数</td>
+    </tr>
   
 
   
