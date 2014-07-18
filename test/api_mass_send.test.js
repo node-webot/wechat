@@ -1,21 +1,20 @@
-var should = require('should');
 var expect = require('expect.js');
 var urllib = require('urllib');
 var muk = require('muk');
-var path = require('path');
 var config = require('./config');
 var API = require('../').API;
 
 var puling = 'ofL4cs7hr04cJIcu600_W-ZwwxHg';
 var imageId = 'XDZxzuRWBPqI4R9n_nNR5uRVZVQCSneMoELyWKflwM2qF9K38vnVFzgaD97uCTUu';
-var voiceId = '9R5BhAum7AEaGhwku0WhgvtO4C_7Xs78NoiRvm6v7IyoTljE4HH5o8E_UfnPrL0p';
-var thumbId = 'BRfeU5-ahUyENtytbAP7OO3A7w9OTxMRBghh1de_y0oWxm36D66-e91tMibuemmB';
 var movieId = 'b4F8SfaZZQwalDxwPjd923ACV5IUeYvZ9-dYKf5ytXrS-IImXEkl2U8Fl5EH-jCF';
 
 describe('api_mass_send.js', function () {
   var api = new API(config.appid, config.appsecret);
   before(function (done) {
-    api.getAccessToken(done);
+    api.getAccessToken(function (err, token) {
+      api.token = token;
+      done(err);
+    });
   });
 
   describe('_uploadNews', function () {
@@ -32,19 +31,49 @@ describe('api_mass_send.js', function () {
         }
       ]
     };
-    it('_uploadNews should ok', function (done) {
-      api._uploadNews(news, function (err, data) {
-        expect(err).to.be.ok();
-        expect(err).to.have.property('message', 'invalid media_id');
-        done();
+
+    describe('mock _uploadNews ok', function () {
+      before(function () {
+        muk(urllib, 'request', function (url, opts, callback) {
+          process.nextTick(function () {
+            callback(new Error('mock invalid media_id'));
+          });
+        });
+      });
+
+      after(function () {
+        muk.restore();
+      });
+
+      it('_uploadNews should ok', function (done) {
+        api._uploadNews(news, function (err, data) {
+          expect(err).to.be.ok();
+          expect(err).to.have.property('message', 'mock invalid media_id');
+          done();
+        });
       });
     });
 
-    it('uploadNews should ok', function (done) {
-      api.uploadNews(news, function (err, data) {
-        expect(err).to.be.ok();
-        expect(err).to.have.property('message', 'invalid media_id');
-        done();
+
+    describe('mock _uploadNews ok', function () {
+      before(function () {
+        muk(urllib, 'request', function (url, opts, callback) {
+          process.nextTick(function () {
+            callback(new Error('mock invalid media_id'));
+          });
+        });
+      });
+
+      after(function () {
+        muk.restore();
+      });
+
+      it('uploadNews should ok', function (done) {
+        api.uploadNews(news, function (err, data) {
+          expect(err).to.be.ok();
+          expect(err).to.have.property('message', 'mock invalid media_id');
+          done();
+        });
       });
     });
 
@@ -175,16 +204,30 @@ describe('api_mass_send.js', function () {
   });
 
   describe('massSendMPVideo', function () {
-    it('should ok', function (done) {
-      var opts = {
-        "media_id": "rF4UdIMfYK3efUfyoddYRMU50zMiRmmt_l0kszupYh_SzrcW5Gaheq05p_lHuOTQ",
-        "title": "TITLE",
-        "description": "Description"
-      };
-      api.massSendMPVideo(opts, [puling], function (err, data) {
-        expect(err).to.be.ok();
-        expect(err).to.have.property('message', 'api unauthorized');
-        done();
+    describe('mock err', function () {
+      before(function () {
+        muk(api, 'preRequest', function (method, args) {
+          var callback = args[args.length - 1];
+          process.nextTick(function () {
+            callback(new Error('mock error'));
+          });
+        });
+      });
+      after(function () {
+        muk.restore();
+      });
+
+      it('should ok', function (done) {
+        var opts = {
+          "media_id": movieId,
+          "title": "TITLE",
+          "description": "Description"
+        };
+        api.massSendMPVideo(opts, [puling], function (err, data) {
+          expect(err).to.be.ok();
+          expect(err).to.have.property('message', 'mock error');
+          done();
+        });
       });
     });
 
@@ -237,16 +280,30 @@ describe('api_mass_send.js', function () {
   });
 
   describe('uploadMPVideo', function () {
-    it('should ok', function (done) {
-      var opts = {
-        "media_id": "rF4UdIMfYK3efUfyoddYRMU50zMiRmmt_l0kszupYh_SzrcW5Gaheq05p_lHuOTQ",
-        "title": "TITLE",
-        "description": "Description"
-      };
-      api.uploadMPVideo(opts, function (err, data) {
-        expect(err).to.be.ok();
-        expect(err).to.have.property('message', 'invalid media_id');
-        done();
+    describe('mock err', function () {
+      before(function () {
+        muk(urllib, 'request', function (url, opts, callback) {
+          process.nextTick(function () {
+            callback(new Error('mock err'));
+          });
+        });
+      });
+
+      after(function () {
+        muk.restore();
+      });
+
+      it('should ok', function (done) {
+        var opts = {
+          "media_id": "rF4UdIMfYK3efUfyoddYRMU50zMiRmmt_l0kszupYh_SzrcW5Gaheq05p_lHuOTQ",
+          "title": "TITLE",
+          "description": "Description"
+        };
+        api.uploadMPVideo(opts, function (err, data) {
+          expect(err).to.be.ok();
+          expect(err).to.have.property('message', 'mock err');
+          done();
+        });
       });
     });
   });
