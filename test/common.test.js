@@ -230,15 +230,6 @@ describe('common.js', function () {
       });
     });
 
-    it('sendText should not ok', function (done) {
-      api.sendText('openid', 'Hellow World', function (err, data, res) {
-        should.exist(err);
-        err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid appid');
-        done();
-      });
-    });
-
     it('sendImage should not ok', function (done) {
       api.sendImage('openid', 'imageId', function (err, data, res) {
         should.exist(err);
@@ -566,15 +557,6 @@ describe('common.js', function () {
       api.getFollowers(puling, function (err, data, res) {
         expect(err).not.to.be.ok();
         expect(data).to.have.key('next_openid');
-        done();
-      });
-    });
-
-    it('sendText should ok', function (done) {
-      api.sendText(puling, 'Hellow World', function (err, data, res) {
-        expect(err).not.to.be.ok();
-        expect(data).to.have.property('errcode', 0);
-        expect(data).to.have.property('errmsg', 'ok');
         done();
       });
     });
