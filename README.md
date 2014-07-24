@@ -18,8 +18,9 @@ wechat [![NPM version](https://badge.fury.io/js/wechat.png)](http://badge.fury.i
 - OAuth API（授权、获取基本信息）
 - 群发消息（文本、图片、语音、视频、图文）
 - 客服记录
+- 群发消息
 - 公众号支付（发货通知、订单查询）
-- 微信小店（TODO，求赞助，细节请见[#68](https://github.com/node-webot/wechat/issues/68)）
+- 微信小店（商品管理、库存管理、邮费模板管理、分组管理、货架管理、订单管理、功能接口）
 
 详细参见[API文档](http://node-webot.github.io/wechat/api.html)
 
@@ -329,6 +330,32 @@ The MIT license.
 
 ## 交流群
 QQ群：157964097，使用疑问，开发，贡献代码请加群。
+
+## 感谢
+感谢以下贡献者：
+
+```
+
+ project  : wechat
+ repo age : 1 year, 6 months
+ active   : 92 days
+ commits  : 210
+ files    : 58
+ authors  :
+   180  Jackson Tian            85.7%
+    10  yelo                    4.8%
+     4  Bruce Lee               1.9%
+     4  realdog                 1.9%
+     3  Guo Yu                  1.4%
+     2  Lu Jun                  1.0%
+     2  Jesse Yang              1.0%
+     1  Rogerz Zhang            0.5%
+     1  feichang.wyl            0.5%
+     1  feit                    0.5%
+     1  Chen Wei                0.5%
+     1  Lance Li                0.5%
+
+```
 
 ## 捐赠
 如果您觉得Wechat对您有帮助，欢迎请作者一杯咖啡
