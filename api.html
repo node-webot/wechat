@@ -38,7 +38,7 @@
     </nav>
     <header class="jumbotron subhead">
       <div class="container">
-        <h1>wechat <small>Version: 0.8.4 By @Jackson Tian</small></h1>
+        <h1>wechat <small>Version: 0.8.6 By @Jackson Tian</small></h1>
         <p class="lead">
           微信公共平台Node库
         </p>
@@ -60,6 +60,10 @@
 
   <li>
     <a href="#api_api_customer"><i class="icon-chevron-right"></i>api_customer</a>
+  </li>
+
+  <li>
+    <a href="#api_api_feedback"><i class="icon-chevron-right"></i>api_feedback</a>
   </li>
 
   <li>
@@ -152,19 +156,7 @@
   <ul class="indexs">
   
     <li>
-      <a href="#api_common__isValid">isValid</a>
-    </li>
-
-    <li>
       <a href="#api_common__API">API</a>
-    </li>
-
-    <li>
-      <a href="#api_common__getAccessToken">getAccessToken</a>
-    </li>
-
-    <li>
-      <a href="#api_common__preRequest">preRequest</a>
     </li>
 
     <li>
@@ -174,28 +166,6 @@
   </ul>
   <hr />
 
-  
-  <h3 data-id="api_common__isValid">
-    isValid
-  </h3>
-  
-
-  <p>检查AccessToken是否有效，检查规则为当前时间和过期时间进行对比</p><p>Examples:</p><pre><code>token.isValid();
-</code></pre>
-
-  <table class="table table-striped table-bordered table-hover table-condensed">
-  
-    <tr>
-      <td>方法</td>
-      <td>AccessToken.prototype.isValid()</td> 
-      <td></td>
-      <td>isValid</td>
-    </tr>
-  
-
-  
-  </table>
-  
   
   <h3 data-id="api_common__API">
     API
@@ -214,10 +184,10 @@ var api = new API(&#39;appid&#39;, &#39;secret&#39;);
     if (err) {return callback(err);}
     callback(null, JSON.parse(txt));
   });
-}, function (token) {
+}, function (token, callback) {
   // 请将token存储到全局，跨进程、跨机器级别的全局，比如写到数据库、redis等
   // 这样才能在cluster模式及多机情况下使用，以下为写入到文件的示例
-  fs.writeFile(&#39;access_token.txt&#39;, JSON.stringify(token));
+  fs.writeFile(&#39;access_token.txt&#39;, JSON.stringify(token), callback);
 });
 </code></pre>
 
@@ -256,76 +226,6 @@ var api = new API(&#39;appid&#39;, &#39;secret&#39;);
       <td>参数</td>
       <td>saveToken(Function)</td>
       <td colspan="2">可选的。保存全局token对象的方法，多进程模式部署时需在意</td>
-    </tr>
-  
-
-  
-  </table>
-  
-  
-  <h3 data-id="api_common__getAccessToken">
-    getAccessToken
-  </h3>
-  
-
-  <p>根据创建API时传入的appid和appsecret获取access token<br />进行后续所有API调用时，需要先获取access token<br />详细请看：<a href="http://mp.weixin.qq.com/wiki/index.php?title=获取access_token">http://mp.weixin.qq.com/wiki/index.php?title=获取access_token</a></p><p>Examples:</p><pre><code>api.getAccessToken(callback);
-</code></pre><p>Callback:</p><ul>
-<li><code>err</code>, 获取access token出现异常时的异常对象</li>
-<li><code>result</code>, 成功时得到的响应结果</li>
-</ul>
-<p>Result:</p><pre><code>{&quot;access_token&quot;: &quot;ACCESS_TOKEN&quot;,&quot;expires_in&quot;: 7200}
-</code></pre>
-
-  <table class="table table-striped table-bordered table-hover table-condensed">
-  
-    <tr>
-      <td>方法</td>
-      <td>API.prototype.getAccessToken()</td> 
-      <td></td>
-      <td>getAccessToken</td>
-    </tr>
-  
-
-    <tr>
-      <td>参数</td>
-      <td>callback(Function)</td>
-      <td colspan="2">回调函数</td>
-    </tr>
-  
-
-  
-  </table>
-  
-  
-  <h3 data-id="api_common__preRequest">
-    preRequest
-  </h3>
-  
-
-  <p>需要access token的接口调用如果采用preRequest进行封装后，就可以直接调用<br />无需依赖getAccessToken为前置调用</p><p>Examples:</p><pre><code>api.preRequest(method, arguments);
-</code></pre>
-
-  <table class="table table-striped table-bordered table-hover table-condensed">
-  
-    <tr>
-      <td>方法</td>
-      <td>API.prototype.preRequest()</td> 
-      <td></td>
-      <td>preRequest</td>
-    </tr>
-  
-
-    <tr>
-      <td>参数</td>
-      <td>method(Function)</td>
-      <td colspan="2">需要封装的方法</td>
-    </tr>
-  
-
-    <tr>
-      <td>参数</td>
-      <td>args(Array)</td>
-      <td colspan="2">方法需要的参数</td>
     </tr>
   
 
@@ -771,6 +671,71 @@ api.sendNews(&#39;openid&#39;, articles, callback);
       <td>参数</td>
       <td>articles(Array)</td>
       <td colspan="2">图文列表</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>callback(Function)</td>
+      <td colspan="2">回调函数</td>
+    </tr>
+  
+
+  
+  </table>
+  
+</section>
+
+      
+        <section id="api_api_feedback" class="api">
+  <h2>api_feedback: API索引</h2>
+  <ul class="indexs">
+  
+    <li>
+      <a href="#api_feedback_exports_updateFeedback">updateFeedback</a>
+    </li>
+
+  </ul>
+  <hr />
+
+  
+  <h3 data-id="api_feedback_exports_updateFeedback">
+    updateFeedback
+  </h3>
+  
+
+  <p>标记客户的投诉处理状态<br />Examples:</p><pre><code>api.updateFeedback(openid, feedbackId, callback);
+</code></pre><p>Callback:</p><ul>
+<li><code>err</code>, 调用失败时得到的异常</li>
+<li><code>result</code>, 调用正常时得到的对象</li>
+</ul>
+<p>Result:</p><pre><code>{
+ &quot;errcode&quot;: 0,
+ &quot;errmsg&quot;: &quot;success&quot;
+}
+</code></pre>
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>exports.updateFeedback()</td> 
+      <td>exports</td>
+      <td>updateFeedback</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>openid(String)</td>
+      <td colspan="2">用户ID</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>feedbackId(String)</td>
+      <td colspan="2">投诉ID</td>
     </tr>
   
 
@@ -1924,7 +1889,7 @@ api.sendNews(&#39;openid&#39;, articles, callback);
   </h3>
   
 
-  <p>微信公众号支付: 发货通知<br />详情请见：<a href="http://mp.weixin.qq.com/htmledition/res/bussiness-faq/wx_mp_pay.zip">http://mp.weixin.qq.com/htmledition/res/bussiness-faq/wx_mp_pay.zip</a> 接口文档订单发货通知</p><p>Package:</p><pre><code>{
+  <p>微信公众号支付: 发货通知<br />详情请见：<a href="http://mp.weixin.qq.com/htmledition/res/bussiness-faq/wx_mp_pay.zip">http://mp.weixin.qq.com/htmledition/res/bussiness-faq/wx_mp_pay.zip</a> 接口文档订单发货通知</p><p>Data:</p><pre><code>{
   &quot;appid&quot; : &quot;wwwwb4f85f3a797777&quot;,
   &quot;openid&quot; : &quot;oX99MDgNcgwnz3zFN3DNmo8uwa-w&quot;,
   &quot;transid&quot; : &quot;111112222233333&quot;,
@@ -1935,12 +1900,12 @@ api.sendNews(&#39;openid&#39;, articles, callback);
   &quot;app_signature&quot; : &quot;53cca9d47b883bd4a5c85a9300df3da0cb48565c&quot;,
   &quot;sign_method&quot; : &quot;sha1&quot;
 }
-</code></pre><p>Examples:</p><pre><code>api.deliverNotify(package, callback);
+</code></pre><p>Examples:</p><pre><code>api.deliverNotify(data, callback);
 </code></pre><p>Callback:</p><ul>
 <li><code>err</code>, 调用失败时得到的异常</li>
 <li><code>result</code>, 调用正常时得到的对象</li>
 </ul>
-<p>Result:</p><pre><code>{&quot;errcode&quot;:0,&quot;errmsg&quot;:&quot;ok&quot;}
+<p>Result:</p><pre><code>{&quot;errcode&quot;:0, &quot;errmsg&quot;:&quot;ok&quot;}
 </code></pre>
 
   <table class="table table-striped table-bordered table-hover table-condensed">
@@ -1991,8 +1956,7 @@ api.sendNews(&#39;openid&#39;, articles, callback);
 <p>Result:</p><pre><code>{
   &quot;errcode&quot;:0,
   &quot;errmsg&quot;:&quot;ok&quot;,
-  &quot;order_info&quot;:
-  {
+  &quot;order_info&quot;: {
     &quot;ret_code&quot;:0,
     &quot;ret_msg&quot;:&quot;&quot;,
     &quot;input_charset&quot;:&quot;GBK&quot;,
@@ -2204,12 +2168,53 @@ api.sendNews(&#39;openid&#39;, articles, callback);
   <h2>api_shop_common: API索引</h2>
   <ul class="indexs">
   
+    <li>
+      <a href="#api_shop_common_exports_uploadPicture">uploadPicture</a>
+    </li>
+
   </ul>
   <hr />
 
   
+  <h3 data-id="api_shop_common_exports_uploadPicture">
+    uploadPicture
+  </h3>
+  
+
+  <p>上传图片<br />详细请看：<a href="http://mp.weixin.qq.com/wiki/index.php?title=微信小店接口">http://mp.weixin.qq.com/wiki/index.php?title=微信小店接口</a><br />Examples:</p><pre><code>api.uploadPicture(&#39;/path/to/your/img.jpg&#39;, callback);
+</code></pre><p>Callback:</p><ul>
+<li><code>err</code>, 调用失败时得到的异常</li>
+<li><code>result</code>, 调用正常时得到的对象</li>
+</ul>
+<p>Result:</p><pre><code>{
+ &quot;errcode&quot;: 0,
+ &quot;errmsg&quot;: &quot;success&quot;
+ &quot;image_url&quot;: &quot;http://mmbiz.qpic.cn/mmbiz/4whpV1VZl2ibl4JWwwnW3icSJGqecVtRiaPxwWEIr99eYYL6AAAp1YBo12CpQTXFH6InyQWXITLvU4CU7kic4PcoXA/0&quot;
+}
+</code></pre>
 
   <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>exports.uploadPicture()</td> 
+      <td>exports</td>
+      <td>uploadPicture</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>filepath(String)</td>
+      <td colspan="2">文件路径</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>callback(Function)</td>
+      <td colspan="2">回调函数</td>
+    </tr>
   
 
   
@@ -2462,8 +2467,40 @@ api.sendNews(&#39;openid&#39;, articles, callback);
 <li><code>err</code>, 调用失败时得到的异常</li>
 <li><code>result</code>, 调用正常时得到的对象</li>
 </ul>
-<pre><code>Result:
-</code></pre><p>{<br /> &quot;errcode&quot;: 0,<br /> &quot;errmsg&quot;: &quot;success&quot;,<br /> &quot;template_info&quot;: {<br />   &quot;Id&quot;: 103312916,<br />   &quot;Name&quot;: &quot;testexpress&quot;,<br />   &quot;Assumer&quot;: 0,<br />   &quot;Valuation&quot;: 0,<br />   &quot;TopFee&quot;: [<br />     {<br />       &quot;Type&quot;: 10000027,<br />       &quot;Normal&quot;: {<br />         &quot;StartStandards&quot;: 1,<br />         &quot;StartFees&quot;: 2,<br />         &quot;AddStandards&quot;: 3,<br />         &quot;AddFees&quot;: 1<br />       },<br />       &quot;Custom&quot;: [<br />         {<br />           &quot;StartStandards&quot;: 1,<br />           &quot;StartFees&quot;: 1000,<br />           &quot;AddStandards&quot;: 1,<br />           &quot;AddFees&quot;: 3,<br />           &quot;DestCountry&quot;: &quot;中国&quot;,<br />           &quot;DestProvince&quot;: &quot;广东省&quot;,<br />           &quot;DestCity&quot;: &quot;广州市&quot;<br />         }<br />       ]<br />     },<br />     ...<br />   ]<br /> }<br />}<br />```</p>
+<p>Result:</p><pre><code>{
+ &quot;errcode&quot;: 0,
+ &quot;errmsg&quot;: &quot;success&quot;,
+ &quot;template_info&quot;: {
+   &quot;Id&quot;: 103312916,
+   &quot;Name&quot;: &quot;testexpress&quot;,
+   &quot;Assumer&quot;: 0,
+   &quot;Valuation&quot;: 0,
+   &quot;TopFee&quot;: [
+     {
+       &quot;Type&quot;: 10000027,
+       &quot;Normal&quot;: {
+         &quot;StartStandards&quot;: 1,
+         &quot;StartFees&quot;: 2,
+         &quot;AddStandards&quot;: 3,
+         &quot;AddFees&quot;: 1
+       },
+       &quot;Custom&quot;: [
+         {
+           &quot;StartStandards&quot;: 1,
+           &quot;StartFees&quot;: 1000,
+           &quot;AddStandards&quot;: 1,
+           &quot;AddFees&quot;: 3,
+           &quot;DestCountry&quot;: &quot;中国&quot;,
+           &quot;DestProvince&quot;: &quot;广东省&quot;,
+           &quot;DestCity&quot;: &quot;广州市&quot;
+         }
+       ]
+     },
+     ...
+   ]
+ }
+}
+</code></pre>
 
   <table class="table table-striped table-bordered table-hover table-condensed">
   
@@ -2503,8 +2540,34 @@ api.sendNews(&#39;openid&#39;, articles, callback);
 <li><code>err</code>, 调用失败时得到的异常</li>
 <li><code>result</code>, 调用正常时得到的对象</li>
 </ul>
-<pre><code>Result:
-</code></pre><p>{<br /> &quot;errcode&quot;: 0,<br /> &quot;errmsg&quot;: &quot;success&quot;,<br /> &quot;templates_info&quot;: [<br />   {<br />     &quot;Id&quot;: 103312916,<br />     &quot;Name&quot;: &quot;testexpress1&quot;,<br />     &quot;Assumer&quot;: 0,<br />     &quot;Valuation&quot;: 0,<br />     &quot;TopFee&quot;: [...],<br />   },<br />   {<br />     &quot;Id&quot;: 103312917,<br />     &quot;Name&quot;: &quot;testexpress2&quot;,<br />     &quot;Assumer&quot;: 0,<br />     &quot;Valuation&quot;: 2,<br />     &quot;TopFee&quot;: [...],<br />   },<br />   {<br />     &quot;Id&quot;: 103312918,<br />     &quot;Name&quot;: &quot;testexpress3&quot;,<br />     &quot;Assumer&quot;: 0,<br />     &quot;Valuation&quot;: 1,<br />     &quot;TopFee&quot;: [...],<br />   }<br /> ]<br />}<br />```</p>
+<p>Result:</p><pre><code>{
+ &quot;errcode&quot;: 0,
+ &quot;errmsg&quot;: &quot;success&quot;,
+ &quot;templates_info&quot;: [
+   {
+     &quot;Id&quot;: 103312916,
+     &quot;Name&quot;: &quot;testexpress1&quot;,
+     &quot;Assumer&quot;: 0,
+     &quot;Valuation&quot;: 0,
+     &quot;TopFee&quot;: [...],
+   },
+   {
+     &quot;Id&quot;: 103312917,
+     &quot;Name&quot;: &quot;testexpress2&quot;,
+     &quot;Assumer&quot;: 0,
+     &quot;Valuation&quot;: 2,
+     &quot;TopFee&quot;: [...],
+   },
+   {
+     &quot;Id&quot;: 103312918,
+     &quot;Name&quot;: &quot;testexpress3&quot;,
+     &quot;Assumer&quot;: 0,
+     &quot;Valuation&quot;: 1,
+     &quot;TopFee&quot;: [...],
+   }
+ ]
+}
+</code></pre>
 
   <table class="table table-striped table-bordered table-hover table-condensed">
   
@@ -4249,14 +4312,67 @@ api.sendNews(&#39;openid&#39;, articles, callback);
   <h2>api_shop_stock: API索引</h2>
   <ul class="indexs">
   
+    <li>
+      <a href="#api_shop_stock_exports_updateStock">updateStock</a>
+    </li>
+
   </ul>
   <hr />
 
   
-
+  <h3 data-id="api_shop_stock_exports_updateStock">
+    updateStock
+  </h3>
   
 
+  <p>增加库存<br />详细请看：<a href="http://mp.weixin.qq.com/wiki/index.php?title=微信小店接口">http://mp.weixin.qq.com/wiki/index.php?title=微信小店接口</a><br />Examples:</p><pre><code>api.updateStock(10, productId, sku, callback); // 增加10件库存
+api.updateStock(-10, productId, sku, callback); // 减少10件库存
+</code></pre><p>Callback:</p><ul>
+<li><code>err</code>, 调用失败时得到的异常</li>
+<li><code>result</code>, 调用正常时得到的对象</li>
+</ul>
+<p>Result:</p><pre><code>{
+ &quot;errcode&quot;: 0,
+ &quot;errmsg&quot;: &quot;success&quot;
+}
+</code></pre>
+
   <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>exports.updateStock()</td> 
+      <td>exports</td>
+      <td>updateStock</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>number(Number)</td>
+      <td colspan="2">增加或者删除的数量</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>productId(String)</td>
+      <td colspan="2">商品ID</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>sku(String)</td>
+      <td colspan="2">SKU信息</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>callback(Function)</td>
+      <td colspan="2">回调函数</td>
+    </tr>
   
 
   

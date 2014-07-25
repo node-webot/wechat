@@ -38,7 +38,7 @@
     </nav>
     <header class="jumbotron subhead">
       <div class="container">
-        <h1>wechat <small>Version: 0.8.4 By @Jackson Tian</small></h1>
+        <h1>wechat <small>Version: 0.8.6 By @Jackson Tian</small></h1>
         <p class="lead">
           微信公共平台Node库
         </p>
@@ -93,6 +93,12 @@
   </li>
 
   <li class="level_2">
+    <a href="#index_感谢" title="感谢">
+      <i class="icon-chevron-right"></i>感谢
+    </a>
+  </li>
+
+  <li class="level_2">
     <a href="#index_捐赠" title="捐赠">
       <i class="icon-chevron-right"></i>捐赠
     </a>
@@ -118,8 +124,9 @@
 <li>OAuth API（授权、获取基本信息）</li>
 <li>群发消息（文本、图片、语音、视频、图文）</li>
 <li>客服记录</li>
+<li>群发消息</li>
 <li>公众号支付（发货通知、订单查询）</li>
-<li>微信小店（TODO，求赞助，细节请见<a href="https://github.com/node-webot/wechat/issues/68">#68</a>）</li>
+<li>微信小店（商品管理、库存管理、邮费模板管理、分组管理、货架管理、订单管理、功能接口）</li>
 </ul>
 <p>详细参见<a href="http://node-webot.github.io/wechat/api.html">API文档</a></p><h2>Installation</h2>
 <pre><code>npm install wechat
@@ -343,7 +350,27 @@ app.use(&#39;/wechat&#39;, wechat(&#39;some token&#39;, wechat.text(function (in
 </code></pre><p>该接口从0.3.x提供。</p><h3>流程图</h3>
 <p><img src="https://raw.github.com/node-webot/wechat/master/figures/wechat.png" alt="graph"></p><p>诸多细节由wechat中间件提供，用户只要关注蓝色部分的业务逻辑即可。</p><h2>License</h2>
 <p>The MIT license.</p><h2>交流群</h2>
-<p>QQ群：157964097，使用疑问，开发，贡献代码请加群。</p><h2>捐赠</h2>
+<p>QQ群：157964097，使用疑问，开发，贡献代码请加群。</p><h2>感谢</h2>
+<p>感谢以下贡献者：</p><pre><code>
+ project  : wechat
+ repo age : 1 year, 6 months
+ active   : 92 days
+ commits  : 210
+ files    : 58
+ authors  :
+   180  Jackson Tian            85.7%
+    10  yelo                    4.8%
+     4  Bruce Lee               1.9%
+     4  realdog                 1.9%
+     3  Guo Yu                  1.4%
+     2  Lu Jun                  1.0%
+     2  Jesse Yang              1.0%
+     1  Rogerz Zhang            0.5%
+     1  feichang.wyl            0.5%
+     1  feit                    0.5%
+     1  Chen Wei                0.5%
+     1  Lance Li                0.5%
+</code></pre><h2>捐赠</h2>
 <p>如果您觉得Wechat对您有帮助，欢迎请作者一杯咖啡</p><p><img src="https://cloud.githubusercontent.com/assets/327019/2941591/2b9e5e58-d9a7-11e3-9e80-c25aba0a48a1.png" alt="捐赠wechat"></p>
       </section>
   
