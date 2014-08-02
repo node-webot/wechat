@@ -34,7 +34,7 @@ API.mixin(require('./lib/api_shop_order'));
 // 微信小店功能管理接口
 API.mixin(require('./lib/api_shop_common'));
 // 支付接口
-API.mixin(require('./lib/api_pay'));
+API.mixin(require('./lib/api_payment'));
 // 用户维权系统接口
 API.mixin(require('./lib/api_feedback'));
 
