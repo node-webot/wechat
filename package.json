@@ -26,11 +26,10 @@
     "wechat"
   ],
   "dependencies": {
-    "xml2js": "0.2.6",
-    "ejs": ">=0.8.3",
-    "bufferhelper": ">=0.2.0",
-    "formstream": ">=0.0.7",
-    "urllib": ">=0.5.3"
+    "xml2js": "0.4.4",
+    "ejs": ">=1.0.0",
+    "formstream": ">=0.0.8",
+    "urllib": ">=0.5.16"
   },
   "devDependencies": {
     "supertest": "*",
