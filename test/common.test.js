@@ -106,7 +106,7 @@ describe('common.js', function () {
   });
 
   describe('invalid token', function () {
-    var api = new API('appid', 'secret');
+    var api = new API('invalidappid', 'secret');
     var isAccessTokenValid = api.isAccessTokenValid;
     before(function () {
       api.isAccessTokenValid = function () {
@@ -118,191 +118,8 @@ describe('common.js', function () {
       api.isAccessTokenValid = isAccessTokenValid;
     });
 
-    it('createMenu should not ok', function (done) {
-      api.createMenu('{}', function (err, menu) {
-        should.exist(err);
-        err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid appid');
-        done();
-      });
-    });
-
     it('getMenu should not ok', function (done) {
       api.getMenu(function (err, menu) {
-        should.exist(err);
-        err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid appid');
-        done();
-      });
-    });
-
-    it('removeMenu should not ok', function (done) {
-      api.removeMenu(function (err, token) {
-        should.exist(err);
-        err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid appid');
-        done();
-      });
-    });
-
-    it('createTmpQRCode should not ok', function (done) {
-      api.createTmpQRCode(123, 1800, function (err, data, res) {
-        should.exist(err);
-        err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid appid');
-        done();
-      });
-    });
-
-    it('createLimitQRCode should not ok', function (done) {
-      api.createLimitQRCode(123, function (err, data, res) {
-        should.exist(err);
-        err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid appid');
-        done();
-      });
-    });
-
-    it('showQRCodeURL should not ok', function () {
-      api.showQRCodeURL('ticket').should.be.equal('https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=ticket');
-    });
-
-    it('getGroups should not ok', function (done) {
-      api.getGroups(function (err, data, res) {
-        should.exist(err);
-        err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid appid');
-        done();
-      });
-    });
-
-    it('createGroup should not ok', function (done) {
-      api.createGroup('new group', function (err, data, res) {
-        should.exist(err);
-        err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid appid');
-        done();
-      });
-    });
-
-    it('updateGroup should not ok', function (done) {
-      api.updateGroup(123, 'new group', function (err, data, res) {
-        should.exist(err);
-        err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid appid');
-        done();
-      });
-    });
-
-    it('moveUserToGroup should not ok', function (done) {
-      api.moveUserToGroup('openid', 123, function (err, data, res) {
-        should.exist(err);
-        err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid appid');
-        done();
-      });
-    });
-
-    it('getUser should not ok', function (done) {
-      api.getUser('openid', function (err, data, res) {
-        should.exist(err);
-        err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid appid');
-        done();
-      });
-    });
-
-    it('getFollowers should not ok', function (done) {
-      api.getFollowers(function (err, data, res) {
-        should.exist(err);
-        err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid appid');
-        done();
-      });
-    });
-
-    it('getFollowers with nextOpenId should not ok', function (done) {
-      api.getFollowers('openid', function (err, data, res) {
-        should.exist(err);
-        err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid appid');
-        done();
-      });
-    });
-
-    it('sendImage should not ok', function (done) {
-      api.sendImage('openid', 'imageId', function (err, data, res) {
-        should.exist(err);
-        err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid appid');
-        done();
-      });
-    });
-
-    it('sendVoice should not ok', function (done) {
-      api.sendVoice('openid', 'imageId', function (err, data, res) {
-        should.exist(err);
-        err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid appid');
-        done();
-      });
-    });
-
-    it('sendVideo should not ok', function (done) {
-      api.sendVideo('openid', 'mediaId', 'thumbMediaId', function (err, data, res) {
-        should.exist(err);
-        err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid appid');
-        done();
-      });
-    });
-
-    it('sendMusic should not ok', function (done) {
-      var music = {
-        "title":"MUSIC_TITLE", // 可选
-        "description":"MUSIC_DESCRIPTION", // 可选
-        "musicurl":"MUSIC_URL",
-        "hqmusicurl":"HQ_MUSIC_URL",
-        "thumb_media_id":"THUMB_MEDIA_ID"
-      };
-
-      api.sendMusic('openid', music, function (err, data, res) {
-        should.exist(err);
-        err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid appid');
-        done();
-      });
-    });
-
-    it('sendNews should not ok', function (done) {
-      var articles = [
-        {
-          "title":"Happy Day",
-          "description":"Is Really A Happy Day",
-          "url":"URL",
-          "picurl":"PIC_URL"
-        }
-      ];
-
-      api.sendNews('openid', articles, function (err, data, res) {
-        should.exist(err);
-        err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid appid');
-        done();
-      });
-    });
-
-    it('deliverNotify should not ok', function (done) {
-      api.deliverNotify('{}', function (err, menu) {
-        should.exist(err);
-        err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid appid');
-        done();
-      });
-    });
-
-    it('orderQuery should not ok', function (done) {
-      api.orderQuery('{}', function (err, menu) {
         should.exist(err);
         err.name.should.be.equal('WeChatAPIError');
         err.message.should.be.equal('invalid appid');
@@ -328,6 +145,7 @@ describe('common.js', function () {
         after(function () {
           muk.restore();
         });
+
         it('upload' + method + ' should ok', function (done) {
           api['upload' + method](path.join(__dirname, './fixture/image.jpg'), function (err, data, res) {
             should.not.exist(err);

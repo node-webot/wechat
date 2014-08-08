@@ -172,6 +172,7 @@ describe('api_mass_send.js', function () {
     it('should ok', function (done) {
       api.deleteMass('messageId', function (err, data) {
         expect(err).to.be.ok();
+        expect(err).to.have.property('code', -1);
         expect(err).to.have.property('message', 'api unauthorized');
         done();
       });
@@ -270,9 +271,11 @@ describe('api_mass_send.js', function () {
         done();
       });
     });
+
     it('should ok with groupid', function (done) {
-      api.massSendNews('media id', 'groupid', function (err, data) {
+      api.massSendNews('media id', 'invalid groupid', function (err, data) {
         expect(err).to.be.ok();
+        expect(err).to.have.property('code', 40050);
         expect(err).to.have.property('message', 'api unauthorized');
         done();
       });
