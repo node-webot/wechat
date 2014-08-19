@@ -13,6 +13,8 @@ API.mixin(require('./lib/api_qrcode'));
 API.mixin(require('./lib/api_media'));
 // 客服消息
 API.mixin(require('./lib/api_customer'));
+// 模板消息
+API.mixin(require('./lib/api_template'));
 // 获取客服聊天记录
 API.mixin(require('./lib/api_custom_service'));
 // 高级群发接口
