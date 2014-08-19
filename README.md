@@ -21,6 +21,7 @@ wechat [![NPM version](https://badge.fury.io/js/wechat.png)](http://badge.fury.i
 - 群发消息
 - 公众号支付（发货通知、订单查询）
 - 微信小店（商品管理、库存管理、邮费模板管理、分组管理、货架管理、订单管理、功能接口）
+- 模版消息
 
 详细参见[API文档](http://node-webot.github.io/wechat/api.html)
 
