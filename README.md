@@ -27,13 +27,13 @@ wechat [![NPM version](https://badge.fury.io/js/wechat.png)](http://badge.fury.i
 
 ## Installation
 
-```
-npm install wechat
+```sh
+$ npm install wechat
 ```
 
 ## Use with Connect/Express
 
-```
+```js
 var wechat = require('wechat');
 
 app.use(connect.query()); // Or app.use(express.query());
@@ -73,19 +73,19 @@ app.use('/wechat', wechat('some token', function (req, res, next) {
   }
 }));
 ```
-备注：token在[微信平台上申请](http://mp.weixin.qq.com/cgi-bin/callbackprofile?type=info&t=wxm-developer-ahead&lang=zh_CN)
+备注：token在微信平台的开发者中心申请
 
 ### 回复消息
 当用户发送消息到微信公众账号，自动回复一条消息。这条消息可以是文本、图片、语音、视频、音乐、图文。详见：[官方文档](http://mp.weixin.qq.com/wiki/index.php?title=发送被动响应消息)
 
 #### 回复文本
-```
+```js
 res.reply('Hello world!');
 // 或者
 res.reply({type: "text", content: 'Hello world!'});
 ```
 #### 回复图片
-```
+```js
 res.reply({
   type: "image",
   content: {
@@ -94,7 +94,7 @@ res.reply({
 });
 ```
 #### 回复语音
-```
+```js
 res.reply({
   type: "voice",
   content: {
@@ -103,7 +103,7 @@ res.reply({
 });
 ```
 #### 回复视频
-```
+```js
 res.reply({
   type: "video",
   content: {
@@ -113,7 +113,7 @@ res.reply({
 });
 ```
 #### 回复音乐
-```
+```js
 res.reply({
   title: "来段音乐吧",
   description: "一无所有",
@@ -122,7 +122,7 @@ res.reply({
 });
 ```
 #### 回复图文
-```
+```js
 res.reply([
   {
     title: '你来我家接我吧',
@@ -136,7 +136,7 @@ res.reply([
 ### WXSession支持
 由于公共平台应用的客户端实际上是微信，所以采用传统的Cookie来实现会话并不现实，为此中间件模块在openid的基础上添加了Session支持。一旦服务端启用了`connect.session`中间件，在业务中就可以访问`req.wxsession`属性。这个属性与`req.session`行为类似。
 
-```
+```js
 app.use(connect.cookieParser());
 app.use(connect.session({secret: 'keyboard cat', cookie: {maxAge: 60000}}));
 app.use('/wechat', wechat('some token', wechat.text(function (info, req, res, next) {
@@ -157,7 +157,7 @@ app.use('/wechat', wechat('some token', wechat.text(function (info, req, res, ne
 ### 等待回复
 等待回复，类似于电话拨号业务。该功能在WXSession的基础上提供。需要为等待回复预置操作，中间件将其抽象为`List`对象，在提供服务前需要添加服务。
 
-```
+```js
 var List = require('wechat').List;
 List.add('view', [
   ['回复{a}查看我的性别', function (info, req, res) {
@@ -172,7 +172,7 @@ List.add('view', [
 
 然后在业务中触发等待回复事务，如下示例，当收到用户发送`list`后，调用`res.wait('view')`进入事务`view`中。
 
-```
+```js
 var app = connect();
 app.use(connect.query());
 app.use(connect.cookieParser());
@@ -197,7 +197,7 @@ app.use('/wechat', wechat('some token', wechat.text(function (info, req, res, ne
 
 用户回复其中的`a`、`b`、`c`将会由注册的方法接管回复。回复可以是一个函数，也可以是一个字符串：
 
-```
+```js
 List.add('view', [
   ['回复{a}查看我的性别', function (info, req, res, next) {
     res.reply('我是个妹纸哟');
@@ -226,7 +226,7 @@ List.add('view', [
 目前微信公共平台能接收到7种内容：文字、图片、音频、视频、位置、链接、事件。支持6种回复：纯文本、图文、音乐、音频、图片、视频。
 针对目前的业务形态，发布了0.6.x版本，该版本支持六种内容分别处理，以保持业务逻辑的简洁性。
 
-```
+```js
 app.use('/wechat', wechat('some token', wechat.text(function (message, req, res, next) {
   // message为文本内容
   // { ToUserName: 'gh_d3e07d51b513',
@@ -303,7 +303,7 @@ app.use('/wechat', wechat('some token', wechat.text(function (message, req, res,
 ### 更简化的API设计
 示例如下：
 
-```
+```js
 app.use('/wechat', wechat('some token').text(function (message, req, res, next) {
   // TODO
 }).image(function (message, req, res, next) {
@@ -338,23 +338,26 @@ QQ群：157964097，使用疑问，开发，贡献代码请加群。
 ```
 
  project  : wechat
- repo age : 1 year, 6 months
- active   : 92 days
- commits  : 210
- files    : 58
- authors  :
-   180  Jackson Tian            85.7%
-    10  yelo                    4.8%
-     4  Bruce Lee               1.9%
-     4  realdog                 1.9%
-     3  Guo Yu                  1.4%
-     2  Lu Jun                  1.0%
-     2  Jesse Yang              1.0%
-     1  Rogerz Zhang            0.5%
-     1  feichang.wyl            0.5%
-     1  feit                    0.5%
-     1  Chen Wei                0.5%
-     1  Lance Li                0.5%
+ repo age : 1 year, 8 months
+ active   : 97 days
+ commits  : 223
+ files    : 60
+ authors  : 
+   190	Jackson Tian            85.2%
+    10	yelo                    4.5%
+     4	Bruce Lee               1.8%
+     4	realdog                 1.8%
+     3	Guo Yu                  1.3%
+     2	Lu Jun                  0.9%
+     2	Jesse Yang              0.9%
+     1	Lance Li                0.4%
+     1	dan                     0.4%
+     1	feichang.wyl            0.4%
+     1	feit                    0.4%
+     1	p13766                  0.4%
+     1	Chen Wei                0.4%
+     1	xianda                  0.4%
+     1	Rogerz Zhang            0.4%
 
 ```
 
