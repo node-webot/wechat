@@ -30,6 +30,8 @@ app.use('/wechat', wechat('some token', function (req, res, next) {
     });
   } else if (info.FromUserName === 'cs') {
     res.transfer2CustomerService();
+  } else if (info.FromUserName === 'kf') {
+    res.transfer2CustomerService('test1@test');
   } else {
   // 回复高富帅(图文回复)
     res.reply([
@@ -246,6 +248,31 @@ describe('wechat.js', function () {
         done();
       });
     });
+
+
+    it('should ok with transfer info to kfAccount', function(done) {
+      var info = {
+        sp: 'zhong',
+        user: 'kf',
+        type: 'text',
+        text: '测试中'
+      };
+      request(app)
+      .post('/wechat' + tail())
+      .send(template(info))
+      .expect(200)
+      .end(function(err, res) {
+        if (err) return done(err);
+        var body = res.text.toString();
+        body.should.include('<ToUserName><![CDATA[kf]]></ToUserName>');
+        body.should.include('<FromUserName><![CDATA[zhong]]></FromUserName>');
+        body.should.match(/<CreateTime>\d{13}<\/CreateTime>/);
+        body.should.include('<MsgType><![CDATA[transfer_customer_service]]></MsgType>');
+        body.should.include('<KfAccount>test1@test</KfAccount>');
+        done();
+      });
+    });
+
 
     it('should pass to next', function (done) {
       var info = {
