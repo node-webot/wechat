@@ -38,7 +38,7 @@
     </nav>
     <header class="jumbotron subhead">
       <div class="container">
-        <h1>wechat <small>Version: 0.8.6 By @Jackson Tian</small></h1>
+        <h1>wechat <small>Version: 0.8.10 By @Jackson Tian</small></h1>
         <p class="lead">
           微信公共平台Node库
         </p>
@@ -119,6 +119,10 @@
   </li>
 
   <li>
+    <a href="#api_api_template"><i class="icon-chevron-right"></i>api_template</a>
+  </li>
+
+  <li>
     <a href="#api_api_user"><i class="icon-chevron-right"></i>api_user</a>
   </li>
 
@@ -176,6 +180,9 @@
 <li>调用用户传入的获取token的异步方法，获得token之后使用</li>
 <li>使用appid/appsecret获取token。并调用用户传入的保存token方法保存</li>
 </ol>
+<p>Tips:</p><ul>
+<li>如果跨机器运行wechat模块，需要注意同步机器之间的系统时间。</li>
+</ul>
 <p>Examples:</p><pre><code>var API = require(&#39;wechat&#39;).API;
 var api = new API(&#39;appid&#39;, &#39;secret&#39;);
 </code></pre><p>以上即可满足单进程使用。<br />当多进程时，token需要全局维护，以下为保存token的接口。</p><pre><code>var api = new API(&#39;appid&#39;, &#39;secret&#39;, function (callback) {
@@ -273,6 +280,14 @@ API.mixin(require(&#39;./lib/api_media&#39;));
       <a href="#api_custom_service_exports_getRecords">getRecords</a>
     </li>
 
+    <li>
+      <a href="#api_custom_service_exports_getCustomServiceList">getCustomServiceList</a>
+    </li>
+
+    <li>
+      <a href="#api_custom_service_exports_getOnlineCustomServiceList">getOnlineCustomServiceList</a>
+    </li>
+
   </ul>
   <hr />
 
@@ -328,6 +343,76 @@ API.mixin(require(&#39;./lib/api_media&#39;));
       <td>参数</td>
       <td>opts(Object)</td>
       <td colspan="2">查询条件</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>callback(Function)</td>
+      <td colspan="2">回调函数</td>
+    </tr>
+  
+
+  
+  </table>
+  
+  
+  <h3 data-id="api_custom_service_exports_getCustomServiceList">
+    getCustomServiceList
+  </h3>
+  
+
+  <p>获取客服基本信息<br />详细请看：<a href="http://dkf.qq.com/document-3_1.html">http://dkf.qq.com/document-3_1.html</a></p><pre><code>Examples:
+</code></pre><p>api.getCustomServiceList(callback);</p><pre><code>Callback:
+
+- `err`, 调用失败时得到的异常
+- `result`, 调用正常时得到的对象
+
+Result:
+</code></pre><p>{<br />  &quot;kf_list&quot;: [<br />    {<br />      &quot;kf_account&quot;: &quot;test1@test&quot;,<br />      &quot;kf_nick&quot;: &quot;ntest1&quot;,<br />      &quot;kf_id&quot;: &quot;1001&quot;<br />    },<br />    {<br />      &quot;kf_account&quot;: &quot;test2@test&quot;,<br />      &quot;kf_nick&quot;: &quot;ntest2&quot;,<br />      &quot;kf_id&quot;: &quot;1002&quot;<br />    },<br />    {<br />      &quot;kf_account&quot;: &quot;test3@test&quot;,<br />      &quot;kf_nick&quot;: &quot;ntest3&quot;,<br />      &quot;kf_id&quot;: &quot;1003&quot;<br />    }<br />  ]<br />}<br />```</p>
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>exports.getCustomServiceList()</td> 
+      <td>exports</td>
+      <td>getCustomServiceList</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>callback(Function)</td>
+      <td colspan="2">回调函数</td>
+    </tr>
+  
+
+  
+  </table>
+  
+  
+  <h3 data-id="api_custom_service_exports_getOnlineCustomServiceList">
+    getOnlineCustomServiceList
+  </h3>
+  
+
+  <p>获取在线客服接待信息<br />详细请看：<a href="http://dkf.qq.com/document-3_2.html">http://dkf.qq.com/document-3_2.html</a></p><pre><code>Examples:
+</code></pre><p>api.getOnlineCustomServiceList(callback);</p><pre><code>Callback:
+
+- `err`, 调用失败时得到的异常
+- `result`, 调用正常时得到的对象
+
+Result:
+</code></pre><p>{<br />  &quot;kf_online_list&quot;: [<br />    {<br />      &quot;kf_account&quot;: &quot;test1@test&quot;,<br />      &quot;status&quot;: 1,<br />      &quot;kf_id&quot;: &quot;1001&quot;,<br />      &quot;auto_accept&quot;: 0,<br />      &quot;accepted_case&quot;: 1<br />    },<br />    {<br />      &quot;kf_account&quot;: &quot;test2@test&quot;,<br />      &quot;status&quot;: 1,<br />      &quot;kf_id&quot;: &quot;1002&quot;,<br />      &quot;auto_accept&quot;: 0,<br />      &quot;accepted_case&quot;: 2<br />    }<br />  ]<br />}<br />```</p>
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>exports.getOnlineCustomServiceList()</td> 
+      <td>exports</td>
+      <td>getOnlineCustomServiceList</td>
     </tr>
   
 
@@ -4381,6 +4466,100 @@ api.updateStock(-10, productId, sku, callback); // 减少10件库存
 </section>
 
       
+        <section id="api_api_template" class="api">
+  <h2>api_template: API索引</h2>
+  <ul class="indexs">
+  
+    <li>
+      <a href="#api_template_exports_sendTemplate">sendTemplate</a>
+    </li>
+
+  </ul>
+  <hr />
+
+  
+  <h3 data-id="api_template_exports_sendTemplate">
+    sendTemplate
+  </h3>
+  
+
+  <p>发送模板消息<br />Examples:</p><pre><code>var template = {
+ template_id: &#39;模板id&#39;,
+ // URL置空，则在发送后,点击模板消息会进入一个空白页面（ios）, 或无法点击（android）
+ url: &#39;http://weixin.qq.com/download&#39;,
+ topcolor: &#39;#FF0000&#39;, // 顶部颜色
+ data:{
+   user:{
+     &quot;value&quot;:&#39;黄先生&#39;,
+     &quot;color&quot;:&quot;#173177&quot;
+   }
+ }
+};
+api.sendTemplate(&#39;openid&#39;, template, callback);
+</code></pre><p>Callback:</p><ul>
+<li><code>err</code>, 调用失败时得到的异常</li>
+<li><code>result</code>, 调用正常时得到的对象</li>
+</ul>
+
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>exports.sendTemplate()</td> 
+      <td>exports</td>
+      <td>sendTemplate</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>openid(String)</td>
+      <td colspan="2">用户的openid</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>templateId(String)</td>
+      <td colspan="2">模板ID</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>url(String)</td>
+      <td colspan="2">URL置空，则在发送后，点击模板消息会进入一个空白页面（ios）.或无法点击（android）.</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>topColor(String)</td>
+      <td colspan="2">顶部颜色</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>data(Object)</td>
+      <td colspan="2">渲染模板的数据</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>callback(Function)</td>
+      <td colspan="2">回调函数</td>
+    </tr>
+  
+
+  
+  </table>
+  
+</section>
+
+      
         <section id="api_api_user" class="api">
   <h2>api_user: API索引</h2>
   <ul class="indexs">
@@ -4868,11 +5047,13 @@ var api = new OAuth(&#39;appid&#39;, &#39;secret&#39;);
 <li><code>result</code>, 成功时得到的响应结果</li>
 </ul>
 <p>Result:</p><pre><code>{
- &quot;access_token&quot;: &quot;ACCESS_TOKEN&quot;,
- &quot;expires_in&quot;: 7200,
- &quot;refresh_token&quot;: &quot;REFRESH_TOKEN&quot;,
- &quot;openid&quot;: &quot;OPENID&quot;,
- &quot;scope&quot;: &quot;SCOPE&quot;
+ data: {
+   &quot;access_token&quot;: &quot;ACCESS_TOKEN&quot;,
+   &quot;expires_in&quot;: 7200,
+   &quot;refresh_token&quot;: &quot;REFRESH_TOKEN&quot;,
+   &quot;openid&quot;: &quot;OPENID&quot;,
+   &quot;scope&quot;: &quot;SCOPE&quot;
+ }
 }
 </code></pre>
 
@@ -4915,11 +5096,13 @@ var api = new OAuth(&#39;appid&#39;, &#39;secret&#39;);
 <li><code>result</code>, 成功时得到的响应结果</li>
 </ul>
 <p>Result:</p><pre><code>{
- &quot;access_token&quot;: &quot;ACCESS_TOKEN&quot;,
- &quot;expires_in&quot;: 7200,
- &quot;refresh_token&quot;: &quot;REFRESH_TOKEN&quot;,
- &quot;openid&quot;: &quot;OPENID&quot;,
- &quot;scope&quot;: &quot;SCOPE&quot;
+ data: {
+   &quot;access_token&quot;: &quot;ACCESS_TOKEN&quot;,
+   &quot;expires_in&quot;: 7200,
+   &quot;refresh_token&quot;: &quot;REFRESH_TOKEN&quot;,
+   &quot;openid&quot;: &quot;OPENID&quot;,
+   &quot;scope&quot;: &quot;SCOPE&quot;
+ }
 }
 </code></pre>
 
