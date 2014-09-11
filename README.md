@@ -17,7 +17,7 @@ wechat [![NPM version](https://badge.fury.io/js/wechat.png)](http://badge.fury.i
 - 会话支持（创新功能）
 - OAuth API（授权、获取基本信息）
 - 群发消息（文本、图片、语音、视频、图文）
-- 客服记录
+- 客服记录（查询客服记录，查看客服、查看在线客服）
 - 群发消息
 - 公众号支付（发货通知、订单查询）
 - 微信小店（商品管理、库存管理、邮费模板管理、分组管理、货架管理、订单管理、功能接口）
@@ -339,25 +339,27 @@ QQ群：157964097，使用疑问，开发，贡献代码请加群。
 
  project  : wechat
  repo age : 1 year, 8 months
- active   : 97 days
- commits  : 223
+ active   : 100 days
+ commits  : 232
  files    : 60
- authors  : 
-   190	Jackson Tian            85.2%
-    10	yelo                    4.5%
-     4	Bruce Lee               1.8%
-     4	realdog                 1.8%
-     3	Guo Yu                  1.3%
-     2	Lu Jun                  0.9%
-     2	Jesse Yang              0.9%
-     1	Lance Li                0.4%
-     1	dan                     0.4%
-     1	feichang.wyl            0.4%
-     1	feit                    0.4%
-     1	p13766                  0.4%
-     1	Chen Wei                0.4%
-     1	xianda                  0.4%
-     1	Rogerz Zhang            0.4%
+ authors  :
+   195  Jackson Tian            84.1%
+    10  yelo                    4.3%
+     4  realdog                 1.7%
+     4  Bruce Lee               1.7%
+     3  Guo Yu                  1.3%
+     2  zhongao                 0.9%
+     2  Jesse Yang              0.9%
+     2  Lu Jun                  0.9%
+     2  dan                     0.9%
+     1  Chen Wei                0.4%
+     1  feit                    0.4%
+     1  ifeiteng                0.4%
+     1  p13766                  0.4%
+     1  Rogerz Zhang            0.4%
+     1  xianda                  0.4%
+     1  Lance Li                0.4%
+     1  feichang.wyl            0.4%
 
 ```
 
