@@ -1,6 +1,6 @@
 {
   "name": "wechat",
-  "version": "0.8.10",
+  "version": "0.8.11",
   "description": "微信公共平台Node库",
   "main": "index.js",
   "scripts": {
