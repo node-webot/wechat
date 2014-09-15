@@ -15,7 +15,7 @@ app.use('/wechat', wechat('some token', wechat.text(function (info, req, res, ne
   if (info.Content === '=') {
     req.wxsession.text = req.wxsession.text || [];
     var exp = req.wxsession.text.join('');
-    res.reply(eval(exp));
+    res.reply('result: ' + eval(exp));
   } else if (info.Content === 'destroy') {
     req.wxsession.destroy();
     res.reply('销毁会话');
@@ -103,7 +103,7 @@ describe('wechat.js', function () {
       .end(function(err, res){
         if (err) return done(err);
         var body = res.text.toString();
-        body.should.include('<Content><![CDATA[2]]></Content>');
+        body.should.include('<Content><![CDATA[result: 2]]></Content>');
         done();
       });
     });
@@ -138,7 +138,7 @@ describe('wechat.js', function () {
         .end(function(err, res){
           if (err) return done(err);
           var body = res.text.toString();
-          body.should.include('<Content><![CDATA[]]></Content>');
+          body.should.include('<Content><![CDATA[result: undefined]]></Content>');
           done();
         });
       });
