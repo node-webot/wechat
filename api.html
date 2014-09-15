@@ -38,7 +38,7 @@
     </nav>
     <header class="jumbotron subhead">
       <div class="container">
-        <h1>wechat <small>Version: 0.8.10 By @Jackson Tian</small></h1>
+        <h1>wechat <small>Version: 0.8.11 By @Jackson Tian</small></h1>
         <p class="lead">
           微信公共平台Node库
         </p>
@@ -83,7 +83,7 @@
   </li>
 
   <li>
-    <a href="#api_api_pay"><i class="icon-chevron-right"></i>api_pay</a>
+    <a href="#api_api_payment"><i class="icon-chevron-right"></i>api_payment</a>
   </li>
 
   <li>
@@ -164,6 +164,10 @@
     </li>
 
     <li>
+      <a href="#api_common__getLatestToken">getLatestToken</a>
+    </li>
+
+    <li>
       <a href="#api_common_API_mixin">mixin</a>
     </li>
 
@@ -233,6 +237,46 @@ var api = new API(&#39;appid&#39;, &#39;secret&#39;);
       <td>参数</td>
       <td>saveToken(Function)</td>
       <td colspan="2">可选的。保存全局token对象的方法，多进程模式部署时需在意</td>
+    </tr>
+  
+
+  
+  </table>
+  
+  
+  <h3 data-id="api_common__getLatestToken">
+    getLatestToken
+  </h3>
+  
+
+  <p>获取最新的token</p><p>Examples:</p><pre><code>api.getLatestToken(callback);
+</code></pre><p>Callback:</p><ul>
+<li><code>err</code>, 获取access token出现异常时的异常对象</li>
+<li><code>token</code>, 获取的token</li>
+</ul>
+
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>API.prototype.getLatestToken()</td> 
+      <td></td>
+      <td>getLatestToken</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>method(Function)</td>
+      <td colspan="2">需要封装的方法</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>args(Array)</td>
+      <td colspan="2">方法需要的参数</td>
     </tr>
   
 
@@ -362,14 +406,31 @@ API.mixin(require(&#39;./lib/api_media&#39;));
   </h3>
   
 
-  <p>获取客服基本信息<br />详细请看：<a href="http://dkf.qq.com/document-3_1.html">http://dkf.qq.com/document-3_1.html</a></p><pre><code>Examples:
-</code></pre><p>api.getCustomServiceList(callback);</p><pre><code>Callback:
-
-- `err`, 调用失败时得到的异常
-- `result`, 调用正常时得到的对象
-
-Result:
-</code></pre><p>{<br />  &quot;kf_list&quot;: [<br />    {<br />      &quot;kf_account&quot;: &quot;test1@test&quot;,<br />      &quot;kf_nick&quot;: &quot;ntest1&quot;,<br />      &quot;kf_id&quot;: &quot;1001&quot;<br />    },<br />    {<br />      &quot;kf_account&quot;: &quot;test2@test&quot;,<br />      &quot;kf_nick&quot;: &quot;ntest2&quot;,<br />      &quot;kf_id&quot;: &quot;1002&quot;<br />    },<br />    {<br />      &quot;kf_account&quot;: &quot;test3@test&quot;,<br />      &quot;kf_nick&quot;: &quot;ntest3&quot;,<br />      &quot;kf_id&quot;: &quot;1003&quot;<br />    }<br />  ]<br />}<br />```</p>
+  <p>获取客服基本信息<br />详细请看：<a href="http://dkf.qq.com/document-3_1.html">http://dkf.qq.com/document-3_1.html</a></p><p>Examples:</p><pre><code>api.getCustomServiceList(callback);
+</code></pre><p>Callback:</p><ul>
+<li><code>err</code>, 调用失败时得到的异常</li>
+<li><code>result</code>, 调用正常时得到的对象</li>
+</ul>
+<p>Result:</p><pre><code>{
+  &quot;kf_list&quot;: [
+    {
+      &quot;kf_account&quot;: &quot;test1@test&quot;,
+      &quot;kf_nick&quot;: &quot;ntest1&quot;,
+      &quot;kf_id&quot;: &quot;1001&quot;
+    },
+    {
+      &quot;kf_account&quot;: &quot;test2@test&quot;,
+      &quot;kf_nick&quot;: &quot;ntest2&quot;,
+      &quot;kf_id&quot;: &quot;1002&quot;
+    },
+    {
+      &quot;kf_account&quot;: &quot;test3@test&quot;,
+      &quot;kf_nick&quot;: &quot;ntest3&quot;,
+      &quot;kf_id&quot;: &quot;1003&quot;
+    }
+  ]
+}
+</code></pre>
 
   <table class="table table-striped table-bordered table-hover table-condensed">
   
@@ -397,14 +458,30 @@ Result:
   </h3>
   
 
-  <p>获取在线客服接待信息<br />详细请看：<a href="http://dkf.qq.com/document-3_2.html">http://dkf.qq.com/document-3_2.html</a></p><pre><code>Examples:
-</code></pre><p>api.getOnlineCustomServiceList(callback);</p><pre><code>Callback:
-
-- `err`, 调用失败时得到的异常
-- `result`, 调用正常时得到的对象
-
-Result:
-</code></pre><p>{<br />  &quot;kf_online_list&quot;: [<br />    {<br />      &quot;kf_account&quot;: &quot;test1@test&quot;,<br />      &quot;status&quot;: 1,<br />      &quot;kf_id&quot;: &quot;1001&quot;,<br />      &quot;auto_accept&quot;: 0,<br />      &quot;accepted_case&quot;: 1<br />    },<br />    {<br />      &quot;kf_account&quot;: &quot;test2@test&quot;,<br />      &quot;status&quot;: 1,<br />      &quot;kf_id&quot;: &quot;1002&quot;,<br />      &quot;auto_accept&quot;: 0,<br />      &quot;accepted_case&quot;: 2<br />    }<br />  ]<br />}<br />```</p>
+  <p>获取在线客服接待信息<br />详细请看：<a href="http://dkf.qq.com/document-3_2.html">http://dkf.qq.com/document-3_2.html</a></p><p>Examples:</p><pre><code>api.getOnlineCustomServiceList(callback);
+</code></pre><p>Callback:</p><ul>
+<li><code>err</code>, 调用失败时得到的异常</li>
+<li><code>result</code>, 调用正常时得到的对象</li>
+</ul>
+<p>Result:</p><pre><code>{
+  &quot;kf_online_list&quot;: [
+    {
+      &quot;kf_account&quot;: &quot;test1@test&quot;,
+      &quot;status&quot;: 1,
+      &quot;kf_id&quot;: &quot;1001&quot;,
+      &quot;auto_accept&quot;: 0,
+      &quot;accepted_case&quot;: 1
+    },
+    {
+      &quot;kf_account&quot;: &quot;test2@test&quot;,
+      &quot;status&quot;: 1,
+      &quot;kf_id&quot;: &quot;1002&quot;,
+      &quot;auto_accept&quot;: 0,
+      &quot;accepted_case&quot;: 2
+    }
+  ]
+}
+</code></pre>
 
   <table class="table table-striped table-bordered table-hover table-condensed">
   
@@ -1953,23 +2030,23 @@ api.sendNews(&#39;openid&#39;, articles, callback);
 </section>
 
       
-        <section id="api_api_pay" class="api">
-  <h2>api_pay: API索引</h2>
+        <section id="api_api_payment" class="api">
+  <h2>api_payment: API索引</h2>
   <ul class="indexs">
   
     <li>
-      <a href="#api_pay_exports_deliverNotify">deliverNotify</a>
+      <a href="#api_payment_exports_deliverNotify">deliverNotify</a>
     </li>
 
     <li>
-      <a href="#api_pay_exports_orderQuery">orderQuery</a>
+      <a href="#api_payment_exports_orderQuery">orderQuery</a>
     </li>
 
   </ul>
   <hr />
 
   
-  <h3 data-id="api_pay_exports_deliverNotify">
+  <h3 data-id="api_payment_exports_deliverNotify">
     deliverNotify
   </h3>
   
@@ -2021,7 +2098,7 @@ api.sendNews(&#39;openid&#39;, articles, callback);
   </table>
   
   
-  <h3 data-id="api_pay_exports_orderQuery">
+  <h3 data-id="api_payment_exports_orderQuery">
     orderQuery
   </h3>
   
@@ -4483,19 +4560,17 @@ api.updateStock(-10, productId, sku, callback); // 减少10件库存
   </h3>
   
 
-  <p>发送模板消息<br />Examples:</p><pre><code>var template = {
- template_id: &#39;模板id&#39;,
- // URL置空，则在发送后,点击模板消息会进入一个空白页面（ios）, 或无法点击（android）
- url: &#39;http://weixin.qq.com/download&#39;,
- topcolor: &#39;#FF0000&#39;, // 顶部颜色
- data:{
-   user:{
-     &quot;value&quot;:&#39;黄先生&#39;,
-     &quot;color&quot;:&quot;#173177&quot;
-   }
+  <p>发送模板消息<br />Examples:</p><pre><code>var templateId: &#39;模板id&#39;;
+// URL置空，则在发送后,点击模板消息会进入一个空白页面（ios）, 或无法点击（android）
+var url: &#39;http://weixin.qq.com/download&#39;;
+var topcolor = &#39;#FF0000&#39;; // 顶部颜色
+var data = {
+ user:{
+   &quot;value&quot;:&#39;黄先生&#39;,
+   &quot;color&quot;:&quot;#173177&quot;
  }
 };
-api.sendTemplate(&#39;openid&#39;, template, callback);
+api.sendTemplate(&#39;openid&#39;, templateId, url, topColor, data, callback);
 </code></pre><p>Callback:</p><ul>
 <li><code>err</code>, 调用失败时得到的异常</li>
 <li><code>result</code>, 调用正常时得到的对象</li>
@@ -4529,7 +4604,7 @@ api.sendTemplate(&#39;openid&#39;, template, callback);
     <tr>
       <td>参数</td>
       <td>url(String)</td>
-      <td colspan="2">URL置空，则在发送后，点击模板消息会进入一个空白页面（ios）.或无法点击（android）.</td>
+      <td colspan="2">URL置空，则在发送后，点击模板消息会进入一个空白页面（ios），或无法点击（android）</td>
     </tr>
   
 
@@ -5316,6 +5391,10 @@ var api = new OAuth(&#39;appid&#39;, &#39;secret&#39;);
   <ul class="indexs">
   
     <li>
+      <a href="#wechat__checkSignature">checkSignature</a>
+    </li>
+
+    <li>
       <a href="#wechat__Handler">Handler</a>
     </li>
 
@@ -5338,6 +5417,27 @@ var api = new OAuth(&#39;appid&#39;, &#39;secret&#39;);
   </ul>
   <hr />
 
+  
+  <h3 data-id="wechat__checkSignature">
+    checkSignature
+  </h3>
+  
+
+  <p>检查签名</p>
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>函数</td>
+      <td>checkSignature()</td> 
+      <td></td>
+      <td>checkSignature</td>
+    </tr>
+  
+
+  
+  </table>
+  
   
   <h3 data-id="wechat__Handler">
     Handler
