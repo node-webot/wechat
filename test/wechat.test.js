@@ -32,6 +32,10 @@ app.use('/wechat', wechat('some token', function (req, res, next) {
     res.transfer2CustomerService();
   } else if (info.FromUserName === 'kf') {
     res.transfer2CustomerService('test1@test');
+  } else if (info.FromUserName === 'ls') {
+    res.reply(info.SendLocationInfo.EventKey);
+  } else if (info.FromUserName === 'pic_weixin') {
+    res.reply(info.SendPicsInfo.EventKey);
   } else {
   // 回复高富帅(图文回复)
     res.reply([
@@ -226,6 +230,61 @@ describe('wechat.js', function () {
       });
     });
 
+    it('should ok with event location_select', function (done) {
+      var info = {
+        sp: 'nvshen',
+        user: 'ls',
+        type: 'event',
+        xPos: '80',
+        yPos: '70',
+        label: 'alibaba',
+        event: 'location_select',
+        eventKey: 'sendLocation',
+        text: '测试中'
+      };
+
+      request(app)
+      .post('/wechat' + tail())
+      .send(template(info))
+      .expect(200)
+      .end(function(err, res){
+        if (err) return done(err);
+        var body = res.text.toString();
+        body.should.include('<ToUserName><![CDATA[ls]]></ToUserName>');
+        body.should.include('<FromUserName><![CDATA[nvshen]]></FromUserName>');
+        body.should.match(/<CreateTime>\d{13}<\/CreateTime>/);
+        body.should.include('<MsgType><![CDATA[text]]></MsgType>');
+        body.should.include('<Content><![CDATA[sendLocation]]></Content>');
+        done();
+      });
+    });
+
+    it('should ok with event pic_weixin', function (done) {
+      var info = {
+        sp: 'nvshen',
+        user: 'pic_weixin',
+        type: 'event',
+        event: 'pic_weixin',
+        eventKey: 'sendPic',
+        text: '测试中'
+      };
+
+      request(app)
+      .post('/wechat' + tail())
+      .send(template(info))
+      .expect(200)
+      .end(function(err, res){
+        if (err) return done(err);
+        var body = res.text.toString();
+        body.should.include('<ToUserName><![CDATA[pic_weixin]]></ToUserName>');
+        body.should.include('<FromUserName><![CDATA[nvshen]]></FromUserName>');
+        body.should.match(/<CreateTime>\d{13}<\/CreateTime>/);
+        body.should.include('<MsgType><![CDATA[text]]></MsgType>');
+        body.should.include('<Content><![CDATA[sendPic]]></Content>');
+        done();
+      });
+    });
+
     it('should ok with customer service', function (done) {
       var info = {
         sp: 'gaofushuai',
@@ -268,11 +327,10 @@ describe('wechat.js', function () {
         body.should.include('<FromUserName><![CDATA[zhong]]></FromUserName>');
         body.should.match(/<CreateTime>\d{13}<\/CreateTime>/);
         body.should.include('<MsgType><![CDATA[transfer_customer_service]]></MsgType>');
-        body.should.include('<KfAccount>test1@test</KfAccount>');
+        body.should.include('<KfAccount><![CDATA[test1@test]]></KfAccount>');
         done();
       });
     });
-
 
     it('should pass to next', function (done) {
       var info = {
