@@ -327,11 +327,10 @@ describe('wechat.js', function () {
         body.should.include('<FromUserName><![CDATA[zhong]]></FromUserName>');
         body.should.match(/<CreateTime>\d{13}<\/CreateTime>/);
         body.should.include('<MsgType><![CDATA[transfer_customer_service]]></MsgType>');
-        body.should.include('<KfAccount>test1@test</KfAccount>');
+        body.should.include('<KfAccount><![CDATA[test1@test]]></KfAccount>');
         done();
       });
     });
-
 
     it('should pass to next', function (done) {
       var info = {
