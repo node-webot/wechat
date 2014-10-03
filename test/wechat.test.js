@@ -36,6 +36,8 @@ app.use('/wechat', wechat('some token', function (req, res, next) {
     res.reply(info.SendLocationInfo.EventKey);
   } else if (info.FromUserName === 'pic_weixin') {
     res.reply(info.SendPicsInfo.EventKey);
+  } else if (info.FromUserName === 'web') {
+    res.reply('web message ok');
   } else {
   // 回复高富帅(图文回复)
     res.reply([
@@ -328,6 +330,30 @@ describe('wechat.js', function () {
         body.should.match(/<CreateTime>\d{13}<\/CreateTime>/);
         body.should.include('<MsgType><![CDATA[transfer_customer_service]]></MsgType>');
         body.should.include('<KfAccount><![CDATA[test1@test]]></KfAccount>');
+        done();
+      });
+    });
+
+    it('should ok with web wechat message', function (done) {
+      var info = {
+        sp: 'nvshen',
+        user: 'web',
+        type: 'text',
+        text: '测试中'
+      };
+
+      request(app)
+      .post('/wechat' + tail())
+      .send(template(info))
+      .expect(200)
+      .end(function(err, res){
+        if (err) return done(err);
+        var body = res.text.toString();
+        body.should.include('<ToUserName><![CDATA[web]]></ToUserName>');
+        body.should.include('<FromUserName><![CDATA[nvshen]]></FromUserName>');
+        body.should.match(/<CreateTime>\d{13}<\/CreateTime>/);
+        body.should.include('<MsgType><![CDATA[text]]></MsgType>');
+        body.should.include('<Content><![CDATA[web message ok]]></Content>');
         done();
       });
     });
