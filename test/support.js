@@ -53,6 +53,9 @@ var tpl = [
       '</SendPicsInfo>',
     '<% } %>',
     '<% } %>',
+    '<% if (user === "web") { %>',
+      'webwx_msg_cli_ver_0x1',
+    '<% } %>',
   '</xml>'
 ].join('');
 

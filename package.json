@@ -1,18 +1,12 @@
 {
   "name": "wechat",
-  "version": "0.8.12",
+  "version": "0.8.14",
   "description": "微信公共平台Node库",
   "main": "index.js",
   "scripts": {
     "test": "make test-all"
   },
   "config":{
-    "blanket": {
-      "pattern": "wechat/lib",
-      "data-cover-flags": {
-        "debug": false
-      }
-    },
     "travis-cov": {
       "threshold": 98
     }
@@ -47,7 +41,6 @@
   "author": "Jackson Tian",
   "license": "MIT",
   "readmeFilename": "README.md",
-  "gitHead": "904aaec6f98ac78d80553ffc726ebea779f40e60",
   "directories": {
     "test": "test"
   }
