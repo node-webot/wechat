@@ -15,7 +15,7 @@ This wechat document is translated by [Guo Yu](https://github.com/turingou/), if
 - Followers infomation (fetching user's info or followers list)
 - Media (upload or download)
 - Reply Waiter (good for surveys)
-- Sessions 
+- Sessions
 - OAuth API
 - Payment (deliver notify and order query)
 
@@ -157,7 +157,7 @@ app.use('/wechat', wechat('some token', wechat.text(function (info, req, res, ne
 
 ### Reply Waiter
 
-a reply waiter is seems like a telephone menu system. it must be setup before activation. this function is supported upon WXSession. 
+a reply waiter is seems like a telephone menu system. it must be setup before activation. this function is supported upon WXSession.
 
 ```
 var List = require('wechat').List;
@@ -334,3 +334,8 @@ The MIT license.
 buy me a cup of coffee please.
 
 [![donate wechat](https://img.alipay.com/sys/personalprod/style/mc/btn-index.png)](https://me.alipay.com/jacksontian)
+
+
+Or:
+
+[![](http://img.shields.io/gratipay/JacksonTian.svg)](https://www.gittip.com/JacksonTian/)
