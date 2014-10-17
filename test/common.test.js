@@ -40,7 +40,7 @@ describe('common.js', function () {
       api.getAccessToken(function (err, token) {
         should.exist(err);
         err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid appid');
+        err.message.should.be.equal('invalid credential');
         done();
       });
     });
@@ -122,7 +122,7 @@ describe('common.js', function () {
       api.getMenu(function (err, menu) {
         should.exist(err);
         err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid appid');
+        err.message.should.be.equal('invalid credential');
         done();
       });
     });
@@ -402,7 +402,7 @@ describe('common.js', function () {
       });
     });
 
-    it('sendVoice should ok', function (done) {
+    xit('sendVoice should ok', function (done) {
       api.sendVoice(puling, voiceId, function (err, data, res) {
         expect(err).not.to.be.ok();
         expect(data).to.have.property('errcode', 0);
@@ -465,7 +465,7 @@ describe('common.js', function () {
       });
     });
 
-    it('sendNews should ok', function (done) {
+    xit('sendNews should ok', function (done) {
       var articles = [
         {
           "title":"Happy Day",

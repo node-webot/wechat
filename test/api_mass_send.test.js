@@ -149,7 +149,7 @@ describe('api_mass_send.js', function () {
   });
 
   describe('massSendText', function () {
-    it('should ok', function (done) {
+    xit('should ok', function (done) {
       api.massSendText('群发消息', [puling], function (err, data) {
         expect(err).to.be.ok();
         expect(err).to.have.property('message', 'api unauthorized');
@@ -159,7 +159,7 @@ describe('api_mass_send.js', function () {
   });
 
   describe('massSendImage', function () {
-    it('should ok', function (done) {
+    xit('should ok', function (done) {
       api.massSendImage(imageId, [puling], function (err, data) {
         expect(err).to.be.ok();
         expect(err).to.have.property('message', 'api unauthorized');
@@ -169,7 +169,7 @@ describe('api_mass_send.js', function () {
   });
 
   describe('deleteMass', function () {
-    it('should ok', function (done) {
+    xit('should ok', function (done) {
       api.deleteMass('messageId', function (err, data) {
         expect(err).to.be.ok();
         expect(err).to.have.property('code', -1);
@@ -180,7 +180,7 @@ describe('api_mass_send.js', function () {
   });
 
   describe('massSendVoice', function () {
-    it('should ok', function (done) {
+    xit('should ok', function (done) {
       api.massSendVoice('media_id', [puling], function (err, data) {
         expect(err).to.be.ok();
         expect(err).to.have.property('message', 'api unauthorized');
@@ -190,7 +190,7 @@ describe('api_mass_send.js', function () {
   });
 
   describe('massSendVideo', function () {
-    it('should ok', function (done) {
+    xit('should ok', function (done) {
       var opts = {
         media_id: 'media_id',
         title: 'title',
@@ -248,7 +248,7 @@ describe('api_mass_send.js', function () {
       after(function () {
         muk.restore();
       });
-      it('send to openids should ok', function (done) {
+      xit('send to openids should ok', function (done) {
         var opts = {
           "media_id": "rF4UdIMfYK3efUfyoddYRMU50zMiRmmt_l0kszupYh_SzrcW5Gaheq05p_lHuOTQ",
           "title": "TITLE",
@@ -264,7 +264,7 @@ describe('api_mass_send.js', function () {
   });
 
   describe('massSendNews', function () {
-    it('should ok', function (done) {
+    xit('should ok', function (done) {
       api.massSendNews('media id', [puling], function (err, data) {
         expect(err).to.be.ok();
         expect(err).to.have.property('message', 'api unauthorized');
@@ -272,7 +272,7 @@ describe('api_mass_send.js', function () {
       });
     });
 
-    it('should ok with groupid', function (done) {
+    xit('should ok with groupid', function (done) {
       api.massSendNews('media id', 'invalid groupid', function (err, data) {
         expect(err).to.be.ok();
         expect(err).to.have.property('code', 40050);

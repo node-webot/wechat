@@ -7,7 +7,7 @@ describe('pay', function () {
     api.deliverNotify('{}', function (err, menu) {
       should.exist(err);
       err.name.should.be.equal('WeChatAPIError');
-      err.message.should.be.equal('invalid appid');
+      err.message.should.be.equal('invalid credential');
       done();
     });
   });
@@ -16,7 +16,7 @@ describe('pay', function () {
     api.orderQuery('{}', function (err, menu) {
       should.exist(err);
       err.name.should.be.equal('WeChatAPIError');
-      err.message.should.be.equal('invalid appid');
+      err.message.should.be.equal('invalid credential');
       done();
     });
   });
