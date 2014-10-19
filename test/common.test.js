@@ -13,86 +13,6 @@ var thumbId = 'BHxGDVy7WY6BCOcv3AwbywUE630Vw0tAV_V8bzBaCZid4Km5fwXrVOso3X0zas4n'
 var movieId = 'b4F8SfaZZQwalDxwPjd923ACV5IUeYvZ9-dYKf5ytXrS-IImXEkl2U8Fl5EH-jCF';
 
 describe('common.js', function () {
-  describe('mixin', function () {
-    it('should ok', function () {
-      API.mixin({sayHi: function () {}});
-      expect(API.prototype).to.have.property('sayHi');
-    });
-
-    it('should not ok when override method', function () {
-      var obj = {sayHi: function () {}};
-      expect(API.mixin).withArgs(obj).to.throwException(/Don't allow override existed prototype method\./);
-    });
-  });
-
-  describe('getAccessToken', function () {
-    it('should ok', function (done) {
-      var api = new API(config.appid, config.appsecret);
-      api.getAccessToken(function (err, token) {
-        should.not.exist(err);
-        expect(token).to.only.have.keys('accessToken', 'expireTime');
-        done();
-      });
-    });
-
-    it('should not ok', function (done) {
-      var api = new API('appid', 'secret');
-      api.getAccessToken(function (err, token) {
-        should.exist(err);
-        err.name.should.be.equal('WeChatAPIError');
-        err.message.should.be.equal('invalid credential');
-        done();
-      });
-    });
-
-    describe('mock urllib err', function () {
-      before(function () {
-        muk(urllib, 'request', function (url, args, callback) {
-          var err = new Error('Urllib Error');
-          err.name = 'UrllibError';
-          callback(err);
-        });
-      });
-
-      after(function () {
-        muk.restore();
-      });
-
-      it('should get mock error', function (done) {
-        var api = new API('appid', 'secret');
-        api.getAccessToken(function (err, token) {
-          should.exist(err);
-          err.name.should.be.equal('WeChatAPIUrllibError');
-          err.message.should.be.equal('Urllib Error');
-          done();
-        });
-      });
-    });
-
-    describe('mock token', function () {
-      before(function () {
-        muk(urllib, 'request', function (url, args, callback) {
-          process.nextTick(function () {
-            callback(null, {"access_token": "ACCESS_TOKEN","expires_in": 7200});
-          });
-        });
-      });
-      after(function () {
-        muk.restore();
-      });
-
-      it('should ok', function (done) {
-        var api = new API('appid', 'secret');
-        api.getAccessToken(function (err, token) {
-          should.not.exist(err);
-          token.should.have.property('accessToken', 'ACCESS_TOKEN');
-          // token.should.have.property('expireTime', 7200);
-          done();
-        });
-      });
-    });
-  });
-
   describe('isAccessTokenValid', function () {
     it('should invalid', function () {
       var token = new API.AccessToken('token', new Date().getTime() - 7200 * 1000);
@@ -626,42 +546,6 @@ describe('common.js', function () {
         api.getMedia('media_id', function (err, data, res) {
           should.exist(err);
           err.should.have.property('name', 'SyntaxError');
-          done();
-        });
-      });
-    });
-
-    describe('getRecords mock', function () {
-      before(function () {
-        muk(urllib, 'request', function (url, args, callback) {
-          var data = {"recordlist": []};
-          var res =  {
-            headers: {
-              'content-type': 'application/json'
-            }
-          };
-          process.nextTick(function () {
-            callback(null, data, res);
-          });
-        });
-      });
-
-      after(function () {
-        muk.restore();
-      });
-
-      it('getRecords should ok', function (done) {
-        var condition = {
-          "starttime" : 123456789,
-          "endtime" : 987654321,
-          // "openid" : "OPENID",
-          "pagesize" : 10,
-          "pageindex" : 1,
-        };
-
-        api.getRecords(condition, function (err, data, res) {
-          expect(err).not.to.be.ok();
-          expect(data).to.have.property('recordlist');
           done();
         });
       });
