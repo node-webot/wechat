@@ -44,6 +44,12 @@ describe('api_shop_order', function () {
       });
     });
 
+    it('should exception: (string, callback)', function () {
+      expect(function () {
+        api.getOrdersByStatus('some string', function () {});
+      }).to.throwException(/first parameter must be Number or Date/);
+    });
+
     it('should unauthorized with beginTime&endTime(status, endTime, callback)', function (done) {
       api.getOrdersByStatus(2, new Date(), function (err, data, res) {
         expect(err).to.be.ok();
@@ -51,6 +57,12 @@ describe('api_shop_order', function () {
         expect(data).to.have.property('errmsg', 'api unauthorized');
         done();
       });
+    });
+
+    it('should exception: (string, string, callback)', function () {
+      expect(function () {
+        api.getOrdersByStatus('some string', 'string', function () {});
+      }).to.throwException(/first parameter must be Number and second parameter must be Date/);
     });
 
     it('should unauthorized with beginTime&endTime(status, beginTime, endTime, callback)', function (done) {

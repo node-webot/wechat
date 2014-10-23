@@ -58,8 +58,8 @@ describe('api_custom_service', function () {
     it('should unauthorized', function (done) {
       api.getCustomServiceList(function (err, data, res) {
         expect(err).to.be.ok();
-        expect(data).to.have.property('errcode', 48001);
-        expect(data).to.have.property('errmsg', 'api unauthorized');
+        expect(data).to.have.property('errcode');
+        expect(data).to.have.property('errmsg');
         done();
       });
     });
@@ -69,8 +69,8 @@ describe('api_custom_service', function () {
     it('should unauthorized', function (done) {
       api.getOnlineCustomServiceList(function (err, data, res) {
         expect(err).to.be.ok();
-        expect(data).to.have.property('errcode', 48001);
-        expect(data).to.have.property('errmsg', 'api unauthorized');
+        expect(data).to.have.property('errcode');
+        expect(data).to.have.property('errmsg');
         done();
       });
     });

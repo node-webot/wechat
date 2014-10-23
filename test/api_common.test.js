@@ -83,6 +83,28 @@ describe('common.js', function () {
         });
       });
     });
+
+    describe('mock saveToken err', function () {
+      var api = new API(config.appid, config.appsecret);
+      before(function () {
+        muk(api, 'saveToken', function (token, callback) {
+          process.nextTick(function () {
+            callback(new Error('mock saveToken err'));
+          });
+        });
+      });
+      after(function () {
+        muk.restore();
+      });
+
+      it('should ok', function (done) {
+        api.getAccessToken(function (err, token) {
+          expect(err).to.be.ok();
+          expect(err).to.have.property('message', 'mock saveToken err');
+          done();
+        });
+      });
+    });
   });
 
   describe('preRequest', function () {
@@ -90,9 +112,111 @@ describe('common.js', function () {
       var api = new API(config.appid, config.appsecret);
       api.preRequest(function (callback) {
         callback();
-      }, [function () {
+      }, [function (err) {
+        expect(err).not.to.be.ok();
         done();
       }]);
+    });
+
+    describe('mock getToken err', function () {
+      var api = new API(config.appid, config.appsecret);
+      before(function () {
+        muk(api, 'getToken', function (callback) {
+          process.nextTick(function () {
+            callback(new Error('mock getToken error'));
+          });
+        });
+      });
+      after(function () {
+        muk.restore();
+      });
+
+      it('should not ok', function (done) {
+        api.preRequest(function (callback) {
+          callback();
+        }, [function (err) {
+          expect(err).to.be.ok();
+          expect(err).have.property('message', 'mock getToken error');
+          done();
+        }]);
+      });
+    });
+
+    describe('mock getAccessToken err', function () {
+      var api = new API(config.appid, config.appsecret);
+      before(function () {
+        muk(api, 'getAccessToken', function (callback) {
+          process.nextTick(function () {
+            callback(new Error('mock getAccessToken error'));
+          });
+        });
+      });
+      after(function () {
+        muk.restore();
+      });
+
+      it('should not ok', function (done) {
+        api.preRequest(function (callback) {
+          callback();
+        }, [function (err) {
+          expect(err).to.be.ok();
+          expect(err).have.property('message', 'mock getAccessToken error');
+          done();
+        }]);
+      });
+    });
+
+    describe('mock getToken ok', function () {
+      var api = new API(config.appid, config.appsecret);
+      before(function () {
+        muk(api, 'getToken', function (callback) {
+          process.nextTick(function () {
+            callback(null, {accessToken: 'token', expireTime: (new Date().getTime() + 10000)});
+          });
+        });
+      });
+      after(function () {
+        muk.restore();
+      });
+
+      it('should not ok', function (done) {
+        api.preRequest(function (callback) {
+          callback();
+        }, [function (err) {
+          expect(err).not.to.be.ok();
+          done();
+        }]);
+      });
+    });
+
+    describe('mock getToken ok', function () {
+      var api = new API(config.appid, config.appsecret);
+      before(function () {
+        muk(api, 'getToken', function (callback) {
+          process.nextTick(function () {
+            callback(null, {accessToken: 'token', expireTime: (new Date().getTime() + 10000)});
+          });
+        });
+      });
+
+      after(function () {
+        muk.restore();
+      });
+
+      it('should not ok', function (done) {
+        var i = 0;
+        api.preRequest(function (callback) {
+          i++;
+          if (i === 1) {
+            callback(null, {errcode: 40001});
+          } else {
+            callback(null, {errcode: 0});
+          }
+        }, [function (err) {
+          expect(err).not.to.be.ok();
+          done();
+        }]);
+      });
     });
   });
 
@@ -103,6 +227,51 @@ describe('common.js', function () {
         expect(err).not.to.be.ok();
         expect(token).to.only.have.keys('accessToken', 'expireTime');
         done();
+      });
+    });
+
+    describe('mock getToken err', function () {
+      var api = new API(config.appid, config.appsecret);
+      before(function () {
+        muk(api, 'getToken', function (callback) {
+          process.nextTick(function () {
+            callback(new Error('mock getToken error'));
+          });
+        });
+      });
+      after(function () {
+        muk.restore();
+      });
+
+      it('should not ok', function (done) {
+        api.getLatestToken(function (err) {
+          expect(err).to.be.ok();
+          expect(err).have.property('message', 'mock getToken error');
+          done();
+        });
+      });
+    });
+
+    describe('mock getToken ok', function () {
+      var api = new API(config.appid, config.appsecret);
+      before(function () {
+        muk(api, 'getToken', function (callback) {
+          process.nextTick(function () {
+            callback(null, {accessToken: 'token', expireTime: (new Date().getTime() + 10000)});
+          });
+        });
+      });
+      after(function () {
+        muk.restore();
+      });
+
+      it('should not ok', function (done) {
+        api.getLatestToken(function (err, token) {
+          expect(err).not.to.be.ok();
+          expect(token).have.property('accessToken');
+          expect(token).have.property('expireTime');
+          done();
+        });
       });
     });
   });

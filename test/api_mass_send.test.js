@@ -149,48 +149,50 @@ describe('api_mass_send.js', function () {
   });
 
   describe('massSendText', function () {
-    xit('should ok', function (done) {
+    it('should ok', function (done) {
       api.massSendText('群发消息', [puling], function (err, data) {
-        expect(err).to.be.ok();
-        expect(err).to.have.property('message', 'api unauthorized');
+        expect(err).not.to.be.ok();
+        expect(data).to.have.property('errcode', 0);
+        expect(data).to.have.property('errmsg', 'send job submission success');
         done();
       });
     });
   });
 
   describe('massSendImage', function () {
-    xit('should ok', function (done) {
+    it('should ok', function (done) {
       api.massSendImage(imageId, [puling], function (err, data) {
         expect(err).to.be.ok();
-        expect(err).to.have.property('message', 'api unauthorized');
+        expect(err).to.have.property('code');
+        expect(err).to.have.property('message');
         done();
       });
     });
   });
 
   describe('deleteMass', function () {
-    xit('should ok', function (done) {
+    it('should ok', function (done) {
       api.deleteMass('messageId', function (err, data) {
         expect(err).to.be.ok();
         expect(err).to.have.property('code', -1);
-        expect(err).to.have.property('message', 'api unauthorized');
+        expect(err).to.have.property('message', 'system error');
         done();
       });
     });
   });
 
   describe('massSendVoice', function () {
-    xit('should ok', function (done) {
+    it('should ok', function (done) {
       api.massSendVoice('media_id', [puling], function (err, data) {
         expect(err).to.be.ok();
-        expect(err).to.have.property('message', 'api unauthorized');
+        expect(err).to.have.property('message', 'invalid media_id');
         done();
       });
     });
   });
 
   describe('massSendVideo', function () {
-    xit('should ok', function (done) {
+    it('should ok', function (done) {
       var opts = {
         media_id: 'media_id',
         title: 'title',
@@ -198,7 +200,7 @@ describe('api_mass_send.js', function () {
       };
       api.massSendVideo(opts, [puling], function (err, data) {
         expect(err).to.be.ok();
-        expect(err).to.have.property('message', 'api unauthorized');
+        expect(err).to.have.property('message', 'invalid media_id');
         done();
       });
     });
@@ -248,7 +250,7 @@ describe('api_mass_send.js', function () {
       after(function () {
         muk.restore();
       });
-      xit('send to openids should ok', function (done) {
+      it('send to openids should ok', function (done) {
         var opts = {
           "media_id": "rF4UdIMfYK3efUfyoddYRMU50zMiRmmt_l0kszupYh_SzrcW5Gaheq05p_lHuOTQ",
           "title": "TITLE",
@@ -256,7 +258,7 @@ describe('api_mass_send.js', function () {
         };
         api.massSendMPVideo(opts, [puling], function (err, data) {
           expect(err).to.be.ok();
-          expect(err).to.have.property('message', 'api unauthorized');
+          expect(err).to.have.property('message', 'invalid media_id');
           done();
         });
       });
@@ -264,19 +266,19 @@ describe('api_mass_send.js', function () {
   });
 
   describe('massSendNews', function () {
-    xit('should ok', function (done) {
+    it('should ok', function (done) {
       api.massSendNews('media id', [puling], function (err, data) {
         expect(err).to.be.ok();
-        expect(err).to.have.property('message', 'api unauthorized');
+        expect(err).to.have.property('message', 'invalid media_id');
         done();
       });
     });
 
-    xit('should ok with groupid', function (done) {
+    it('should ok with groupid', function (done) {
       api.massSendNews('media id', 'invalid groupid', function (err, data) {
         expect(err).to.be.ok();
         expect(err).to.have.property('code', 40050);
-        expect(err).to.have.property('message', 'api unauthorized');
+        expect(err).to.have.property('message', 'invalid timeline type');
         done();
       });
     });

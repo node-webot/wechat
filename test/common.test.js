@@ -273,16 +273,6 @@ describe('common.js', function () {
       });
     });
 
-    it('getUser should ok', function (done) {
-      api.getUser(puling, function (err, data, res) {
-        expect(err).not.to.be.ok();
-        expect(data).to.only.have.keys('subscribe', 'openid', 'nickname',
-          'sex', 'language', 'city', 'province', 'country', 'headimgurl',
-          'subscribe_time', 'remark');
-        done();
-      });
-    });
-
     it('getFollowers should ok', function (done) {
       api.getFollowers(function (err, data, res) {
         expect(err).not.to.be.ok();

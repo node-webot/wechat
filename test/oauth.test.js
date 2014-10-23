@@ -247,8 +247,26 @@ describe('oauth.js', function () {
         muk.restore();
       });
 
-      it('should ok', function (done) {
+      it('should ok with openid', function (done) {
         api.getUser('openid', function (err, data) {
+          should.not.exist(err);
+          data.should.have.keys('openid', 'nickname', 'sex', 'province', 'city',
+            'country', 'headimgurl', 'privilege');
+          done();
+        });
+      });
+
+      it('should ok with options', function (done) {
+        api.getUser({openid: 'openid', lang: 'en'}, function (err, data) {
+          should.not.exist(err);
+          data.should.have.keys('openid', 'nickname', 'sex', 'province', 'city',
+            'country', 'headimgurl', 'privilege');
+          done();
+        });
+      });
+
+      it('should ok with options', function (done) {
+        api.getUser({openid: 'openid'}, function (err, data) {
           should.not.exist(err);
           data.should.have.keys('openid', 'nickname', 'sex', 'province', 'city',
             'country', 'headimgurl', 'privilege');
