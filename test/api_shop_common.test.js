@@ -10,8 +10,8 @@ describe('api_shop_common', function () {
     it('should unauthorized', function (done) {
       api.uploadPicture(path.join(__dirname, 'fixture/image.jpg'), function (err, data, res) {
         expect(err).to.be.ok();
-        expect(data).to.have.property('errcode', 48001);
-        expect(data).to.have.property('errmsg', 'api unauthorized');
+        expect(err).to.have.property('code', 48001);
+        expect(err).to.have.property('message', 'api unauthorized');
         done();
       });
     });

@@ -189,7 +189,7 @@ describe('common.js', function () {
       });
     });
 
-    describe('mock getToken ok', function () {
+    describe('mock getToken ok with retry', function () {
       var api = new API(config.appid, config.appsecret);
       before(function () {
         muk(api, 'getToken', function (callback) {

@@ -37,6 +37,8 @@ API.mixin(require('./lib/api_shop_common'));
 API.mixin(require('./lib/api_payment'));
 // 用户维权系统接口
 API.mixin(require('./lib/api_feedback'));
+// 短网址接口
+API.mixin(require('./lib/api_url'));
 
 wechat.API = API;
 wechat.OAuth = require('./lib/oauth');
