@@ -16,7 +16,7 @@ API.mixin(require('./lib/api_qrcode'));
 // 媒体管理（上传、下载）
 API.mixin(require('./lib/api_media'));
 // 客服消息
-API.mixin(require('./lib/api_customer'));
+API.mixin(require('./lib/api_message'));
 // 模板消息
 API.mixin(require('./lib/api_template'));
 // 获取客服聊天记录
