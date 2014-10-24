@@ -4,7 +4,19 @@ var muk = require('muk');
 var expect = require('expect.js');
 var config = require('./config');
 
-describe('common.js', function () {
+describe('api_common', function () {
+  describe('isAccessTokenValid', function () {
+    it('should invalid', function () {
+      var token = new API.AccessToken('token', new Date().getTime() - 7200 * 1000);
+      expect(token.isValid()).not.to.be.ok();
+    });
+
+    it('should valid', function () {
+      var token = new API.AccessToken('token', new Date().getTime() + 7200 * 1000);
+      expect(token.isValid()).to.be.ok();
+    });
+  });
+
   describe('mixin', function () {
     it('should ok', function () {
       API.mixin({sayHi: function () {}});
