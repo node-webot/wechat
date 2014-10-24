@@ -2,7 +2,7 @@ var wechat = require('./lib/wechat');
 // 等待回复
 wechat.List = require('./lib/list');
 // 事件
-wechat.Event = require('./lib/event');
+wechat.Event = require('./lib/events');
 
 var API = require('./lib/api_common');
 // 菜单接口
