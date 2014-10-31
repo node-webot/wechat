@@ -1,40 +1,9 @@
+
 var should = require('should');
 var List = require('../').List;
 
 describe('list.js', function () {
-  it.only('should ok', function () {
-    var common = [
-      ['选择{a}查看啥', function () {}],
-      ['选择{b}查看啥', function () {}],
-      ['选择{c}查看啥', function () {}]
-    ];
-    var head = '我是头';
-    var deli = '-------';
-    var foot = '我是小尾巴';
-
-    List.add('common', common, head, deli, '我是小尾巴');
-    var list = List.get('common');
-    list.description.should.be.equal(head + '\n选择a查看啥\n' + deli +'\n选择b查看啥\n' + deli+'\n选择c查看啥\n' + foot);
-    list.get('a').should.be.equal(common[0][1]);
-    list.get('b').should.be.equal(common[1][1]);
-    list.get('c').should.be.equal(common[2][1]);
-  });
-
-  it('should ok when clear', function () {
-    var common = [
-      ['选择{a}查看啥', function () {}],
-      ['选择{b}查看啥', function () {}],
-      ['选择{c}查看啥', function () {}]
-    ];
-    List.add('common', common);
-    var list = List.get('common');
-    should.exist(list);
-    List.clear();
-    list = List.get('common');
-    should.not.exist(list);
-  });
-
-  it('add body should ok', function () {
+  it('should ok', function () {
     var common = [
       ['选择{a}查看啥', function () {}],
       ['选择{b}查看啥', function () {}],
@@ -75,5 +44,23 @@ describe('list.js', function () {
     list.get('a').should.be.equal(common[1][1]);
     list.get('b').should.be.equal(common[2][1]);
     list.get('c').should.be.equal(common[3][1]);
+  });
+
+  it('should ok with body, foot, delimiter', function() {
+    var common = [
+      ['选择{a}查看啥', function () {}],
+      ['选择{b}查看啥', function () {}],
+      ['选择{c}查看啥', function () {}]
+    ];
+    var head = '我是头';
+    var delimiter = '-------';
+    var foot = '我是小尾巴';
+
+    List.add('common', common, head, delimiter, '我是小尾巴');
+    var list = List.get('common');
+    list.description.should.be.equal(head + '\n选择a查看啥\n' + delimiter + '\n选择b查看啥\n' + delimiter + '\n选择c查看啥\n' + foot);
+    list.get('a').should.be.equal(common[0][1]);
+    list.get('b').should.be.equal(common[1][1]);
+    list.get('c').should.be.equal(common[2][1]);
   });
 });
