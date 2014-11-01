@@ -38,7 +38,7 @@
     </nav>
     <header class="jumbotron subhead">
       <div class="container">
-        <h1>wechat <small>Version: 0.8.11 By @Jackson Tian</small></h1>
+        <h1>wechat <small>Version: 0.8.16 By @Jackson Tian</small></h1>
         <p class="lead">
           微信公共平台Node库
         </p>
@@ -59,10 +59,6 @@
   </li>
 
   <li>
-    <a href="#api_api_customer"><i class="icon-chevron-right"></i>api_customer</a>
-  </li>
-
-  <li>
     <a href="#api_api_feedback"><i class="icon-chevron-right"></i>api_feedback</a>
   </li>
 
@@ -80,6 +76,10 @@
 
   <li>
     <a href="#api_api_menu"><i class="icon-chevron-right"></i>api_menu</a>
+  </li>
+
+  <li>
+    <a href="#api_api_message"><i class="icon-chevron-right"></i>api_message</a>
   </li>
 
   <li>
@@ -123,7 +123,15 @@
   </li>
 
   <li>
+    <a href="#api_api_url"><i class="icon-chevron-right"></i>api_url</a>
+  </li>
+
+  <li>
     <a href="#api_api_user"><i class="icon-chevron-right"></i>api_user</a>
+  </li>
+
+  <li>
+    <a href="#api_events"><i class="icon-chevron-right"></i>events</a>
   </li>
 
   <li>
@@ -490,349 +498,6 @@ API.mixin(require(&#39;./lib/api_media&#39;));
       <td>exports.getOnlineCustomServiceList()</td> 
       <td>exports</td>
       <td>getOnlineCustomServiceList</td>
-    </tr>
-  
-
-    <tr>
-      <td>参数</td>
-      <td>callback(Function)</td>
-      <td colspan="2">回调函数</td>
-    </tr>
-  
-
-  
-  </table>
-  
-</section>
-
-      
-        <section id="api_api_customer" class="api">
-  <h2>api_customer: API索引</h2>
-  <ul class="indexs">
-  
-    <li>
-      <a href="#api_customer_exports_sendText">sendText</a>
-    </li>
-
-    <li>
-      <a href="#api_customer_exports_sendImage">sendImage</a>
-    </li>
-
-    <li>
-      <a href="#api_customer_exports_sendVoice">sendVoice</a>
-    </li>
-
-    <li>
-      <a href="#api_customer_exports_sendVideo">sendVideo</a>
-    </li>
-
-    <li>
-      <a href="#api_customer_exports_sendMusic">sendMusic</a>
-    </li>
-
-    <li>
-      <a href="#api_customer_exports_sendNews">sendNews</a>
-    </li>
-
-  </ul>
-  <hr />
-
-  
-  <h3 data-id="api_customer_exports_sendText">
-    sendText
-  </h3>
-  
-
-  <p>客服消息，发送文字消息<br />详细细节 <a href="http://mp.weixin.qq.com/wiki/index.php?title=发送客服消息">http://mp.weixin.qq.com/wiki/index.php?title=发送客服消息</a><br />Examples:</p><pre><code>api.sendText(&#39;openid&#39;, &#39;Hello world&#39;, callback);
-</code></pre><p>Callback:</p><ul>
-<li><code>err</code>, 调用失败时得到的异常</li>
-<li><code>result</code>, 调用正常时得到的对象</li>
-</ul>
-
-
-  <table class="table table-striped table-bordered table-hover table-condensed">
-  
-    <tr>
-      <td>方法</td>
-      <td>exports.sendText()</td> 
-      <td>exports</td>
-      <td>sendText</td>
-    </tr>
-  
-
-    <tr>
-      <td>参数</td>
-      <td>openid(String)</td>
-      <td colspan="2">用户的openid</td>
-    </tr>
-  
-
-    <tr>
-      <td>参数</td>
-      <td>text(String)</td>
-      <td colspan="2">发送的消息内容</td>
-    </tr>
-  
-
-    <tr>
-      <td>参数</td>
-      <td>callback(Function)</td>
-      <td colspan="2">回调函数</td>
-    </tr>
-  
-
-  
-  </table>
-  
-  
-  <h3 data-id="api_customer_exports_sendImage">
-    sendImage
-  </h3>
-  
-
-  <p>客服消息，发送图片消息<br />详细细节 <a href="http://mp.weixin.qq.com/wiki/index.php?title=发送客服消息">http://mp.weixin.qq.com/wiki/index.php?title=发送客服消息</a><br />Examples:</p><pre><code>api.sendImage(&#39;openid&#39;, &#39;media_id&#39;, callback);
-</code></pre><p>Callback:</p><ul>
-<li><code>err</code>, 调用失败时得到的异常</li>
-<li><code>result</code>, 调用正常时得到的对象</li>
-</ul>
-
-
-  <table class="table table-striped table-bordered table-hover table-condensed">
-  
-    <tr>
-      <td>方法</td>
-      <td>exports.sendImage()</td> 
-      <td>exports</td>
-      <td>sendImage</td>
-    </tr>
-  
-
-    <tr>
-      <td>参数</td>
-      <td>openid(String)</td>
-      <td colspan="2">用户的openid</td>
-    </tr>
-  
-
-    <tr>
-      <td>参数</td>
-      <td>mediaId(String)</td>
-      <td colspan="2">媒体文件的ID，参见uploadMedia方法</td>
-    </tr>
-  
-
-    <tr>
-      <td>参数</td>
-      <td>callback(Function)</td>
-      <td colspan="2">回调函数</td>
-    </tr>
-  
-
-  
-  </table>
-  
-  
-  <h3 data-id="api_customer_exports_sendVoice">
-    sendVoice
-  </h3>
-  
-
-  <p>客服消息，发送语音消息<br />详细细节 <a href="http://mp.weixin.qq.com/wiki/index.php?title=发送客服消息">http://mp.weixin.qq.com/wiki/index.php?title=发送客服消息</a><br />Examples:</p><pre><code>api.sendVoice(&#39;openid&#39;, &#39;media_id&#39;, callback);
-</code></pre><p>Callback:</p><ul>
-<li><code>err</code>, 调用失败时得到的异常</li>
-<li><code>result</code>, 调用正常时得到的对象</li>
-</ul>
-
-
-  <table class="table table-striped table-bordered table-hover table-condensed">
-  
-    <tr>
-      <td>方法</td>
-      <td>exports.sendVoice()</td> 
-      <td>exports</td>
-      <td>sendVoice</td>
-    </tr>
-  
-
-    <tr>
-      <td>参数</td>
-      <td>openid(String)</td>
-      <td colspan="2">用户的openid</td>
-    </tr>
-  
-
-    <tr>
-      <td>参数</td>
-      <td>mediaId(String)</td>
-      <td colspan="2">媒体文件的ID</td>
-    </tr>
-  
-
-    <tr>
-      <td>参数</td>
-      <td>callback(Function)</td>
-      <td colspan="2">回调函数</td>
-    </tr>
-  
-
-  
-  </table>
-  
-  
-  <h3 data-id="api_customer_exports_sendVideo">
-    sendVideo
-  </h3>
-  
-
-  <p>客服消息，发送视频消息<br />详细细节 <a href="http://mp.weixin.qq.com/wiki/index.php?title=发送客服消息">http://mp.weixin.qq.com/wiki/index.php?title=发送客服消息</a><br />Examples:</p><pre><code>api.sendVideo(&#39;openid&#39;, &#39;media_id&#39;, &#39;thumb_media_id&#39;, callback);
-</code></pre><p>Callback:</p><ul>
-<li><code>err</code>, 调用失败时得到的异常</li>
-<li><code>result</code>, 调用正常时得到的对象</li>
-</ul>
-
-
-  <table class="table table-striped table-bordered table-hover table-condensed">
-  
-    <tr>
-      <td>方法</td>
-      <td>exports.sendVideo()</td> 
-      <td>exports</td>
-      <td>sendVideo</td>
-    </tr>
-  
-
-    <tr>
-      <td>参数</td>
-      <td>openid(String)</td>
-      <td colspan="2">用户的openid</td>
-    </tr>
-  
-
-    <tr>
-      <td>参数</td>
-      <td>mediaId(String)</td>
-      <td colspan="2">媒体文件的ID</td>
-    </tr>
-  
-
-    <tr>
-      <td>参数</td>
-      <td>thumbMediaId(String)</td>
-      <td colspan="2">缩略图文件的ID</td>
-    </tr>
-  
-
-    <tr>
-      <td>参数</td>
-      <td>callback(Function)</td>
-      <td colspan="2">回调函数</td>
-    </tr>
-  
-
-  
-  </table>
-  
-  
-  <h3 data-id="api_customer_exports_sendMusic">
-    sendMusic
-  </h3>
-  
-
-  <p>客服消息，发送音乐消息<br />详细细节 <a href="http://mp.weixin.qq.com/wiki/index.php?title=发送客服消息">http://mp.weixin.qq.com/wiki/index.php?title=发送客服消息</a><br />Examples:</p><pre><code>var music = {
- title: &#39;音乐标题&#39;, // 可选
- description: &#39;描述内容&#39;, // 可选
- musicurl: &#39;http://url.cn/xxx&#39;, 音乐文件地址
- hqmusicurl: &quot;HQ_MUSIC_URL&quot;,
- thumb_media_id: &quot;THUMB_MEDIA_ID&quot;
-};
-api.sendMusic(&#39;openid&#39;, music, callback);
-</code></pre><p>Callback:</p><ul>
-<li><code>err</code>, 调用失败时得到的异常</li>
-<li><code>result</code>, 调用正常时得到的对象</li>
-</ul>
-
-
-  <table class="table table-striped table-bordered table-hover table-condensed">
-  
-    <tr>
-      <td>方法</td>
-      <td>exports.sendMusic()</td> 
-      <td>exports</td>
-      <td>sendMusic</td>
-    </tr>
-  
-
-    <tr>
-      <td>参数</td>
-      <td>openid(String)</td>
-      <td colspan="2">用户的openid</td>
-    </tr>
-  
-
-    <tr>
-      <td>参数</td>
-      <td>music(Object)</td>
-      <td colspan="2">音乐文件</td>
-    </tr>
-  
-
-    <tr>
-      <td>参数</td>
-      <td>callback(Function)</td>
-      <td colspan="2">回调函数</td>
-    </tr>
-  
-
-  
-  </table>
-  
-  
-  <h3 data-id="api_customer_exports_sendNews">
-    sendNews
-  </h3>
-  
-
-  <p>客服消息，发送图文消息<br />详细细节 <a href="http://mp.weixin.qq.com/wiki/index.php?title=发送客服消息">http://mp.weixin.qq.com/wiki/index.php?title=发送客服消息</a><br />Examples:</p><pre><code>var articles = [
- {
-   &quot;title&quot;:&quot;Happy Day&quot;,
-   &quot;description&quot;:&quot;Is Really A Happy Day&quot;,
-   &quot;url&quot;:&quot;URL&quot;,
-   &quot;picurl&quot;:&quot;PIC_URL&quot;
- },
- {
-   &quot;title&quot;:&quot;Happy Day&quot;,
-   &quot;description&quot;:&quot;Is Really A Happy Day&quot;,
-   &quot;url&quot;:&quot;URL&quot;,
-   &quot;picurl&quot;:&quot;PIC_URL&quot;
- }];
-api.sendNews(&#39;openid&#39;, articles, callback);
-</code></pre><p>Callback:</p><ul>
-<li><code>err</code>, 调用失败时得到的异常</li>
-<li><code>result</code>, 调用正常时得到的对象</li>
-</ul>
-
-
-  <table class="table table-striped table-bordered table-hover table-condensed">
-  
-    <tr>
-      <td>方法</td>
-      <td>exports.sendNews()</td> 
-      <td>exports</td>
-      <td>sendNews</td>
-    </tr>
-  
-
-    <tr>
-      <td>参数</td>
-      <td>openid(String)</td>
-      <td colspan="2">用户的openid</td>
-    </tr>
-  
-
-    <tr>
-      <td>参数</td>
-      <td>articles(Array)</td>
-      <td colspan="2">图文列表</td>
     </tr>
   
 
@@ -2014,6 +1679,349 @@ api.sendNews(&#39;openid&#39;, articles, callback);
       <td>exports.removeMenu()</td> 
       <td>exports</td>
       <td>removeMenu</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>callback(Function)</td>
+      <td colspan="2">回调函数</td>
+    </tr>
+  
+
+  
+  </table>
+  
+</section>
+
+      
+        <section id="api_api_message" class="api">
+  <h2>api_message: API索引</h2>
+  <ul class="indexs">
+  
+    <li>
+      <a href="#api_message_exports_sendText">sendText</a>
+    </li>
+
+    <li>
+      <a href="#api_message_exports_sendImage">sendImage</a>
+    </li>
+
+    <li>
+      <a href="#api_message_exports_sendVoice">sendVoice</a>
+    </li>
+
+    <li>
+      <a href="#api_message_exports_sendVideo">sendVideo</a>
+    </li>
+
+    <li>
+      <a href="#api_message_exports_sendMusic">sendMusic</a>
+    </li>
+
+    <li>
+      <a href="#api_message_exports_sendNews">sendNews</a>
+    </li>
+
+  </ul>
+  <hr />
+
+  
+  <h3 data-id="api_message_exports_sendText">
+    sendText
+  </h3>
+  
+
+  <p>客服消息，发送文字消息<br />详细细节 <a href="http://mp.weixin.qq.com/wiki/index.php?title=发送客服消息">http://mp.weixin.qq.com/wiki/index.php?title=发送客服消息</a><br />Examples:</p><pre><code>api.sendText(&#39;openid&#39;, &#39;Hello world&#39;, callback);
+</code></pre><p>Callback:</p><ul>
+<li><code>err</code>, 调用失败时得到的异常</li>
+<li><code>result</code>, 调用正常时得到的对象</li>
+</ul>
+
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>exports.sendText()</td> 
+      <td>exports</td>
+      <td>sendText</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>openid(String)</td>
+      <td colspan="2">用户的openid</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>text(String)</td>
+      <td colspan="2">发送的消息内容</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>callback(Function)</td>
+      <td colspan="2">回调函数</td>
+    </tr>
+  
+
+  
+  </table>
+  
+  
+  <h3 data-id="api_message_exports_sendImage">
+    sendImage
+  </h3>
+  
+
+  <p>客服消息，发送图片消息<br />详细细节 <a href="http://mp.weixin.qq.com/wiki/index.php?title=发送客服消息">http://mp.weixin.qq.com/wiki/index.php?title=发送客服消息</a><br />Examples:</p><pre><code>api.sendImage(&#39;openid&#39;, &#39;media_id&#39;, callback);
+</code></pre><p>Callback:</p><ul>
+<li><code>err</code>, 调用失败时得到的异常</li>
+<li><code>result</code>, 调用正常时得到的对象</li>
+</ul>
+
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>exports.sendImage()</td> 
+      <td>exports</td>
+      <td>sendImage</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>openid(String)</td>
+      <td colspan="2">用户的openid</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>mediaId(String)</td>
+      <td colspan="2">媒体文件的ID，参见uploadMedia方法</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>callback(Function)</td>
+      <td colspan="2">回调函数</td>
+    </tr>
+  
+
+  
+  </table>
+  
+  
+  <h3 data-id="api_message_exports_sendVoice">
+    sendVoice
+  </h3>
+  
+
+  <p>客服消息，发送语音消息<br />详细细节 <a href="http://mp.weixin.qq.com/wiki/index.php?title=发送客服消息">http://mp.weixin.qq.com/wiki/index.php?title=发送客服消息</a><br />Examples:</p><pre><code>api.sendVoice(&#39;openid&#39;, &#39;media_id&#39;, callback);
+</code></pre><p>Callback:</p><ul>
+<li><code>err</code>, 调用失败时得到的异常</li>
+<li><code>result</code>, 调用正常时得到的对象</li>
+</ul>
+
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>exports.sendVoice()</td> 
+      <td>exports</td>
+      <td>sendVoice</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>openid(String)</td>
+      <td colspan="2">用户的openid</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>mediaId(String)</td>
+      <td colspan="2">媒体文件的ID</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>callback(Function)</td>
+      <td colspan="2">回调函数</td>
+    </tr>
+  
+
+  
+  </table>
+  
+  
+  <h3 data-id="api_message_exports_sendVideo">
+    sendVideo
+  </h3>
+  
+
+  <p>客服消息，发送视频消息<br />详细细节 <a href="http://mp.weixin.qq.com/wiki/index.php?title=发送客服消息">http://mp.weixin.qq.com/wiki/index.php?title=发送客服消息</a><br />Examples:</p><pre><code>api.sendVideo(&#39;openid&#39;, &#39;media_id&#39;, &#39;thumb_media_id&#39;, callback);
+</code></pre><p>Callback:</p><ul>
+<li><code>err</code>, 调用失败时得到的异常</li>
+<li><code>result</code>, 调用正常时得到的对象</li>
+</ul>
+
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>exports.sendVideo()</td> 
+      <td>exports</td>
+      <td>sendVideo</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>openid(String)</td>
+      <td colspan="2">用户的openid</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>mediaId(String)</td>
+      <td colspan="2">媒体文件的ID</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>thumbMediaId(String)</td>
+      <td colspan="2">缩略图文件的ID</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>callback(Function)</td>
+      <td colspan="2">回调函数</td>
+    </tr>
+  
+
+  
+  </table>
+  
+  
+  <h3 data-id="api_message_exports_sendMusic">
+    sendMusic
+  </h3>
+  
+
+  <p>客服消息，发送音乐消息<br />详细细节 <a href="http://mp.weixin.qq.com/wiki/index.php?title=发送客服消息">http://mp.weixin.qq.com/wiki/index.php?title=发送客服消息</a><br />Examples:</p><pre><code>var music = {
+ title: &#39;音乐标题&#39;, // 可选
+ description: &#39;描述内容&#39;, // 可选
+ musicurl: &#39;http://url.cn/xxx&#39;, 音乐文件地址
+ hqmusicurl: &quot;HQ_MUSIC_URL&quot;,
+ thumb_media_id: &quot;THUMB_MEDIA_ID&quot;
+};
+api.sendMusic(&#39;openid&#39;, music, callback);
+</code></pre><p>Callback:</p><ul>
+<li><code>err</code>, 调用失败时得到的异常</li>
+<li><code>result</code>, 调用正常时得到的对象</li>
+</ul>
+
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>exports.sendMusic()</td> 
+      <td>exports</td>
+      <td>sendMusic</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>openid(String)</td>
+      <td colspan="2">用户的openid</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>music(Object)</td>
+      <td colspan="2">音乐文件</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>callback(Function)</td>
+      <td colspan="2">回调函数</td>
+    </tr>
+  
+
+  
+  </table>
+  
+  
+  <h3 data-id="api_message_exports_sendNews">
+    sendNews
+  </h3>
+  
+
+  <p>客服消息，发送图文消息<br />详细细节 <a href="http://mp.weixin.qq.com/wiki/index.php?title=发送客服消息">http://mp.weixin.qq.com/wiki/index.php?title=发送客服消息</a><br />Examples:</p><pre><code>var articles = [
+ {
+   &quot;title&quot;:&quot;Happy Day&quot;,
+   &quot;description&quot;:&quot;Is Really A Happy Day&quot;,
+   &quot;url&quot;:&quot;URL&quot;,
+   &quot;picurl&quot;:&quot;PIC_URL&quot;
+ },
+ {
+   &quot;title&quot;:&quot;Happy Day&quot;,
+   &quot;description&quot;:&quot;Is Really A Happy Day&quot;,
+   &quot;url&quot;:&quot;URL&quot;,
+   &quot;picurl&quot;:&quot;PIC_URL&quot;
+ }];
+api.sendNews(&#39;openid&#39;, articles, callback);
+</code></pre><p>Callback:</p><ul>
+<li><code>err</code>, 调用失败时得到的异常</li>
+<li><code>result</code>, 调用正常时得到的对象</li>
+</ul>
+
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>exports.sendNews()</td> 
+      <td>exports</td>
+      <td>sendNews</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>openid(String)</td>
+      <td colspan="2">用户的openid</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>articles(Array)</td>
+      <td colspan="2">图文列表</td>
     </tr>
   
 
@@ -4635,6 +4643,60 @@ api.sendTemplate(&#39;openid&#39;, templateId, url, topColor, data, callback);
 </section>
 
       
+        <section id="api_api_url" class="api">
+  <h2>api_url: API索引</h2>
+  <ul class="indexs">
+  
+    <li>
+      <a href="#api_url_exports_shorturl">shorturl</a>
+    </li>
+
+  </ul>
+  <hr />
+
+  
+  <h3 data-id="api_url_exports_shorturl">
+    shorturl
+  </h3>
+  
+
+  <p>短网址服务<br />详细细节 <a href="http://mp.weixin.qq.com/wiki/index.php?title=长链接转短链接接口">http://mp.weixin.qq.com/wiki/index.php?title=长链接转短链接接口</a><br />Examples:</p><pre><code>api.shorturl(&#39;http://mp.weixin.com&#39;, callback);
+</code></pre><p>Callback:</p><ul>
+<li><code>err</code>, 调用失败时得到的异常</li>
+<li><code>result</code>, 调用正常时得到的对象</li>
+</ul>
+
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>exports.shorturl()</td> 
+      <td>exports</td>
+      <td>shorturl</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>longUrl(String)</td>
+      <td colspan="2">需要转换的长链接，支持http://、https://、weixin://wxpay格式的url</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>callback(Function)</td>
+      <td colspan="2">回调函数</td>
+    </tr>
+  
+
+  
+  </table>
+  
+</section>
+
+      
         <section id="api_api_user" class="api">
   <h2>api_user: API索引</h2>
   <ul class="indexs">
@@ -4645,6 +4707,10 @@ api.sendTemplate(&#39;openid&#39;, templateId, url, topColor, data, callback);
 
     <li>
       <a href="#api_user_exports_getFollowers">getFollowers</a>
+    </li>
+
+    <li>
+      <a href="#api_user_exports_updateRemark">updateRemark</a>
     </li>
 
   </ul>
@@ -4746,6 +4812,98 @@ api.getFollowers(nextOpenid, callback);
       <td>参数</td>
       <td>callback(Function)</td>
       <td colspan="2">回调函数</td>
+    </tr>
+  
+
+  
+  </table>
+  
+  
+  <h3 data-id="api_user_exports_updateRemark">
+    updateRemark
+  </h3>
+  
+
+  <p>设置用户备注名<br />详细细节 <a href="http://mp.weixin.qq.com/wiki/index.php?title=设置用户备注名接口">http://mp.weixin.qq.com/wiki/index.php?title=设置用户备注名接口</a><br />Examples:</p><pre><code>api.updateRemark(openid, remark, callback);
+</code></pre><p>Callback:</p><ul>
+<li><code>err</code>, 调用失败时得到的异常</li>
+<li><code>result</code>, 调用正常时得到的对象</li>
+</ul>
+<p>Result:</p><pre><code>{
+ &quot;errcode&quot;:0,
+ &quot;errmsg&quot;:&quot;ok&quot;
+}
+</code></pre>
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>exports.updateRemark()</td> 
+      <td>exports</td>
+      <td>updateRemark</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>openid(String)</td>
+      <td colspan="2">用户的openid</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>remark(String)</td>
+      <td colspan="2">新的备注名，长度必须小于30字符</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>callback(Function)</td>
+      <td colspan="2">回调函数</td>
+    </tr>
+  
+
+  
+  </table>
+  
+</section>
+
+      
+        <section id="api_events" class="api">
+  <h2>events: API索引</h2>
+  <ul class="indexs">
+  
+    <li>
+      <a href="#events_Event_dispatch">dispatch</a>
+    </li>
+
+  </ul>
+  <hr />
+
+  
+  <h3 data-id="events_Event_dispatch">
+    dispatch
+  </h3>
+  
+
+  <p>分发消息</p><pre><code>var Event = require(&#39;wechat&#39;).Event;
+var events = new Event();
+events.add(&#39;pic_weixin&#39;, function (message, req, res, next) {
+  // 弹出微信相册发图器的事件推送
+});
+Event.dispatch(events);
+</code></pre>
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  
+    <tr>
+      <td>方法</td>
+      <td>Event.dispatch()</td> 
+      <td>Event</td>
+      <td>dispatch</td>
     </tr>
   
 
@@ -4860,6 +5018,27 @@ api.getFollowers(nextOpenid, callback);
       <td>参数</td>
       <td>items(Array)</td>
       <td colspan="2">元素列表</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>head(String)</td>
+      <td colspan="2">回复开头</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>delimiter(String)</td>
+      <td colspan="2">回复分隔符</td>
+    </tr>
+  
+
+    <tr>
+      <td>参数</td>
+      <td>foot(String)</td>
+      <td colspan="2">回复底部</td>
     </tr>
   
 
@@ -5207,25 +5386,16 @@ var api = new OAuth(&#39;appid&#39;, &#39;secret&#39;);
   </h3>
   
 
-  <p>根据openid，获取用户信息。<br />当access token无效时，自动通过refresh token获取新的access token。然后再获取用户信息<br />Examples:</p><pre><code>api.getUser(openid, callback);
-</code></pre><p>Callback:</p><ul>
-<li><code>err</code>, 获取用户信息出现异常时的异常对象</li>
-<li><code>result</code>, 成功时得到的响应结果</li>
-</ul>
-<p>Result:</p><pre><code>{
- &quot;openid&quot;: &quot;OPENID&quot;,
- &quot;nickname&quot;: &quot;NICKNAME&quot;,
- &quot;sex&quot;: &quot;1&quot;,
- &quot;province&quot;: &quot;PROVINCE&quot;
- &quot;city&quot;: &quot;CITY&quot;,
- &quot;country&quot;: &quot;COUNTRY&quot;,
- &quot;headimgurl&quot;: &quot;http://wx.qlogo.cn/mmopen/g3MonUZtNHkdmzicIlibx6iaFqAc56vxLSUfpb6n5WKSYVY0ChQKkiaJSgQ1dZuTOgvLLrhJbERQQ4eMsv84eavHiaiceqxibJxCfHe/46&quot;,
- &quot;privilege&quot;: [
-   &quot;PRIVILEGE1&quot;
-   &quot;PRIVILEGE2&quot;
- ]
-}
-</code></pre>
+  <p>根据openid，获取用户信息。<br />当access token无效时，自动通过refresh token获取新的access token。然后再获取用户信息<br />Examples:</p><pre><code>api.getUser(options, callback);
+
+options:
+</code></pre><p>openId<br />或<br />{<br /> &quot;openId&quot;: &quot;the open Id&quot;, // 必须<br /> &quot;lang&quot;: &#39;the lang code&quot; // zh_CN 简体，zh_TW 繁体，en 英语&#39;<br />}</p><pre><code>Callback:
+
+- `err`, 获取用户信息出现异常时的异常对象
+- `result`, 成功时得到的响应结果
+
+Result:
+</code></pre><p>{<br /> &quot;openid&quot;: &quot;OPENID&quot;,<br /> &quot;nickname&quot;: &quot;NICKNAME&quot;,<br /> &quot;sex&quot;: &quot;1&quot;,<br /> &quot;province&quot;: &quot;PROVINCE&quot;<br /> &quot;city&quot;: &quot;CITY&quot;,<br /> &quot;country&quot;: &quot;COUNTRY&quot;,<br /> &quot;headimgurl&quot;: &quot;<a href="http://wx.qlogo.cn/mmopen/g3MonUZtNHkdmzicIlibx6iaFqAc56vxLSUfpb6n5WKSYVY0ChQKkiaJSgQ1dZuTOgvLLrhJbERQQ4eMsv84eavHiaiceqxibJxCfHe/46">http://wx.qlogo.cn/mmopen/g3MonUZtNHkdmzicIlibx6iaFqAc56vxLSUfpb6n5WKSYVY0ChQKkiaJSgQ1dZuTOgvLLrhJbERQQ4eMsv84eavHiaiceqxibJxCfHe/46</a>&quot;,<br /> &quot;privilege&quot;: [<br />   &quot;PRIVILEGE1&quot;<br />   &quot;PRIVILEGE2&quot;<br /> ]<br />}<br />```</p>
 
   <table class="table table-striped table-bordered table-hover table-condensed">
   
@@ -5585,7 +5755,7 @@ wechat(token)
     // TODO
   }).location(function (message, req, res, next) {
    // TODO
-  }).middleware();
+  }).middlewarify();
 </code></pre><p>静态方法</p><ul>
 <li><code>text</code>，处理文字推送的回调函数，接受参数为(text, req, res, next)。</li>
 <li><code>image</code>，处理图片推送的回调函数，接受参数为(image, req, res, next)。</li>
