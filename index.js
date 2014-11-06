@@ -43,6 +43,8 @@ API.mixin(require('./lib/api_payment'));
 API.mixin(require('./lib/api_feedback'));
 // 短网址接口
 API.mixin(require('./lib/api_url'));
+// 语义查询接口
+API.mixin(require('./lib/api_semantic'));
 
 wechat.API = API;
 wechat.OAuth = require('./lib/oauth');
