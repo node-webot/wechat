@@ -214,7 +214,7 @@ describe('api_customer', function () {
         } else {
           expect(err).to.be.ok();
           expect(err).to.have.property('name', 'WeChatAPIError');
-          expect(err).to.have.property('message', 'invalid media_id');
+          expect(err).to.have.property('message');
         }
         done();
       });

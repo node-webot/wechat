@@ -185,7 +185,8 @@ describe('api_mass_send.js', function () {
     it('should ok', function (done) {
       api.massSendVoice('media_id', [puling], function (err, data) {
         expect(err).to.be.ok();
-        expect(err).to.have.property('message', 'invalid media_id');
+        expect(err).to.have.property('message');
+        expect(data).to.have.property('errmsg');
         done();
       });
     });
