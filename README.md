@@ -136,6 +136,57 @@ res.reply([
 ]);
 ```
 
+### OAuth
+OAuth2.0网页授权，使用此接口须通过微信认证，如果用户在微信中（Web微信除外）访问公众号的第三方网页，公众号开发者可以通过此接口获取当前用户基本信息（包括昵称、性别、城市、国家）。详见：[官方文档](http://mp.weixin.qq.com/wiki/index.php?title=%E7%BD%91%E9%A1%B5%E6%8E%88%E6%9D%83%E8%8E%B7%E5%8F%96%E7%94%A8%E6%88%B7%E5%9F%BA%E6%9C%AC%E4%BF%A1%E6%81%AF)
+
+首先引入OAuth并实例化
+
+```js
+var OAuth = require('wechat').OAuth;
+var oauthApi = new OAuth('appid', 'secret');
+```
+
+以上即可满足单进程使用。
+当多进程时，token需要全局维护，以下为保存token的接口。
+
+```js
+var oauthApi = new OAuth('appid', 'secret', function (openid, callback) {
+  // 传入一个根据openid获取对应的全局token的方法
+  fs.readFile(openid +':access_token.txt', 'utf8', function (err, txt) {
+    if (err) {return callback(err);}
+    callback(null, JSON.parse(txt));
+  });
+}, function (openid, token, callback) {
+  // 请将token存储到全局，跨进程、跨机器级别的全局，比如写到数据库、redis等
+  // 这样才能在cluster模式及多机情况下使用，以下为写入到文件的示例
+  // 持久化时请注意，每个openid都对应一个唯一的token!
+  fs.writeFile(openid + ':access_token.txt', JSON.stringify(token), callback);
+});
+```
+
+生成引导用户点击的URL
+
+```js
+var authUrl = oauthApi.getAuthorizeURL('redirectUrl', 'state', 'scope');
+```
+
+用户点击上步生成的URL后会被重定向到上步设置的 `redirectUrl`，并且会带有`code`参数，我们可以使用这个`code`换取`access_token`和用户的`openid`
+
+```js
+oauthApi.getAccessToken('code', function (err, result) {
+  var accessToken = result.data.access_token;
+  var openid = result.data.openid;
+});
+```
+
+如果我们生成引导用户点击的URL中`scope`参数值为`snsapi_userinfo`，接下来我们就可以使用`openid`换取用户详细信息（必须在getAccessToken方法执行完成之后）
+
+```js
+oauthApi.getUser('openid', function (err, result) {
+  var userInfo = result;
+});
+```
+
 ### WXSession支持
 由于公共平台应用的客户端实际上是微信，所以采用传统的Cookie来实现会话并不现实，为此中间件模块在openid的基础上添加了Session支持。一旦服务端启用了`connect.session`中间件，在业务中就可以访问`req.wxsession`属性。这个属性与`req.session`行为类似。
 
