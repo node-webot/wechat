@@ -146,6 +146,24 @@ var OAuth = require('wechat').OAuth;
 var oauthApi = new OAuth('appid', 'secret');
 ```
 
+以上即可满足单进程使用。
+当多进程时，token需要全局维护，以下为保存token的接口。
+
+```js
+var oauthApi = new OAuth('appid', 'secret', function (openid, callback) {
+  // 传入一个根据openid获取对应的全局token的方法
+  fs.readFile(openid +':access_token.txt', 'utf8', function (err, txt) {
+    if (err) {return callback(err);}
+    callback(null, JSON.parse(txt));
+  });
+}, function (openid, token, callback) {
+  // 请将token存储到全局，跨进程、跨机器级别的全局，比如写到数据库、redis等
+  // 这样才能在cluster模式及多机情况下使用，以下为写入到文件的示例
+  // 持久化时请注意，每个openid都对应一个唯一的token!
+  fs.writeFile(openid + ':access_token.txt', JSON.stringify(token), callback);
+});
+```
+
 生成引导用户点击的URL
 
 ```js
@@ -161,7 +179,7 @@ oauthApi.getAccessToken('code', function (err, result) {
 });
 ```
 
-如果我们生成引导用户点击的URL中`scope`参数值为`snsapi_userinfo`，接下来我们就可以使用`openid`换取用户详细信息（必须在调用getAccessToken方法之后）
+如果我们生成引导用户点击的URL中`scope`参数值为`snsapi_userinfo`，接下来我们就可以使用`openid`换取用户详细信息（必须在getAccessToken方法执行完成之后）
 
 ```js
 oauthApi.getUser('openid', function (err, result) {
