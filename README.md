@@ -391,31 +391,34 @@ QQ群：157964097，使用疑问，开发，贡献代码请加群。
 感谢以下贡献者：
 
 ```
+$ git summary
 
  project  : wechat
- repo age : 1 year, 8 months
- active   : 106 days
- commits  : 244
- files    : 60
+ repo age : 1 year, 10 months
+ active   : 122 days
+ commits  : 287
+ files    : 33
  authors  :
-   206  Jackson Tian            84.4%
-    10  yelo                    4.1%
-     4  realdog                 1.6%
-     4  Bruce Lee               1.6%
-     3  Guo Yu                  1.2%
-     2  zhongao                 0.8%
-     2  Jesse Yang              0.8%
-     2  Lu Jun                  0.8%
-     2  dan                     0.8%
-     1  TooBug                  0.4%
-     1  feichang.wyl            0.4%
-     1  feit                    0.4%
-     1  ifeiteng                0.4%
-     1  p13766                  0.4%
-     1  Rogerz Zhang            0.4%
-     1  xianda                  0.4%
-     1  Lance Li                0.4%
-     1  Chen Wei                0.4%
+   239  Jackson Tian  83.3%
+    10  yelo          3.5%
+     9  ifeiteng      3.1%
+     4  realdog       1.4%
+     4  Bruce Lee     1.4%
+     3  Guo Yu        1.0%
+     2  zhongao       0.7%
+     2  Jesse Yang    0.7%
+     2  Lu Jun        0.7%
+     2  dan           0.7%
+     1  Rogerz Zhang  0.3%
+     1  Chen Wei      0.3%
+     1  feichang.wyl  0.3%
+     1  feit          0.3%
+     1  Qun Lin       0.3%
+     1  p13766        0.3%
+     1  LiSheep       0.3%
+     1  xianda        0.3%
+     1  Lance Li      0.3%
+     1  TooBug        0.3%
 
 ```
 

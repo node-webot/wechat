@@ -1,6 +1,6 @@
 {
   "name": "wechat",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "微信公共平台Node库",
   "main": "index.js",
   "scripts": {
@@ -24,7 +24,7 @@
     "ejs": ">=1.0.0",
     "urllib": "2.0.2",
     "wechat-api": "1.0.0",
-    "wechat-crypto": "0.0.1"
+    "wechat-crypto": "0.0.2"
   },
   "devDependencies": {
     "supertest": "*",
