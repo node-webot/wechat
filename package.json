@@ -22,7 +22,6 @@
   "dependencies": {
     "xml2js": "0.4.4",
     "ejs": ">=1.0.0",
-    "urllib": "2.0.2",
     "wechat-api": "1.0.0",
     "wechat-oauth": "*",
     "wechat-crypto": "0.0.2"
