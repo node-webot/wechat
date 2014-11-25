@@ -1,32 +1,27 @@
-wechat [![NPM version](https://badge.fury.io/js/wechat.png)](http://badge.fury.io/js/wechat) [![Build Status](https://travis-ci.org/node-webot/wechat.png?branch=master)](https://travis-ci.org/node-webot/wechat) [![Dependencies Status](https://david-dm.org/node-webot/wechat.png)](https://david-dm.org/node-webot/wechat) [![Coverage Status](https://coveralls.io/repos/node-webot/wechat/badge.png)](https://coveralls.io/r/node-webot/wechat)
+wechat
 ======
 
-微信公共平台消息接口服务中间件与API SDK
+微信公共平台自动回复消息接口服务中间件
 
 [Wechat document in English](./README.en.md)
 
+## 模块状态
+- [![NPM version](https://badge.fury.io/js/wechat.png)](http://badge.fury.io/js/wechat)
+- [![Build Status](https://travis-ci.org/node-webot/wechat.png?branch=master)](https://travis-ci.org/node-webot/wechat)
+- [![Dependencies Status](https://david-dm.org/node-webot/wechat.png)](https://david-dm.org/node-webot/wechat)
+- [![Coverage Status](https://coveralls.io/repos/node-webot/wechat/badge.png)](https://coveralls.io/r/node-webot/wechat)
+
 ## 功能列表
 - 自动回复（文本、图片、语音、视频、音乐、图文）
-- 发送客服消息（文本、图片、语音、视频、音乐、图文）
-- 菜单操作（查询、创建、删除）
-- 二维码（创建临时、永久二维码，查看二维码URL）
-- 分组操作（查询、创建、修改、移动用户到分组）
-- 用户信息（查询用户基本信息、获取关注者列表）
-- 媒体文件（上传、获取）
 - 等待回复（用于调查问卷、问答等场景）
 - 会话支持（创新功能）
-- OAuth API（授权、获取基本信息）
-- 群发消息（文本、图片、语音、视频、图文）
-- 客服记录（查询客服记录，查看客服、查看在线客服）
-- 群发消息
-- 公众号支付（发货通知、订单查询）
-- 微信小店（商品管理、库存管理、邮费模板管理、分组管理、货架管理、订单管理、功能接口）
-- 模版消息
-- 网址缩短
 
 详细参见[API文档](http://node-webot.github.io/wechat/api.html)
 
-企业版本请前往：<https://github.com/node-webot/wechat-enterprise>
+- 自动回复部分的Koa/Co版本：<https://github.com/node-webot/co-wechat>
+- 更多功能请前往：<https://github.com/node-webot/wechat-api>，Koa/Co版本：<https://github.com/node-webot/co-wechat-api>
+- 企业功能请前往：<https://github.com/node-webot/wechat-enterprise>
+- OAuth功能请前往：<https://github.com/node-webot/wechat-oauth>
 
 ## Installation
 
@@ -137,55 +132,7 @@ res.reply([
 ```
 
 ### OAuth
-OAuth2.0网页授权，使用此接口须通过微信认证，如果用户在微信中（Web微信除外）访问公众号的第三方网页，公众号开发者可以通过此接口获取当前用户基本信息（包括昵称、性别、城市、国家）。详见：[官方文档](http://mp.weixin.qq.com/wiki/index.php?title=%E7%BD%91%E9%A1%B5%E6%8E%88%E6%9D%83%E8%8E%B7%E5%8F%96%E7%94%A8%E6%88%B7%E5%9F%BA%E6%9C%AC%E4%BF%A1%E6%81%AF)
-
-首先引入OAuth并实例化
-
-```js
-var OAuth = require('wechat').OAuth;
-var oauthApi = new OAuth('appid', 'secret');
-```
-
-以上即可满足单进程使用。
-当多进程时，token需要全局维护，以下为保存token的接口。
-
-```js
-var oauthApi = new OAuth('appid', 'secret', function (openid, callback) {
-  // 传入一个根据openid获取对应的全局token的方法
-  fs.readFile(openid +':access_token.txt', 'utf8', function (err, txt) {
-    if (err) {return callback(err);}
-    callback(null, JSON.parse(txt));
-  });
-}, function (openid, token, callback) {
-  // 请将token存储到全局，跨进程、跨机器级别的全局，比如写到数据库、redis等
-  // 这样才能在cluster模式及多机情况下使用，以下为写入到文件的示例
-  // 持久化时请注意，每个openid都对应一个唯一的token!
-  fs.writeFile(openid + ':access_token.txt', JSON.stringify(token), callback);
-});
-```
-
-生成引导用户点击的URL
-
-```js
-var authUrl = oauthApi.getAuthorizeURL('redirectUrl', 'state', 'scope');
-```
-
-用户点击上步生成的URL后会被重定向到上步设置的 `redirectUrl`，并且会带有`code`参数，我们可以使用这个`code`换取`access_token`和用户的`openid`
-
-```js
-oauthApi.getAccessToken('code', function (err, result) {
-  var accessToken = result.data.access_token;
-  var openid = result.data.openid;
-});
-```
-
-如果我们生成引导用户点击的URL中`scope`参数值为`snsapi_userinfo`，接下来我们就可以使用`openid`换取用户详细信息（必须在getAccessToken方法执行完成之后）
-
-```js
-oauthApi.getUser('openid', function (err, result) {
-  var userInfo = result;
-});
-```
+OAuth功能请前往：<https://github.com/node-webot/wechat-oauth>
 
 ### WXSession支持
 由于公共平台应用的客户端实际上是微信，所以采用传统的Cookie来实现会话并不现实，为此中间件模块在openid的基础上添加了Session支持。一旦服务端启用了`connect.session`中间件，在业务中就可以访问`req.wxsession`属性。这个属性与`req.session`行为类似。
@@ -381,9 +328,6 @@ app.use('/wechat', wechat('some token').text(function (message, req, res, next) 
 
 诸多细节由wechat中间件提供，用户只要关注蓝色部分的业务逻辑即可。
 
-## License
-The MIT license.
-
 ## 交流群
 QQ群：157964097，使用疑问，开发，贡献代码请加群。
 
@@ -428,3 +372,6 @@ $ git summary
 ![捐赠wechat](https://cloud.githubusercontent.com/assets/327019/2941591/2b9e5e58-d9a7-11e3-9e80-c25aba0a48a1.png)
 
 或者[![](http://img.shields.io/gratipay/JacksonTian.svg)](https://www.gittip.com/JacksonTian/)
+
+## License
+The MIT license.

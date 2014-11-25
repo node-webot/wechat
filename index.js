@@ -11,6 +11,12 @@ Object.defineProperty(wechat, "API", {
   }
 });
 
-wechat.OAuth = require('./lib/oauth');
+Object.defineProperty(wechat, "OAuth", {
+  get: function () {
+    console.log('The API property deprecated, Use require("wechat-oauth") instead');
+    return require('wechat-oauth');
+  }
+});
+
 wechat.util = require('./lib/util');
 module.exports = wechat;
