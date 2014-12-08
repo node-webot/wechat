@@ -18,5 +18,4 @@ Object.defineProperty(wechat, "OAuth", {
   }
 });
 
-wechat.util = require('./lib/util');
 module.exports = wechat;

@@ -38,6 +38,8 @@ app.use('/wechat', wechat('some token', function (req, res, next) {
     res.reply(info.SendPicsInfo.EventKey);
   } else if (info.FromUserName === 'web') {
     res.reply('web message ok');
+  } else if (info.FromUserName === 'empty') {
+    res.reply('');
   } else {
   // 回复高富帅(图文回复)
     res.reply([
@@ -330,6 +332,26 @@ describe('wechat.js', function () {
         body.should.match(/<CreateTime>\d{13}<\/CreateTime>/);
         body.should.include('<MsgType><![CDATA[transfer_customer_service]]></MsgType>');
         body.should.include('<KfAccount><![CDATA[test1@test]]></KfAccount>');
+        done();
+      });
+    });
+
+    it('should ok with empty message', function (done) {
+      var info = {
+        sp: 'nvshen',
+        user: 'empty',
+        type: 'text',
+        text: '测试中'
+      };
+
+      request(app)
+      .post('/wechat' + tail())
+      .send(template(info))
+      .expect(200)
+      .end(function (err, res) {
+        if (err) return done(err);
+        var body = res.text.toString();
+        body.should.match('');
         done();
       });
     });
