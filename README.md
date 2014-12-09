@@ -55,7 +55,8 @@ app.use('/wechat', wechat('some token', function (req, res, next) {
         title: "来段音乐吧",
         description: "一无所有",
         musicUrl: "http://mp3.com/xx.mp3",
-        hqMusicUrl: "http://mp3.com/xx.mp3"
+        hqMusicUrl: "http://mp3.com/xx.mp3",
+        thumbMediaId: "thisThumbMediaId"
       }
     });
   } else {
@@ -105,8 +106,9 @@ res.reply({
 res.reply({
   type: "video",
   content: {
-    mediaId: 'mediaId',
-    thumbMediaId: 'thumbMediaId'
+    title: '来段视频吧',
+    description: '女神与高富帅',
+    mediaId: 'mediaId'
   }
 });
 ```
@@ -116,7 +118,8 @@ res.reply({
   title: "来段音乐吧",
   description: "一无所有",
   musicUrl: "http://mp3.com/xx.mp3",
-  hqMusicUrl: "http://mp3.com/xx.mp3"
+  hqMusicUrl: "http://mp3.com/xx.mp3",
+  thumbMediaId: "thisThumbMediaId"
 });
 ```
 #### 回复图文
