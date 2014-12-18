@@ -1,0 +1,1876 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for wechat/lib/wechat.js</title>
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" href="../../prettify.css">
+
+    <style>
+        body, html {
+            margin:0; padding: 0;
+        }
+        body {
+            font-family: Helvetica Neue, Helvetica,Arial;
+            font-size: 10pt;
+        }
+        div.header, div.footer {
+            background: #eee;
+            padding: 1em;
+        }
+        div.header {
+            z-index: 100;
+            position: fixed;
+            top: 0;
+            border-bottom: 1px solid #666;
+            width: 100%;
+        }
+        div.footer {
+            border-top: 1px solid #666;
+        }
+        div.body {
+            margin-top: 10em;
+        }
+        div.meta {
+            font-size: 90%;
+            text-align: center;
+        }
+        h1, h2, h3 {
+            font-weight: normal;
+        }
+        h1 {
+            font-size: 12pt;
+        }
+        h2 {
+            font-size: 10pt;
+        }
+        pre {
+            font-family: Consolas, Menlo, Monaco, monospace;
+            margin: 0;
+            padding: 0;
+            line-height: 14px;
+            font-size: 14px;
+            -moz-tab-size: 2;
+            -o-tab-size:  2;
+            tab-size: 2;
+        }
+
+        div.path { font-size: 110%; }
+        div.path a:link, div.path a:visited { color: #000; }
+        table.coverage { border-collapse: collapse; margin:0; padding: 0 }
+
+        table.coverage td {
+            margin: 0;
+            padding: 0;
+            color: #111;
+            vertical-align: top;
+        }
+        table.coverage td.line-count {
+            width: 50px;
+            text-align: right;
+            padding-right: 5px;
+        }
+        table.coverage td.line-coverage {
+            color: #777 !important;
+            text-align: right;
+            border-left: 1px solid #666;
+            border-right: 1px solid #666;
+        }
+
+        table.coverage td.text {
+        }
+
+        table.coverage td span.cline-any {
+            display: inline-block;
+            padding: 0 5px;
+            width: 40px;
+        }
+        table.coverage td span.cline-neutral {
+            background: #eee;
+        }
+        table.coverage td span.cline-yes {
+            background: #b5d592;
+            color: #999;
+        }
+        table.coverage td span.cline-no {
+            background: #fc8c84;
+        }
+
+        .cstat-yes { color: #111; }
+        .cstat-no { background: #fc8c84; color: #111; }
+        .fstat-no { background: #ffc520; color: #111 !important; }
+        .cbranch-no { background:  yellow !important; color: #111; }
+
+        .cstat-skip { background: #ddd; color: #111; }
+        .fstat-skip { background: #ddd; color: #111 !important; }
+        .cbranch-skip { background: #ddd !important; color: #111; }
+
+        .missing-if-branch {
+            display: inline-block;
+            margin-right: 10px;
+            position: relative;
+            padding: 0 4px;
+            background: black;
+            color: yellow;
+        }
+
+        .skip-if-branch {
+            display: none;
+            margin-right: 10px;
+            position: relative;
+            padding: 0 4px;
+            background: #ccc;
+            color: white;
+        }
+
+        .missing-if-branch .typ, .skip-if-branch .typ {
+            color: inherit !important;
+        }
+
+        .entity, .metric { font-weight: bold; }
+        .metric { display: inline-block; border: 1px solid #333; padding: 0.3em; background: white; }
+        .metric small { font-size: 80%; font-weight: normal; color: #666; }
+
+        div.coverage-summary table { border-collapse: collapse; margin: 3em; font-size: 110%; }
+        div.coverage-summary td, div.coverage-summary table  th { margin: 0; padding: 0.25em 1em; border-top: 1px solid #666; border-bottom: 1px solid #666; }
+        div.coverage-summary th { text-align: left; border: 1px solid #666; background: #eee; font-weight: normal; }
+        div.coverage-summary th.file { border-right: none !important; }
+        div.coverage-summary th.pic { border-left: none !important; text-align: right; }
+        div.coverage-summary th.pct { border-right: none !important; }
+        div.coverage-summary th.abs { border-left: none !important; text-align: right; }
+        div.coverage-summary td.pct { text-align: right; border-left: 1px solid #666; }
+        div.coverage-summary td.abs { text-align: right; font-size: 90%; color: #444; border-right: 1px solid #666; }
+        div.coverage-summary td.file { text-align: right; border-left: 1px solid #666; white-space: nowrap;  }
+        div.coverage-summary td.pic { min-width: 120px !important;  }
+        div.coverage-summary a:link { text-decoration: none; color: #000; }
+        div.coverage-summary a:visited { text-decoration: none; color: #333; }
+        div.coverage-summary a:hover { text-decoration: underline; }
+        div.coverage-summary tfoot td { border-top: 1px solid #666; }
+
+        div.coverage-summary .yui3-datatable-sort-indicator, div.coverage-summary .dummy-sort-indicator {
+            height: 10px;
+            width: 7px;
+            display: inline-block;
+            margin-left: 0.5em;
+        }
+        div.coverage-summary .yui3-datatable-sort-indicator {
+            background: url("https://yui-s.yahooapis.com/3.6.0/build/datatable-sort/assets/skins/sam/sort-arrow-sprite.png") no-repeat scroll 0 0 transparent;
+        }
+        div.coverage-summary .yui3-datatable-sorted .yui3-datatable-sort-indicator {
+            background-position: 0 -20px;
+        }
+        div.coverage-summary .yui3-datatable-sorted-desc .yui3-datatable-sort-indicator {
+            background-position: 0 -10px;
+        }
+
+        .high { background: #b5d592 !important; }
+        .medium { background: #ffe87c !important; }
+        .low { background: #fc8c84 !important; }
+
+        span.cover-fill, span.cover-empty {
+            display:inline-block;
+            border:1px solid #444;
+            background: white;
+            height: 12px;
+        }
+        span.cover-fill {
+            background: #ccc;
+            border-right: 1px solid #444;
+        }
+        span.cover-empty {
+            background: white;
+            border-left: none;
+        }
+        span.cover-full {
+            border-right: none !important;
+        }
+        pre.prettyprint {
+            border: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        .com { color: #999 !important; }
+        .ignore-none { color: #999; font-weight: normal; }
+
+    </style>
+</head>
+<body>
+<div class="header high">
+    <h1>Code coverage report for <span class="entity">wechat/lib/wechat.js</span></h1>
+    <h2>
+        
+        Statements: <span class="metric">95.51% <small>(234 / 245)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Branches: <span class="metric">94.12% <small>(96 / 102)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Functions: <span class="metric">97.44% <small>(38 / 39)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Lines: <span class="metric">95.51% <small>(234 / 245)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../index.html">All files</a> &#187; <a href="index.html">wechat/lib/</a> &#187; wechat.js</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509
+510
+511
+512
+513
+514
+515
+516
+517
+518
+519</td><td class="line-coverage"><span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">69</span>
+<span class="cline-any cline-yes">69</span>
+<span class="cline-any cline-yes">69</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">69</span>
+<span class="cline-any cline-yes">69</span>
+<span class="cline-any cline-yes">69</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">69</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">58</span>
+<span class="cline-any cline-yes">58</span>
+<span class="cline-any cline-yes">57</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">58</span>
+<span class="cline-any cline-yes">57</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">58</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">55</span>
+<span class="cline-any cline-yes">55</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">54</span>
+<span class="cline-any cline-yes">54</span>
+<span class="cline-any cline-yes">54</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">59</span>
+<span class="cline-any cline-yes">59</span>
+<span class="cline-any cline-yes">58</span>
+<span class="cline-any cline-yes">301</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">300</span>
+<span class="cline-any cline-yes">300</span>
+<span class="cline-any cline-yes">300</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">296</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">59</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">56</span>
+<span class="cline-any cline-yes">56</span>
+<span class="cline-any cline-yes">56</span>
+<span class="cline-any cline-yes">56</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">50</span>
+<span class="cline-any cline-yes">12</span>
+<span class="cline-any cline-yes">7</span>
+<span class="cline-any cline-yes">7</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">56</span>
+<span class="cline-any cline-yes">56</span>
+<span class="cline-any cline-yes">56</span>
+<span class="cline-any cline-yes">56</span>
+<span class="cline-any cline-yes">56</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-yes">53</span>
+<span class="cline-any cline-yes">53</span>
+<span class="cline-any cline-yes">53</span>
+<span class="cline-any cline-yes">48</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">48</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">47</span>
+<span class="cline-any cline-yes">47</span>
+<span class="cline-any cline-yes">46</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">53</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">53</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">53</span>
+<span class="cline-any cline-yes">7</span>
+<span class="cline-any cline-yes">7</span>
+<span class="cline-any cline-yes">7</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">53</span>
+<span class="cline-any cline-yes">16</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">37</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">53</span>
+<span class="cline-any cline-yes">16</span>
+<span class="cline-any cline-yes">16</span>
+<span class="cline-any cline-yes">16</span>
+<span class="cline-any cline-yes">16</span>
+<span class="cline-any cline-yes">16</span>
+<span class="cline-any cline-yes">16</span>
+<span class="cline-any cline-yes">15</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16</span>
+<span class="cline-any cline-yes">16</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">37</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-yes">8</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">15</span>
+<span class="cline-any cline-yes">15</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">14</span>
+<span class="cline-any cline-yes">15</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">53</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-yes">75</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">69</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">69</span>
+<span class="cline-any cline-yes">12</span>
+<span class="cline-any cline-yes">12</span>
+<span class="cline-any cline-yes">12</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">57</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">54</span>
+<span class="cline-any cline-yes">53</span>
+<span class="cline-any cline-yes">53</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">52</span>
+<span class="cline-any cline-yes">52</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">14</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var crypto = require('crypto');
+var xml2js = require('xml2js');
+var ejs = require('ejs');
+var Session = require('./session');
+var List = require('./list');
+var WXBizMsgCrypt = require('wechat-crypto');
+&nbsp;
+/**
+ * 检查签名
+ */
+var checkSignature = function (query, token) {
+  var signature = query.signature;
+  var timestamp = query.timestamp;
+  var nonce = query.nonce;
+&nbsp;
+  var shasum = crypto.createHash('sha1');
+  var arr = [token, timestamp, nonce].sort();
+  shasum.update(arr.join(''));
+&nbsp;
+  return shasum.digest('hex') === signature;
+};
+&nbsp;
+/*!
+ * 响应模版
+ */
+var tpl = ['&lt;xml&gt;',
+    '&lt;ToUserName&gt;&lt;![CDATA[&lt;%-toUsername%&gt;]]&gt;&lt;/ToUserName&gt;',
+    '&lt;FromUserName&gt;&lt;![CDATA[&lt;%-fromUsername%&gt;]]&gt;&lt;/FromUserName&gt;',
+    '&lt;CreateTime&gt;&lt;%=createTime%&gt;&lt;/CreateTime&gt;',
+    '&lt;MsgType&gt;&lt;![CDATA[&lt;%=msgType%&gt;]]&gt;&lt;/MsgType&gt;',
+  '&lt;% if (msgType === "news") { %&gt;',
+    '&lt;ArticleCount&gt;&lt;%=content.length%&gt;&lt;/ArticleCount&gt;',
+    '&lt;Articles&gt;',
+    '&lt;% content.forEach(function(item){ %&gt;',
+      '&lt;item&gt;',
+        '&lt;Title&gt;&lt;![CDATA[&lt;%-item.title%&gt;]]&gt;&lt;/Title&gt;',
+        '&lt;Description&gt;&lt;![CDATA[&lt;%-item.description%&gt;]]&gt;&lt;/Description&gt;',
+        '&lt;PicUrl&gt;&lt;![CDATA[&lt;%-item.picUrl || item.picurl || item.pic %&gt;]]&gt;&lt;/PicUrl&gt;',
+        '&lt;Url&gt;&lt;![CDATA[&lt;%-item.url%&gt;]]&gt;&lt;/Url&gt;',
+      '&lt;/item&gt;',
+    '&lt;% }); %&gt;',
+    '&lt;/Articles&gt;',
+  '&lt;% } else if (msgType === "music") { %&gt;',
+    '&lt;Music&gt;',
+      '&lt;Title&gt;&lt;![CDATA[&lt;%-content.title%&gt;]]&gt;&lt;/Title&gt;',
+      '&lt;Description&gt;&lt;![CDATA[&lt;%-content.description%&gt;]]&gt;&lt;/Description&gt;',
+      '&lt;MusicUrl&gt;&lt;![CDATA[&lt;%-content.musicUrl || content.url %&gt;]]&gt;&lt;/MusicUrl&gt;',
+      '&lt;HQMusicUrl&gt;&lt;![CDATA[&lt;%-content.hqMusicUrl || content.hqUrl %&gt;]]&gt;&lt;/HQMusicUrl&gt;',
+    '&lt;/Music&gt;',
+  '&lt;% } else if (msgType === "voice") { %&gt;',
+    '&lt;Voice&gt;',
+      '&lt;MediaId&gt;&lt;![CDATA[&lt;%-content.mediaId%&gt;]]&gt;&lt;/MediaId&gt;',
+    '&lt;/Voice&gt;',
+  '&lt;% } else if (msgType === "image") { %&gt;',
+    '&lt;Image&gt;',
+      '&lt;MediaId&gt;&lt;![CDATA[&lt;%-content.mediaId%&gt;]]&gt;&lt;/MediaId&gt;',
+    '&lt;/Image&gt;',
+  '&lt;% } else if (msgType === "video") { %&gt;',
+    '&lt;Video&gt;',
+      '&lt;MediaId&gt;&lt;![CDATA[&lt;%-content.mediaId%&gt;]]&gt;&lt;/MediaId&gt;',
+      '&lt;Title&gt;&lt;![CDATA[&lt;%-content.title%&gt;]]&gt;&lt;/Title&gt;',
+      '&lt;Description&gt;&lt;![CDATA[&lt;%-content.description%&gt;]]&gt;&lt;/Description&gt;',
+    '&lt;/Video&gt;',
+  '&lt;% } else if (msgType === "transfer_customer_service") { %&gt;',
+    '&lt;% if (content &amp;&amp; content.kfAccount) { %&gt;',
+      '&lt;TransInfo&gt;',
+        '&lt;KfAccount&gt;&lt;![CDATA[&lt;%-content.kfAccount%&gt;]]&gt;&lt;/KfAccount&gt;',
+      '&lt;/TransInfo&gt;',
+    '&lt;% } %&gt;',
+  '&lt;% } else { %&gt;',
+    '&lt;Content&gt;&lt;![CDATA[&lt;%-content%&gt;]]&gt;&lt;/Content&gt;',
+  '&lt;% } %&gt;',
+  '&lt;/xml&gt;'].join('');
+&nbsp;
+/*!
+ * 编译过后的模版
+ */
+var compiled = ejs.compile(tpl);
+&nbsp;
+var wrapTpl = '&lt;xml&gt;' +
+  '&lt;Encrypt&gt;&lt;![CDATA[&lt;%-encrypt%&gt;]]&gt;&lt;/Encrypt&gt;' +
+  '&lt;MsgSignature&gt;&lt;![CDATA[&lt;%-signature%&gt;]]&gt;&lt;/MsgSignature&gt;' +
+  '&lt;TimeStamp&gt;&lt;%-timestamp%&gt;&lt;/TimeStamp&gt;' +
+  '&lt;Nonce&gt;&lt;![CDATA[&lt;%-nonce%&gt;]]&gt;&lt;/Nonce&gt;' +
+'&lt;/xml&gt;';
+&nbsp;
+var encryptWrap = ejs.compile(wrapTpl);
+&nbsp;
+var load = function (stream, callback) {
+  var buffers = [];
+  stream.on('data', function (trunk) {
+    buffers.push(trunk);
+  });
+  stream.on('end', function () {
+    callback(null, Buffer.concat(buffers));
+  });
+  stream.once('error', callback);
+};
+&nbsp;
+/*!
+ * 从微信的提交中提取XML文件
+ */
+var getMessage = function (stream, callback) {
+  load(stream, function (err, buf) {
+    if (err) {
+      return callback(err);
+    }
+    var xml = buf.toString('utf-8');
+    stream.weixin_xml = xml;
+    xml2js.parseString(xml, {trim: true}, callback);
+  });
+};
+&nbsp;
+/*!
+ * 将xml2js解析出来的对象转换成直接可访问的对象
+ */
+var formatMessage = function (result) {
+  var message = {};
+  if (typeof result === 'object') {
+    for (var key in result) {
+      if (!(result[key] instanceof Array) || result[key].length === 0) {
+        continue;
+      }
+      <span class="missing-if-branch" title="else path not taken" >E</span>if (result[key].length === 1) {
+        var val = result[key][0];
+        if (typeof val === 'object') {
+          message[key] = formatMessage(val);
+        } else {
+          message[key] = (val || '').trim();
+        }
+      } else {
+<span class="cstat-no" title="statement not covered" >        message[key] = [];</span>
+<span class="cstat-no" title="statement not covered" >        result[key].forEach(<span class="fstat-no" title="function not covered" >function (item) {</span></span>
+<span class="cstat-no" title="statement not covered" >          message[key].push(formatMessage(item));</span>
+        });
+      }
+    }
+  }
+  return message;
+};
+&nbsp;
+/*!
+ * 将内容回复给微信的封装方法
+ */
+var reply = function (content, fromUsername, toUsername) {
+  var info = {};
+  var type = 'text';
+  info.content = content || <span class="branch-1 cbranch-no" title="branch not covered" >'';</span>
+  if (Array.isArray(content)) {
+    type = 'news';
+  } else if (typeof content === 'object') {
+    if (content.hasOwnProperty('type')) {
+      type = content.type;
+      info.content = content.content;
+    } else {
+      type = 'music';
+    }
+  }
+  info.msgType = type;
+  info.createTime = new Date().getTime();
+  info.toUsername = toUsername;
+  info.fromUsername = fromUsername;
+  return compiled(info);
+};
+&nbsp;
+var reply2CustomerService = function (fromUsername, toUsername, kfAccount) {
+  var info = {};
+  info.msgType = 'transfer_customer_service';
+  info.createTime = new Date().getTime();
+  info.toUsername = toUsername;
+  info.fromUsername = fromUsername;
+  info.content = {};
+  if (typeof kfAccount === 'string') {
+    info.content.kfAccount = kfAccount;
+  }
+  return compiled(info);
+};
+&nbsp;
+var respond = function (handler) {
+  return function (req, res, next) {
+    var message = req.weixin;
+    var callback = handler.getHandler(message.MsgType);
+    res.reply = function (content) {
+      res.writeHead(200);
+      // 响应空字符串，用于响应慢的情况，避免微信重试
+      if (!content) {
+        return res.end('');
+      }
+      var xml = reply(content, message.ToUserName, message.FromUserName);
+      if (!req.query.encrypt_type || req.query.encrypt_type === 'raw') {
+        res.end(xml);
+      } else {
+        // 判断是否已有前置cryptor
+        var cryptor = req.cryptor || handler.cryptor;
+        var wrap = {};
+        wrap.encrypt = cryptor.encrypt(xml);
+        wrap.nonce = parseInt((Math.random() * 100000000000), 10);
+        wrap.timestamp = new Date().getTime();
+        wrap.signature = cryptor.getSignature(wrap.timestamp, wrap.nonce, wrap.encrypt);
+        res.end(encryptWrap(wrap));
+      }
+    };
+&nbsp;
+    // 响应消息，转到客服模式
+    res.transfer2CustomerService = function (kfAccount) {
+      res.writeHead(200);
+      res.end(reply2CustomerService(message.ToUserName, message.FromUserName, kfAccount));
+    };
+&nbsp;
+    var done = function () {
+      // 如果session中有_wait标记
+      if (message.MsgType === 'text' &amp;&amp; req.wxsession &amp;&amp; req.wxsession._wait) {
+        var list = List.get(req.wxsession._wait);
+        var handle = list.get(message.Content);
+        var wrapper = function (message) {
+          return handler.handle ? function(req, res) {
+            res.reply(message);
+          } : function (info, req, res) {
+            res.reply(message);
+          };
+        };
+&nbsp;
+        // 如果回复命中规则，则用预置的方法回复
+        if (handle) {
+          callback = typeof handle === 'string' ? wrapper(handle) : handle;
+        }
+      }
+&nbsp;
+      // 兼容旧API
+      if (handler.handle) {
+        callback(req, res, next);
+      } else {
+        callback(message, req, res, next);
+      }
+    };
+&nbsp;
+    if (req.sessionStore) {
+      var storage = req.sessionStore;
+      var _end = res.end;
+      var openid = message.FromUserName + ':' + message.ToUserName;
+      res.end = function () {
+        _end.apply(res, arguments);
+        if (req.wxsession) {
+          req.wxsession.save();
+        }
+      };
+      // 等待列表
+      res.wait = function (name, callback) {
+        var list = List.get(name);
+        if (list) {
+          req.wxsession._wait = name;
+          res.reply(list.description);
+        } else {
+          var err = new Error('Undefined list: ' + name);
+          err.name = 'UndefinedListError';
+          res.writeHead(500);
+          res.end(err.name);
+          callback &amp;&amp; callback(err);
+        }
+      };
+&nbsp;
+      // 清除等待列表
+      res.nowait = function () {
+        delete req.wxsession._wait;
+        res.reply.apply(res, arguments);
+      };
+&nbsp;
+      storage.get(openid, function (err, session) {
+        if (!session) {
+          req.wxsession = new Session(openid, req);
+          req.wxsession.cookie = req.session.cookie;
+        } else {
+          req.wxsession = new Session(openid, req, session);
+        }
+        done();
+      });
+    } else {
+      done();
+    }
+  };
+};
+&nbsp;
+/**
+ * 微信自动回复平台的内部的Handler对象
+ * @param {String/Object} config 配置
+ * @param {Function} handle handle对象
+ */
+var Handler = function (token, handle) {
+  if (token) {
+    this.setToken(token);
+  }
+  this.handlers = {};
+  this.handle = handle;
+};
+&nbsp;
+Handler.prototype.setToken = function (token) {
+  if (typeof token === 'string') {
+    this.token = token;
+  } else {
+    this.token = token.token;
+    this.appid = token.appid;
+    this.encodingAESKey = token.encodingAESKey;
+  }
+};
+&nbsp;
+/**
+ * 设置handler对象
+ * 按消息设置handler对象的快捷方式
+ *
+ * - `text(fn)`
+ * - `image(fn)`
+ * - `voice(fn)`
+ * - `video(fn)`
+ * - `location(fn)`
+ * - `link(fn)`
+ * - `event(fn)`
+ * @param {String} type handler处理的消息类型
+ * @param {Function} handle handle对象
+ */
+Handler.prototype.setHandler = function (type, fn) {
+  this.handlers[type] = fn;
+  return this;
+};
+&nbsp;
+['text', 'image', 'voice', 'video', 'location', 'link', 'event'].forEach(function (method) {
+  Handler.prototype[method] = function (fn) {
+    return this.setHandler(method, fn);
+  };
+});
+&nbsp;
+/**
+ * 根据消息类型取出handler对象
+ * @param {String} type 消息类型
+ */
+Handler.prototype.getHandler = function (type) {
+  return this.handle || this.handlers[type] || function (info, req, res, next) {
+    next();
+  };
+};
+&nbsp;
+var serveEncrypt = function (that, req, res, next, _respond) {
+  var method = req.method;
+  // 加密模式
+  var signature = req.query.msg_signature;
+  var timestamp = req.query.timestamp;
+  var nonce = req.query.nonce;
+&nbsp;
+  // 判断是否已有前置cryptor
+  var cryptor = req.cryptor || that.cryptor;
+&nbsp;
+  if (method === 'GET') {
+    var echostr = req.query.echostr;
+    if (signature !== cryptor.getSignature(timestamp, nonce, echostr)) {
+      res.writeHead(401);
+      res.end('Invalid signature');
+      return;
+    }
+    var result = cryptor.decrypt(echostr);
+    // TODO 检查appId的正确性
+    res.writeHead(200);
+    res.end(result.message);
+  } else if (method === 'POST') {
+    load(req, function (err, buf) {
+      <span class="missing-if-branch" title="if path not taken" >I</span>if (err) {
+<span class="cstat-no" title="statement not covered" >        return next(err);</span>
+      }
+      var xml = buf.toString('utf-8');
+      if (!xml) {
+        var emptyErr = new Error('body is empty');
+        emptyErr.name = 'Wechat';
+        return next(emptyErr);
+      }
+      xml2js.parseString(xml, {trim: true}, function (err, result) {
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (err) {
+<span class="cstat-no" title="statement not covered" >          err.name = 'BadMessage' + err.name;</span>
+<span class="cstat-no" title="statement not covered" >          return next(err);</span>
+        }
+        var xml = formatMessage(result.xml);
+        var encryptMessage = xml.Encrypt;
+        if (signature !== cryptor.getSignature(timestamp, nonce, encryptMessage)) {
+          res.writeHead(401);
+          res.end('Invalid signature');
+          return;
+        }
+        var decrypted = cryptor.decrypt(encryptMessage);
+        var messageWrapXml = decrypted.message;
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (messageWrapXml === '') {
+<span class="cstat-no" title="statement not covered" >          res.writeHead(401);</span>
+<span class="cstat-no" title="statement not covered" >          res.end('Invalid corpid');</span>
+<span class="cstat-no" title="statement not covered" >          return;</span>
+        }
+        req.weixin_xml = messageWrapXml;
+        xml2js.parseString(messageWrapXml, {trim: true}, function (err, result) {
+          <span class="missing-if-branch" title="if path not taken" >I</span>if (err) {
+<span class="cstat-no" title="statement not covered" >            err.name = 'BadMessage' + err.name;</span>
+<span class="cstat-no" title="statement not covered" >            return next(err);</span>
+          }
+          req.weixin = formatMessage(result.xml);
+          _respond(req, res, next);
+        });
+      });
+    });
+  } else {
+    res.writeHead(501);
+    res.end('Not Implemented');
+  }
+};
+&nbsp;
+/**
+ * 根据Handler对象生成响应方法，并最终生成中间件函数
+ */
+Handler.prototype.middlewarify = function () {
+  var that = this;
+  if (this.encodingAESKey) {
+    that.cryptor = new WXBizMsgCrypt(this.token, this.encodingAESKey, this.appid);
+  }
+  var token = this.token;
+  var _respond = respond(this);
+  return function (req, res, next) {
+    if (req.query.encrypt_type &amp;&amp; req.query.msg_signature) {
+      serveEncrypt(that, req, res, next, _respond);
+    } else {
+      var method = req.method;
+      // 动态token，在前置中间件中设置该值req.wechat_token，优先选用
+      if (!checkSignature(req.query, req.wechat_token || token)) {
+        res.writeHead(401);
+        res.end('Invalid signature');
+        return;
+      }
+      if (method === 'GET') {
+        res.writeHead(200);
+        res.end(req.query.echostr);
+      } else if (method === 'POST') {
+        getMessage(req, function (err, result) {
+          if (err) {
+            err.name = 'BadMessage' + err.name;
+            return next(err);
+          }
+          req.weixin = formatMessage(result.xml);
+          _respond(req, res, next);
+        });
+      } else {
+        res.writeHead(501);
+        res.end('Not Implemented');
+      }
+    }
+  };
+};
+&nbsp;
+/**
+ * 根据口令
+ *
+ * Examples:
+ * 使用wechat作为自动回复中间件的三种方式
+ * ```
+ * wechat(token, function (req, res, next) {});
+ *
+ * wechat(token, wechat.text(function (message, req, res, next) {
+ *   // TODO
+ * }).location(function (message, req, res, next) {
+ *   // TODO
+ * }));
+ *
+ * wechat(token)
+ *   .text(function (message, req, res, next) {
+ *     // TODO
+ *   }).location(function (message, req, res, next) {
+ *    // TODO
+ *   }).middlewarify();
+ * ```
+ * 加密模式下token为config
+ *
+ * ```
+ * var config = {
+ *  token: 'token',
+ *  appid: 'appid',
+ *  encodingAESKey: 'encodinAESKey'
+ * };
+ * wechat(config, function (req, res, next) {});
+ * ```
+ *
+ * 静态方法
+ *
+ * - `text`，处理文字推送的回调函数，接受参数为(text, req, res, next)。
+ * - `image`，处理图片推送的回调函数，接受参数为(image, req, res, next)。
+ * - `voice`，处理声音推送的回调函数，接受参数为(voice, req, res, next)。
+ * - `video`，处理视频推送的回调函数，接受参数为(video, req, res, next)。
+ * - `location`，处理位置推送的回调函数，接受参数为(location, req, res, next)。
+ * - `link`，处理链接推送的回调函数，接受参数为(link, req, res, next)。
+ * - `event`，处理事件推送的回调函数，接受参数为(event, req, res, next)。
+ * @param {String} token 在微信平台填写的口令
+ * @param {Function} handle 生成的回调函数，参见示例
+ */
+var middleware = function (token, handle) {
+  if (arguments.length === 1) {
+    return new Handler(token);
+  }
+&nbsp;
+  if (handle instanceof Handler) {
+    handle.setToken(token);
+    return handle.middlewarify();
+  } else {
+    return new Handler(token, handle).middlewarify();
+  }
+};
+&nbsp;
+['text', 'image', 'voice', 'video', 'location', 'link', 'event'].forEach(function (method) {
+  middleware[method] = function (fn) {
+    return (new Handler())[method](fn);
+  };
+});
+&nbsp;
+middleware.toXML = compiled;
+middleware.reply = reply;
+middleware.reply2CustomerService = reply2CustomerService;
+middleware.checkSignature = checkSignature;
+&nbsp;
+module.exports = middleware;
+&nbsp;</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Dec 08 2014 21:42:53 GMT+0800 (CST)</div>
+</div>
+
+<script src="../../prettify.js"></script>
+
+<script src="https://yui-s.yahooapis.com/3.6.0/build/yui/yui-min.js"></script>
+<script>
+
+    YUI().use('datatable', function (Y) {
+
+        var formatters = {
+          pct: function (o) {
+              o.className += o.record.get('classes')[o.column.key];
+              try {
+                  return o.value.toFixed(2) + '%';
+              } catch (ex) { return o.value + '%'; }
+          },
+          html: function (o) {
+              o.className += o.record.get('classes')[o.column.key];
+              return o.record.get(o.column.key + '_html');
+          }
+        },
+          defaultFormatter = function (o) {
+              o.className += o.record.get('classes')[o.column.key];
+              return o.value;
+          };
+
+        function getColumns(theadNode) {
+            var colNodes = theadNode.all('tr th'),
+                cols = [],
+                col;
+            colNodes.each(function (colNode) {
+                col = {
+                    key: colNode.getAttribute('data-col'),
+                    label: colNode.get('innerHTML') || ' ',
+                    sortable: !colNode.getAttribute('data-nosort'),
+                    className: colNode.getAttribute('class'),
+                    type: colNode.getAttribute('data-type'),
+                    allowHTML: colNode.getAttribute('data-html') === 'true' || colNode.getAttribute('data-fmt') === 'html'
+                };
+                col.formatter = formatters[colNode.getAttribute('data-fmt')] || defaultFormatter;
+                cols.push(col);
+            });
+            return cols;
+        }
+
+        function getRowData(trNode, cols) {
+            var tdNodes = trNode.all('td'),
+                    i,
+                    row = { classes: {} },
+                    node,
+                    name;
+            for (i = 0; i < cols.length; i += 1) {
+                name = cols[i].key;
+                node = tdNodes.item(i);
+                row[name] = node.getAttribute('data-value') || node.get('innerHTML');
+                row[name + '_html'] = node.get('innerHTML');
+                row.classes[name] = node.getAttribute('class');
+                //Y.log('Name: ' + name + '; Value: ' + row[name]);
+                if (cols[i].type === 'number') { row[name] = row[name] * 1; }
+            }
+            //Y.log(row);
+            return row;
+        }
+
+        function getData(tbodyNode, cols) {
+            var data = [];
+            tbodyNode.all('tr').each(function (trNode) {
+                data.push(getRowData(trNode, cols));
+            });
+            return data;
+        }
+
+        function replaceTable(node) {
+            if (!node) { return; }
+            var cols = getColumns(node.one('thead')),
+                data = getData(node.one('tbody'), cols),
+                table,
+                parent = node.get('parentNode');
+
+            table = new Y.DataTable({
+                columns: cols,
+                data: data,
+                sortBy: 'file'
+            });
+            parent.set('innerHTML', '');
+            table.render(parent);
+        }
+
+        Y.on('domready', function () {
+            replaceTable(Y.one('div.coverage-summary table'));
+            if (typeof prettyPrint === 'function') {
+                prettyPrint();
+            }
+        });
+    });
+</script>
+</body>
+</html>

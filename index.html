@@ -38,7 +38,7 @@
     </nav>
     <header class="jumbotron subhead">
       <div class="container">
-        <h1>wechat <small>Version: 0.8.16 By @Jackson Tian</small></h1>
+        <h1>wechat <small>Version: 1.2.2 By @Jackson Tian</small></h1>
         <p class="lead">
           微信公共平台Node库
         </p>
@@ -49,6 +49,12 @@
   <div class="row">
   	<div class="col-md-3">
       <ul class="nav nav-list bs-docs-sidenav affix">
+
+  <li class="level_2">
+    <a href="#index_模块状态" title="模块状态">
+      <i class="icon-chevron-right"></i>模块状态
+    </a>
+  </li>
 
   <li class="level_2">
     <a href="#index_功能列表" title="功能列表">
@@ -81,12 +87,6 @@
   </li>
 
   <li class="level_2">
-    <a href="#index_License" title="License">
-      <i class="icon-chevron-right"></i>License
-    </a>
-  </li>
-
-  <li class="level_2">
     <a href="#index_交流群" title="交流群">
       <i class="icon-chevron-right"></i>交流群
     </a>
@@ -104,33 +104,38 @@
     </a>
   </li>
 
+  <li class="level_2">
+    <a href="#index_License" title="License">
+      <i class="icon-chevron-right"></i>License
+    </a>
+  </li>
+
 </ul>
 
     </div>
     <div class="col-md-9">
       <section>
-        <h1>wechat <a href="http://badge.fury.io/js/wechat"><img src="https://badge.fury.io/js/wechat.png" alt="NPM version"></a> <a href="https://travis-ci.org/node-webot/wechat"><img src="https://travis-ci.org/node-webot/wechat.png?branch=master" alt="Build Status"></a> <a href="https://david-dm.org/node-webot/wechat"><img src="https://david-dm.org/node-webot/wechat.png" alt="Dependencies Status"></a> <a href="https://coveralls.io/r/node-webot/wechat"><img src="https://coveralls.io/repos/node-webot/wechat/badge.png" alt="Coverage Status"></a></h1>
-<p>微信公共平台消息接口服务中间件与API SDK</p><p><a href="./README.en.md">Wechat document in English</a></p><h2>功能列表</h2>
+        <h1>wechat</h1>
+<p>微信公共平台自动回复消息接口服务中间件</p><p><a href="./README.en.md">Wechat document in English</a></p><h2>模块状态</h2>
+<ul>
+<li><a href="http://badge.fury.io/js/wechat"><img src="https://badge.fury.io/js/wechat.png" alt="NPM version"></a></li>
+<li><a href="https://travis-ci.org/node-webot/wechat"><img src="https://travis-ci.org/node-webot/wechat.png?branch=master" alt="Build Status"></a></li>
+<li><a href="https://david-dm.org/node-webot/wechat"><img src="https://david-dm.org/node-webot/wechat.png" alt="Dependencies Status"></a></li>
+<li><a href="https://coveralls.io/r/node-webot/wechat"><img src="https://coveralls.io/repos/node-webot/wechat/badge.png" alt="Coverage Status"></a></li>
+</ul>
+<h2>功能列表</h2>
 <ul>
 <li>自动回复（文本、图片、语音、视频、音乐、图文）</li>
-<li>发送客服消息（文本、图片、语音、视频、音乐、图文）</li>
-<li>菜单操作（查询、创建、删除）</li>
-<li>二维码（创建临时、永久二维码，查看二维码URL）</li>
-<li>分组操作（查询、创建、修改、移动用户到分组）</li>
-<li>用户信息（查询用户基本信息、获取关注者列表）</li>
-<li>媒体文件（上传、获取）</li>
 <li>等待回复（用于调查问卷、问答等场景）</li>
 <li>会话支持（创新功能）</li>
-<li>OAuth API（授权、获取基本信息）</li>
-<li>群发消息（文本、图片、语音、视频、图文）</li>
-<li>客服记录（查询客服记录，查看客服、查看在线客服）</li>
-<li>群发消息</li>
-<li>公众号支付（发货通知、订单查询）</li>
-<li>微信小店（商品管理、库存管理、邮费模板管理、分组管理、货架管理、订单管理、功能接口）</li>
-<li>模版消息</li>
-<li>网址缩短</li>
 </ul>
-<p>详细参见<a href="http://node-webot.github.io/wechat/api.html">API文档</a></p><p>企业版本请前往：<a href="https://github.com/node-webot/wechat-enterprise">https://github.com/node-webot/wechat-enterprise</a></p><h2>Installation</h2>
+<p>详细参见<a href="http://node-webot.github.io/wechat/api.html">API文档</a></p><ul>
+<li>自动回复部分的Koa/Co版本：<a href="https://github.com/node-webot/co-wechat">https://github.com/node-webot/co-wechat</a></li>
+<li>更多功能请前往：<a href="https://github.com/node-webot/wechat-api">https://github.com/node-webot/wechat-api</a>，Koa/Co版本：<a href="https://github.com/node-webot/co-wechat-api">https://github.com/node-webot/co-wechat-api</a></li>
+<li>企业功能请前往：<a href="https://github.com/node-webot/wechat-enterprise">https://github.com/node-webot/wechat-enterprise</a></li>
+<li>OAuth功能请前往：<a href="https://github.com/node-webot/wechat-oauth">https://github.com/node-webot/wechat-oauth</a></li>
+</ul>
+<h2>Installation</h2>
 <pre><code class="lang-sh">$ npm install wechat
 </code></pre>
 <h2>Use with Connect/Express</h2>
@@ -157,7 +162,8 @@ app.use(&#39;/wechat&#39;, wechat(&#39;some token&#39;, function (req, res, next
         title: &quot;来段音乐吧&quot;,
         description: &quot;一无所有&quot;,
         musicUrl: &quot;http://mp3.com/xx.mp3&quot;,
-        hqMusicUrl: &quot;http://mp3.com/xx.mp3&quot;
+        hqMusicUrl: &quot;http://mp3.com/xx.mp3&quot;,
+        thumbMediaId: &quot;thisThumbMediaId&quot;
       }
     });
   } else {
@@ -199,8 +205,9 @@ res.reply({type: &quot;text&quot;, content: &#39;Hello world!&#39;});
 <pre><code class="lang-js">res.reply({
   type: &quot;video&quot;,
   content: {
-    mediaId: &#39;mediaId&#39;,
-    thumbMediaId: &#39;thumbMediaId&#39;
+    title: &#39;来段视频吧&#39;,
+    description: &#39;女神与高富帅&#39;,
+    mediaId: &#39;mediaId&#39;
   }
 });
 </code></pre>
@@ -209,7 +216,8 @@ res.reply({type: &quot;text&quot;, content: &#39;Hello world!&#39;});
   title: &quot;来段音乐吧&quot;,
   description: &quot;一无所有&quot;,
   musicUrl: &quot;http://mp3.com/xx.mp3&quot;,
-  hqMusicUrl: &quot;http://mp3.com/xx.mp3&quot;
+  hqMusicUrl: &quot;http://mp3.com/xx.mp3&quot;,
+  thumbMediaId: &quot;thisThumbMediaId&quot;
 });
 </code></pre>
 <h4>回复图文</h4>
@@ -222,7 +230,8 @@ res.reply({type: &quot;text&quot;, content: &#39;Hello world!&#39;});
   }
 ]);
 </code></pre>
-<h3>WXSession支持</h3>
+<h3>OAuth</h3>
+<p>OAuth功能请前往：<a href="https://github.com/node-webot/wechat-oauth">https://github.com/node-webot/wechat-oauth</a></p><h3>WXSession支持</h3>
 <p>由于公共平台应用的客户端实际上是微信，所以采用传统的Cookie来实现会话并不现实，为此中间件模块在openid的基础上添加了Session支持。一旦服务端启用了<code>connect.session</code>中间件，在业务中就可以访问<code>req.wxsession</code>属性。这个属性与<code>req.session</code>行为类似。</p><pre><code class="lang-js">app.use(connect.cookieParser());
 app.use(connect.session({secret: &#39;keyboard cat&#39;, cookie: {maxAge: 60000}}));
 app.use(&#39;/wechat&#39;, wechat(&#39;some token&#39;, wechat.text(function (info, req, res, next) {
@@ -364,36 +373,39 @@ app.use(&#39;/wechat&#39;, wechat(&#39;some token&#39;, wechat.text(function (in
 }).middlewarify());
 </code></pre>
 <p>该接口从0.3.x提供。</p><h3>流程图</h3>
-<p><img src="https://raw.github.com/node-webot/wechat/master/figures/wechat.png" alt="graph"></p><p>诸多细节由wechat中间件提供，用户只要关注蓝色部分的业务逻辑即可。</p><h2>License</h2>
-<p>The MIT license.</p><h2>交流群</h2>
+<p><img src="https://raw.github.com/node-webot/wechat/master/figures/wechat.png" alt="graph"></p><p>诸多细节由wechat中间件提供，用户只要关注蓝色部分的业务逻辑即可。</p><h2>交流群</h2>
 <p>QQ群：157964097，使用疑问，开发，贡献代码请加群。</p><h2>感谢</h2>
-<p>感谢以下贡献者：</p><pre><code>
+<p>感谢以下贡献者：</p><pre><code>$ git summary
+
  project  : wechat
- repo age : 1 year, 8 months
- active   : 106 days
- commits  : 244
- files    : 60
+ repo age : 1 year, 10 months
+ active   : 122 days
+ commits  : 287
+ files    : 33
  authors  :
-   206  Jackson Tian            84.4%
-    10  yelo                    4.1%
-     4  realdog                 1.6%
-     4  Bruce Lee               1.6%
-     3  Guo Yu                  1.2%
-     2  zhongao                 0.8%
-     2  Jesse Yang              0.8%
-     2  Lu Jun                  0.8%
-     2  dan                     0.8%
-     1  TooBug                  0.4%
-     1  feichang.wyl            0.4%
-     1  feit                    0.4%
-     1  ifeiteng                0.4%
-     1  p13766                  0.4%
-     1  Rogerz Zhang            0.4%
-     1  xianda                  0.4%
-     1  Lance Li                0.4%
-     1  Chen Wei                0.4%
+   239  Jackson Tian  83.3%
+    10  yelo          3.5%
+     9  ifeiteng      3.1%
+     4  realdog       1.4%
+     4  Bruce Lee     1.4%
+     3  Guo Yu        1.0%
+     2  zhongao       0.7%
+     2  Jesse Yang    0.7%
+     2  Lu Jun        0.7%
+     2  dan           0.7%
+     1  Rogerz Zhang  0.3%
+     1  Chen Wei      0.3%
+     1  feichang.wyl  0.3%
+     1  feit          0.3%
+     1  Qun Lin       0.3%
+     1  p13766        0.3%
+     1  LiSheep       0.3%
+     1  xianda        0.3%
+     1  Lance Li      0.3%
+     1  TooBug        0.3%
 </code></pre><h2>捐赠</h2>
-<p>如果您觉得Wechat对您有帮助，欢迎请作者一杯咖啡</p><p><img src="https://cloud.githubusercontent.com/assets/327019/2941591/2b9e5e58-d9a7-11e3-9e80-c25aba0a48a1.png" alt="捐赠wechat"></p><p>或者<a href="https://www.gittip.com/JacksonTian/"><img src="http://img.shields.io/gratipay/JacksonTian.svg" alt=""></a></p>
+<p>如果您觉得Wechat对您有帮助，欢迎请作者一杯咖啡</p><p><img src="https://cloud.githubusercontent.com/assets/327019/2941591/2b9e5e58-d9a7-11e3-9e80-c25aba0a48a1.png" alt="捐赠wechat"></p><p>或者<a href="https://www.gittip.com/JacksonTian/"><img src="http://img.shields.io/gratipay/JacksonTian.svg" alt=""></a></p><h2>License</h2>
+<p>The MIT license.</p>
       </section>
   
     </div>
