@@ -33,9 +33,14 @@ $ npm install wechat
 
 ```js
 var wechat = require('wechat');
+var config = {
+  token: 'token',
+  appid: 'appid',
+  encodingAESKey: 'encodinAESKey'
+};
 
 app.use(connect.query()); // Or app.use(express.query());
-app.use('/wechat', wechat('some token', function (req, res, next) {
+app.use('/wechat', wechat(config, function (req, res, next) {
   // 微信输入信息都在req.weixin上
   var message = req.weixin;
   if (message.FromUserName === 'diaosi') {
