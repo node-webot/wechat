@@ -1,15 +1,10 @@
 {
   "name": "wechat",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "微信公共平台Node库",
   "main": "index.js",
   "scripts": {
     "test": "make test-all"
-  },
-  "config":{
-    "travis-cov": {
-      "threshold": 98
-    }
   },
   "repository": {
     "type": "git",
