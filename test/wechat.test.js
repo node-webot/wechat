@@ -10,6 +10,21 @@ var wechat = require('../');
 
 var app = connect();
 app.use(connect.query());
+app.use(function (req, res, next) {
+  if (req.query.rawBody) {
+    req.rawBody = "<xml><ToUserName><![CDATA[nvshen]]></ToUserName>\
+      <FromUserName><![CDATA[diaosi]]></FromUserName>\
+      <CreateTime>1362161914</CreateTime>\
+      <MsgType><![CDATA[location]]></MsgType>\
+      <Location_X>30.283878</Location_X>\
+      <Location_Y>120.063370</Location_Y>\
+      <Scale>15</Scale>\
+      <Label><![CDATA[]]></Label>\
+      <MsgId>5850440872586764820</MsgId>\
+      </xml>";
+  }
+  next();
+});
 app.use('/wechat', wechat('some token', function (req, res, next) {
   // 微信输入信息都在req.weixin上
   var info = req.weixin;
@@ -142,6 +157,23 @@ describe('wechat.js', function () {
       .send(template(info))
       .expect(200)
       .end(function(err, res){
+        if (err) return done(err);
+        var body = res.text.toString();
+        body.should.include('<ToUserName><![CDATA[diaosi]]></ToUserName>');
+        body.should.include('<FromUserName><![CDATA[nvshen]]></FromUserName>');
+        body.should.match(/<CreateTime>\d{13}<\/CreateTime>/);
+        body.should.include('<MsgType><![CDATA[text]]></MsgType>');
+        body.should.include('<Content><![CDATA[hehe]]></Content>');
+        done();
+      });
+    });
+
+    it('should ok with req.rawBody', function (done) {
+      request(app)
+      .post('/wechat' + tail() + "&rawBody=true")
+      .send('')
+      .expect(200)
+      .end(function (err, res){
         if (err) return done(err);
         var body = res.text.toString();
         body.should.include('<ToUserName><![CDATA[diaosi]]></ToUserName>');
