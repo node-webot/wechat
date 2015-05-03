@@ -153,6 +153,36 @@ describe('wechat.js', function () {
       });
     });
 
+    /*
+    it('should ok with req.rawBody', function (done) {
+      var rawBody = {
+        rawBody: {
+          ToUserName: 'nvshen',
+          FromUserName: 'diaosi',
+          CreateTime: '' + new Date().getTime(),
+          MsgType: 'text',
+          Content: '测试中'
+        }
+      };
+
+      request(app)
+      .post('/wechat'+tail())
+      .send({})
+      .expect(200, done);
+      //.expect(200)
+      //.end(function(err, res){
+      //  if (err) return done(err);
+      //  var body = res.text.toString();
+      //  body.should.include('<ToUserName><![CDATA[diaosi]]></ToUserName>');
+      //  body.should.include('<FromUserName><![CDATA[nvshen]]></FromUserName>');
+      //  body.should.match(/<CreateTime>\d{13}<\/CreateTime>/);
+      //  body.should.include('<MsgType><![CDATA[text]]></MsgType>');
+      //  body.should.include('<Content><![CDATA[hehe]]></Content>');
+      //  done();
+      //});
+    });
+    */
+
     it('should ok with text type object', function (done) {
       var info = {
         sp: 'nvshen',
