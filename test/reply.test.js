@@ -153,4 +153,103 @@ describe('wechat.js', function () {
       result.should.be.include('<KfAccount><![CDATA[kf]]></KfAccount>');
     });
   });
+
+  describe('reply device text', function () {
+    it('device text reply("hello from device") should ok', function () {
+      var MsgType = 'device_text';
+      var DeviceType = 'to_user';
+      var DeviceID = 'device_id';
+      var SessionID = 709394;
+      var content = 'hello from device';
+      var message = {
+        MsgType: MsgType,
+        DeviceType: DeviceType,
+        DeviceID: DeviceID,
+        SessionID: SessionID, 
+      };
+      var result = reply(content, 'from', 'to', message);
+      result.should.be.include('<FromUserName><![CDATA[from]]></FromUserName>');
+      result.should.be.include('<ToUserName><![CDATA[to]]></ToUserName>');
+      result.should.be.include('<MsgType><![CDATA[' + MsgType  + ']]></MsgType>');
+      result.should.be.include('<DeviceType><![CDATA[' + DeviceType + ']]></DeviceType>');
+      result.should.be.include('<DeviceID><![CDATA[' +DeviceID + ']]></DeviceID>');
+      result.should.be.include('<SessionID>' + SessionID + '</SessionID>');
+      result.should.be.include('<Content><![CDATA[' + new Buffer(String(content)).toString('base64') + ']]></Content>');
+    });
+  });
+
+  describe('reply device binding event', function () {
+    it('device binding event reply("bind") should ok', function () {
+      var MsgType = 'device_event';
+      var Event = 'bind';
+      var DeviceType = 'to_user';
+      var DeviceID = 'device_id';
+      var SessionID = 709394;
+      var content = 'bind';
+      var message = {
+        MsgType: MsgType,
+        Event: Event,
+        DeviceType: DeviceType,
+        DeviceID: DeviceID,
+        SessionID: SessionID,
+      };
+      var result = reply(content, 'from', 'to', message);
+      result.should.be.include('<FromUserName><![CDATA[from]]></FromUserName>');
+      result.should.be.include('<ToUserName><![CDATA[to]]></ToUserName>');
+      result.should.be.include('<MsgType><![CDATA[' + MsgType  + ']]></MsgType>');
+      result.should.be.include('<Event><![CDATA[' + Event  + ']]></Event>');
+      result.should.be.include('<DeviceType><![CDATA[' + DeviceType + ']]></DeviceType>');
+      result.should.be.include('<DeviceID><![CDATA[' +DeviceID + ']]></DeviceID>');
+      result.should.be.include('<SessionID>' + SessionID + '</SessionID>');
+      result.should.be.include('<Content><![CDATA[' + new Buffer(String(content)).toString('base64') + ']]></Content>');
+    });
+  });
+
+  describe('reply WIFI device status', function () {
+    it('WIFI device status reply("bind") should ok', function () {
+      var MsgType = 'device_event';
+      var Event = 'subscribe_status';
+      var DeviceType = 'to_user';
+      var DeviceID = 'device_id';
+      var OpType = 0;
+      var OpenID = 'open_id';
+      var content = 0;
+      var message = {
+        MsgType: MsgType,
+        Event: Event,
+        DeviceType: DeviceType,
+        DeviceID: DeviceID,
+        OpType: OpType,
+        OpenID: OpenID
+      };
+      var result = reply(content, 'from', 'to', message);
+      result.should.be.include('<FromUserName><![CDATA[from]]></FromUserName>');
+      result.should.be.include('<ToUserName><![CDATA[to]]></ToUserName>');
+      result.should.be.include('<MsgType><![CDATA[device_status]]></MsgType>');
+      result.should.be.include('<DeviceStatus>' + content + '</DeviceStatus>');
+      result.should.be.include('<DeviceType><![CDATA[' + DeviceType + ']]></DeviceType>');
+      result.should.be.include('<DeviceID><![CDATA[' +DeviceID + ']]></DeviceID>');
+    });
+  });
+
+  describe('reply social function', function () {
+    it('social function reply({type: "hardware", HardWare: {MessageView: "myrank", MessageAction: "ranklist"}}) should ok', function () {
+      var MsgType = 'hardware';
+      var view = 'myrank';
+      var action = 'ranklist';
+      var content = {
+        type: MsgType,
+        HardWare:{
+          MessageView: view,
+          MessageAction: action
+        }
+      };
+      var result = reply(content, 'from', 'to');
+      result.should.be.include('<FromUserName><![CDATA[from]]></FromUserName>');
+      result.should.be.include('<ToUserName><![CDATA[to]]></ToUserName>');
+      result.should.be.include('<MsgType><![CDATA[' + MsgType  + ']]></MsgType>');
+      result.should.be.include('<HardWare><MessageView><![CDATA[' + view + ']]></MessageView><MessageAction><![CDATA[' + action + ']]></MessageAction></HardWare>');
+      result.should.be.include('<FuncFlag>0</FuncFlag>');
+    });
+  });
 });
