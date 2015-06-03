@@ -139,6 +139,44 @@ res.reply([
   }
 ]);
 ```
+#### 回复设备社交功能消息
+```js
+res.reply({
+    type: 'hardware',
+    HardWare:{
+      MessageView: 'myrank',
+      MessageAction: 'ranklist'
+    }
+});
+```
+### 回复设备消息
+模块可以对类型为device_text或device_event的消息作出特定格式的响应.
+```js
+var wechat = require('wechat');
+var config = {
+  token: 'token',
+  appid: 'appid',
+  encodingAESKey: 'encodinAESKey'
+};
+
+app.use(express.query());
+app.use('/wechat', wechat(config, function (req, res, next) {
+  // 微信输入信息都在req.weixin上
+  var message = req.weixin;
+  if (message.MsgType === 'device_text') {
+    // 设备文本消息
+    res.reply('这条回复会推到设备里去.');
+  } else if (message.MsgType === 'device_event') {
+    if (message.Event === 'subscribe_status' || 
+      message.Event === 'unsubscribe_status') {
+    //WIFI设备状态订阅,回复设备状态(1或0)
+      res.reply(1);
+    } else {
+      res.reply('这条回复会推到设备里去.')
+    }
+  }
+}));
+```
 
 ### OAuth
 OAuth功能请前往：<https://github.com/node-webot/wechat-oauth>
@@ -304,10 +342,36 @@ app.use('/wechat', wechat('some token', wechat.text(function (message, req, res,
   // Longitude: '113.352425',
   // Precision: '119.385040',
   // MsgId: '5837397520665436492' }
+}).device_text(function (message, req, res, next) {
+  // message为设备文本消息内容
+  // { ToUserName: 'gh_d3e07d51b513',
+  // FromUserName: 'oPKu7jgOibOA-De4u8J2RuNKpZRw',
+  // CreateTime: '1359125022',
+  // MsgType: 'device_text',
+  // DeviceType: 'gh_d3e07d51b513'
+  // DeviceID: 'dev1234abcd',
+  // Content: 'd2hvc3lvdXJkYWRkeQ==',
+  // SessionID: '9394',
+  // MsgId: '5837397520665436492',
+  // OpenID: 'oPKu7jgOibOA-De4u8J2RuNKpZRw' }
+}).device_event(function (message, req, res, next) {
+  // message为设备事件内容
+  // { ToUserName: 'gh_d3e07d51b513',
+  // FromUserName: 'oPKu7jgOibOA-De4u8J2RuNKpZRw',
+  // CreateTime: '1359125022',
+  // MsgType: 'device_event',
+  // Event: 'bind'
+  // DeviceType: 'gh_d3e07d51b513'
+  // DeviceID: 'dev1234abcd',
+  // OpType : 0, //Event为subscribe_status/unsubscribe_status时存在
+  // Content: 'd2hvc3lvdXJkYWRkeQ==', //Event不为subscribe_status/unsubscribe_status时存在
+  // SessionID: '9394',
+  // MsgId: '5837397520665436492',
+  // OpenID: 'oPKu7jgOibOA-De4u8J2RuNKpZRw' }
 })));
 ```
 
-注意： `text`, `image`, `voice`, `video`, `location`, `link`, `event`方法请至少指定一个。
+注意： `text`, `image`, `voice`, `video`, `location`, `link`, `event`, `device_text`, `device_event`方法请至少指定一个。
 这六个方法的设计适用于按内容类型区分处理的场景。如果需要更复杂的场景，请使用第一个例子中的API。
 
 ### 更简化的API设计
@@ -327,6 +391,10 @@ app.use('/wechat', wechat('some token').text(function (message, req, res, next) 
 }).link(function (message, req, res, next) {
   // TODO
 }).event(function (message, req, res, next) {
+  // TODO
+}).device_text(function (message, req, res, next) {
+  // TODO
+}).device_event(function (message, req, res, next) {
   // TODO
 }).middlewarify());
 ```
