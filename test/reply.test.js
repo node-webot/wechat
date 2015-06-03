@@ -174,7 +174,7 @@ describe('wechat.js', function () {
       result.should.be.include('<DeviceType><![CDATA[' + DeviceType + ']]></DeviceType>');
       result.should.be.include('<DeviceID><![CDATA[' +DeviceID + ']]></DeviceID>');
       result.should.be.include('<SessionID>' + SessionID + '</SessionID>');
-      result.should.be.include('<Content><![CDATA[' + new Buffer(content).toString('base64') + ']]></Content>');
+      result.should.be.include('<Content><![CDATA[' + new Buffer(String(content)).toString('base64') + ']]></Content>');
     });
   });
 
@@ -193,7 +193,7 @@ describe('wechat.js', function () {
         DeviceID: DeviceID,
         SessionID: SessionID,
       };
-      var result = reply('bind', 'from', 'to', message);
+      var result = reply(content, 'from', 'to', message);
       result.should.be.include('<FromUserName><![CDATA[from]]></FromUserName>');
       result.should.be.include('<ToUserName><![CDATA[to]]></ToUserName>');
       result.should.be.include('<MsgType><![CDATA[' + MsgType  + ']]></MsgType>');
@@ -201,7 +201,7 @@ describe('wechat.js', function () {
       result.should.be.include('<DeviceType><![CDATA[' + DeviceType + ']]></DeviceType>');
       result.should.be.include('<DeviceID><![CDATA[' +DeviceID + ']]></DeviceID>');
       result.should.be.include('<SessionID>' + SessionID + '</SessionID>');
-      result.should.be.include('<Content><![CDATA[' + new Buffer(content).toString('base64') + ']]></Content>');
+      result.should.be.include('<Content><![CDATA[' + new Buffer(String(content)).toString('base64') + ']]></Content>');
     });
   });
 
