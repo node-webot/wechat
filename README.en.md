@@ -130,7 +130,44 @@ res.reply([
   }
 ]);
 ```
+#### Reply with social function messages
+```js
+res.reply({
+    type: 'hardware',
+    HardWare:{
+      MessageView: 'myrank',
+      MessageAction: 'ranklist'
+    }
+});
+```
+### Reply with device messages
+Specific responses will be made as the message type is device_text or device_event.
+```js
+var wechat = require('wechat');
+var config = {
+  token: 'token',
+  appid: 'appid',
+  encodingAESKey: 'encodinAESKey'
+};
 
+app.use(express.query());
+app.use('/wechat', wechat(config, function (req, res, next) {
+  // message is located in req.weixin
+  var message = req.weixin;
+  if (message.MsgType === 'device_text') {
+    // device text
+    res.reply('This message will be pushed onto the device.');
+  } else if (message.MsgType === 'device_event') {
+    if (message.Event === 'subscribe_status' || 
+      message.Event === 'unsubscribe_status') {
+    //subscribe or unsubscribe the WIFI device status,the reply should be 1 or 0
+      res.reply(1);
+    } else {
+      res.reply('This message will be pushed onto the device.')
+    }
+  }
+}));
+```
 ### WXSession
 
 Wechat messages are not communicate like traditional C/S model, therefore nothing Cookies will be store in Wechat client. this WXSession is designed to support access user's infomation via `req.wxsession`, with `connect.session` backed.
@@ -295,10 +332,36 @@ app.use('/wechat', wechat('some token', wechat.text(function (message, req, res,
   // Longitude: '113.352425',
   // Precision: '119.385040',
   // MsgId: '5837397520665436492' }
+}).device_text(function (message, req, res, next) {
+  // Reply with device text.
+  // { ToUserName: 'gh_d3e07d51b513',
+  // FromUserName: 'oPKu7jgOibOA-De4u8J2RuNKpZRw',
+  // CreateTime: '1359125022',
+  // MsgType: 'device_text',
+  // DeviceType: 'gh_d3e07d51b513'
+  // DeviceID: 'dev1234abcd',
+  // Content: 'd2hvc3lvdXJkYWRkeQ==',
+  // SessionID: '9394',
+  // MsgId: '5837397520665436492',
+  // OpenID: 'oPKu7jgOibOA-De4u8J2RuNKpZRw' }
+}).device_event(function (message, req, res, next) {
+  // Reply with device event.
+  // { ToUserName: 'gh_d3e07d51b513',
+  // FromUserName: 'oPKu7jgOibOA-De4u8J2RuNKpZRw',
+  // CreateTime: '1359125022',
+  // MsgType: 'device_event',
+  // Event: 'bind'
+  // DeviceType: 'gh_d3e07d51b513'
+  // DeviceID: 'dev1234abcd',
+  // OpType : 0, //Available as Event is subscribe_status or unsubscribe_status.
+  // Content: 'd2hvc3lvdXJkYWRkeQ==', //Available as Event is not subscribe_status and unsubscribe_status.
+  // SessionID: '9394',
+  // MsgId: '5837397520665436492',
+  // OpenID: 'oPKu7jgOibOA-De4u8J2RuNKpZRw' }
 })));
 ```
 
-*Tips*: `text`, `image`, `voice`, `video`, `location`, `link`, `event` must be set at least one.
+*Tips*: `text`, `image`, `voice`, `video`, `location`, `link`, `event`, `device_text`, `device_event` must be set at least one.
 
 ### More simple APIs
 
@@ -318,6 +381,10 @@ app.use('/wechat', wechat('some token').text(function (message, req, res, next) 
 }).link(function (message, req, res, next) {
   // TODO
 }).event(function (message, req, res, next) {
+  // TODO
+}).device_text(function (message, req, res, next) {
+  // TODO
+}).device_event(function (message, req, res, next) {
   // TODO
 }).middlewarify());
 ```
