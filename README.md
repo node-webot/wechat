@@ -16,7 +16,7 @@ wechat
 - 等待回复（用于调查问卷、问答等场景）
 - 会话支持（创新功能）
 
-详细参见[API文档](http://node-webot.github.io/wechat/api.html)
+详细参见[API文档](http://doxmate.cool/node-webot/wechat/api.html)
 
 - 自动回复部分的Koa/Co版本：<https://github.com/node-webot/co-wechat>
 - 更多功能请前往：<https://github.com/node-webot/wechat-api>，Koa/Co版本：<https://github.com/node-webot/co-wechat-api>
@@ -167,7 +167,7 @@ app.use('/wechat', wechat(config, function (req, res, next) {
     // 设备文本消息
     res.reply('这条回复会推到设备里去.');
   } else if (message.MsgType === 'device_event') {
-    if (message.Event === 'subscribe_status' || 
+    if (message.Event === 'subscribe_status' ||
       message.Event === 'unsubscribe_status') {
     //WIFI设备状态订阅,回复设备状态(1或0)
       res.reply(1);
@@ -310,6 +310,15 @@ app.use('/wechat', wechat('some token', wechat.text(function (message, req, res,
   // MediaId: 'OMYnpghh8fRfzHL8obuboDN9rmLig4s0xdpoNT6a5BoFZWufbE6srbCKc_bxduzS',
   // ThumbMediaId: 'media_id',
   // MsgId: '5837397520665436492' }
+}).shortvideo(function (message, req, res, next) {
+  // message为短视频内容
+  // { ToUserName: 'gh_d3e07d51b513',
+  // FromUserName: 'oPKu7jgOibOA-De4u8J2RuNKpZRw',
+  // CreateTime: '1359125022',
+  // MsgType: 'shortvideo',
+  // MediaId: 'OMYnpghh8fRfzHL8obuboDN9rmLig4s0xdpoNT6a5BoFZWufbE6srbCKc_bxduzS',
+  // ThumbMediaId: 'media_id',
+  // MsgId: '5837397520665436492' }
 }).location(function (message, req, res, next) {
   // message为位置内容
   // { ToUserName: 'gh_d3e07d51b513',
@@ -415,30 +424,33 @@ QQ群：157964097，使用疑问，开发，贡献代码请加群。
 $ git summary
 
  project  : wechat
- repo age : 1 year, 10 months
- active   : 122 days
- commits  : 287
- files    : 33
+ repo age : 2 years, 5 months
+ active   : 136 days
+ commits  : 318
+ files    : 32
  authors  :
-   239  Jackson Tian  83.3%
-    10  yelo          3.5%
-     9  ifeiteng      3.1%
-     4  realdog       1.4%
-     4  Bruce Lee     1.4%
-     3  Guo Yu        1.0%
-     2  zhongao       0.7%
-     2  Jesse Yang    0.7%
-     2  Lu Jun        0.7%
-     2  dan           0.7%
+   265  Jackson Tian  83.3%
+    10  ifeiteng      3.1%
+    10  yelo          3.1%
+     4  realdog       1.3%
+     4  Bruce Lee     1.3%
+     3  Guo Yu        0.9%
+     2  zhongao       0.6%
+     2  Jesse Yang    0.6%
+     2  Lu Jun        0.6%
+     2  dan           0.6%
+     2  wxhuang       0.6%
      1  Rogerz Zhang  0.3%
-     1  Chen Wei      0.3%
+     1  Foghost       0.3%
      1  feichang.wyl  0.3%
      1  feit          0.3%
-     1  Qun Lin       0.3%
-     1  p13766        0.3%
+     1  feitian124    0.3%
      1  LiSheep       0.3%
-     1  xianda        0.3%
+     1  p13766        0.3%
      1  Lance Li      0.3%
+     1  Chen Wei      0.3%
+     1  xianda        0.3%
+     1  Qun Lin       0.3%
      1  TooBug        0.3%
 
 ```
