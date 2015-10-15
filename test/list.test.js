@@ -75,7 +75,7 @@ describe('list.js', function () {
     var foot = '我是小尾巴';
     var req = {wxsession:{}};
     List.add('common', common, head, delimiter, foot,req);
-    req.wxsession._list.should.not.be.ok;
+    req.wxsession._list.should.not.be.empty;
     var list = List.unserialize(req.wxsession._list);
     list.description.should.be.equal(head + '\n选择a查看啥\n' + delimiter + '\n选择b查看啥\n' + delimiter + '\n选择c查看啥\n' + foot);
     list.get('a').should.be.equal(common[0][1]);
