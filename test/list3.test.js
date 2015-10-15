@@ -17,17 +17,17 @@ app.use('/wechat', wechat('some token', function (req, res, next) {
 
   var info = req.weixin;
   if (info.Content === 'list') {
-    List.add('view', [
+    List.add('dynamicview', [
       ['回复{c}查看又什么惊喜', function(info,req,res,next,value){
         res.nowait(value);
       },'GOGOGO']
     ],'','','',req);
-    res.wait('view');
+    res.wait('dynamicview');
   }
 }));
 
-describe('list', function() {
-  it('should ok with list', function (done) {
+describe('list3', function() {
+  it('should ok with list to run in multiple instance', function (done) {
     var info = {
       sp: 'test',
       user: 'test',
