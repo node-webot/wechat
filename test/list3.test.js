@@ -19,10 +19,9 @@ app.use('/wechat', wechat('some token', function (req, res, next) {
   if (info.Content === 'list') {
     List.add('dynamicview', [
       ['回复{c}查看又什么惊喜', function(req,res,next,value){
-        //var wechat = require('./');
         res.nowait(value);
       },'GOGOGO']
-    ],'','','',req);
+    ],'head','','foot',req);
     res.wait('dynamicview');
   }
 }));
