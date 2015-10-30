@@ -15,7 +15,7 @@
     "wechat"
   ],
   "dependencies": {
-    "xml2js": "0.4.4",
+    "xml2js": "0.4.13",
     "ejs": ">=1.0.0",
     "wechat-crypto": "0.0.2"
   },
