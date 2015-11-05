@@ -257,6 +257,27 @@ List.add('view', [
 
 如果用户触发等待回复事务后，没有按照`{}`中的进行回复，那么将会由原有的默认函数进行处理。在原有函数中，可以选择调用`res.nowait()`中断事务。`nowait()`除了能中断事务外，与`reply`的行为一致。
 
+### 动态List
+单进程情况下，直接重新List.add()即可。多进程模式下,使用`serializeList(fn)`及`deserializeList(fn)`注册序列化和反序列化方法，将list保存在数据库或文件等外部，使进程间可以共享。需要在服务启动前注册相应序列化和反序列化方法。
+
+**注意：serializeList接受的方法中的参数list，其实已经进行过序列化，是string对象，可以直接保存，这里名字用serializeList可能不太妥。相应的List.deserializeList中的方法参数list，只要对应serializeList中一致的string对象即可**
+
+```
+List.serializeList(function(name, list, done) {
+    store[name] = list;
+    return done && done(null);
+  });
+
+  List.deserializeList(function(name, done) {
+    var list = store[name];
+    done(null, list);
+  });
+```
+当serializer和deserializer都注册之后，List的状态会自动变为dynamic，否则仍然为静态。重置动态List，移除serializer和deserializer使用`List.reset()`
+
+####动态列表失效问题
+当用户收到列表，发送选项这段时间之间，列表已经被修改，将返回列表过期提示，请重回重新获取列表。默认提示：“列表已过期，请重新获取列表”。修改提示`List.setInvalidListTips(tips)`
+
 ## Show cases
 ### Node.js API自动回复
 
