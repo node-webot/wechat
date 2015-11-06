@@ -132,7 +132,7 @@ describe('list', function() {
       sendRequest(answerInfo, function(err, res) {
         var body = res.text.toString();
         body.should.include('this is answer a.');
-        retryList();
+        setTimeout(retryList, 10);
       });
     }
 
@@ -160,7 +160,7 @@ describe('list', function() {
   });
 
 
-  it('should get invalid list message when list is outdated ', function(done) {
+  it('should get invalid list message when list is outdated', function(done) {
     initDynamicList();
     var listInfo = {
       sp: 'test',
@@ -184,7 +184,7 @@ describe('list', function() {
       ['回复{c}查看我的性取向', '这样的事情怎么好意思告诉你啦- -']
     ], "header", "...", "foot", function() {
       sendRequest(listInfo, function(err, res) {
-        nextStep();
+        setTimeout(nextStep, 10);
       });
     });
 
@@ -230,7 +230,7 @@ describe('list', function() {
       ['回复{c}查看我的性取向', '这样的事情怎么好意思告诉你啦- -']
     ], "header", "...", "foot", function() {
       sendRequest(listInfo, function(err, res) {
-        nextStep();
+        setTimeout(nextStep, 10);
       });
     });
 
@@ -275,7 +275,7 @@ describe('list', function() {
       ['回复{c}查看我的性取向', '这样的事情怎么好意思告诉你啦- -']
     ], "header", "...", "foot", function() {
       sendRequest(listInfo, function(err, res) {
-        nextStep();
+        setTimeout(nextStep, 10);
       });
     });
 
@@ -334,7 +334,7 @@ describe('list', function() {
       ['回复{c}查看我的性取向', '这样的事情怎么好意思告诉你啦- -']
     ], "header", "...", "foot", function() {
       sendRequest(listInfo, function(err, res) {
-        nextStep();
+        setTimeout(nextStep, 10);
       });
     });
 
