@@ -365,4 +365,49 @@ describe('list', function() {
   });
 
 
+it('should ok with object handle', function(done) {
+    initDynamicList();
+
+    var handle =  {};
+    handle.action = function(message,req, res) {
+      var format = require(process.cwd() + "/test/test-lib.js");
+      res.reply(format(this.name) + ',这样的事情怎么好意思告诉你啦- -');
+    }
+    handle.name = 'king';
+    List.add('view', [
+      ['选择{a}查看啥', function(message, req, res) {
+        res.nowait("this is answer a.");
+      }],
+      ['选择{b}查看啥', function() {}],
+      ['回复{c}查看我的性取向', handle]
+    ],function(){
+      //do something after list added
+    });
+    var listInfo = {
+      sp: 'test',
+      user: 'dynamic7',
+      type: 'text',
+      text: 'list'
+    };
+
+    var answerInfo = {
+      sp: 'test',
+      user: 'dynamic7',
+      type: 'text',
+      text: 'c'
+    };
+
+    sendRequest(listInfo, function(err, res) {
+      nextStep();
+    });
+    var nextStep = function() {
+      sendRequest(answerInfo, function(err, res) {
+        var body = res.text.toString();
+        body.should.include('King,这样的事情怎么好意思告诉你啦');
+        done();
+      });
+    }
+  });
+
+
 });
