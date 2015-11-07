@@ -258,7 +258,21 @@ List.add('view', [
 如果用户触发等待回复事务后，没有按照`{}`中的进行回复，那么将会由原有的默认函数进行处理。在原有函数中，可以选择调用`res.nowait()`中断事务。`nowait()`除了能中断事务外，与`reply`的行为一致。
 
 ### 动态List
-单进程情况下，直接重新List.add()即可。多进程模式下,使用`serializeList(fn)`及`deserializeList(fn)`注册序列化和反序列化方法，将list保存在数据库或文件等外部，使进程间可以共享。需要在服务启动前注册相应序列化和反序列化方法。
+单进程情况下，直接重新`List.add()`即可。多进程模式下,使用`serializeList(fn)`及`deserializeList(fn)`注册序列化和反序列化方法，将list保存在数据库或文件等外部，使进程间可以共享。需要在服务启动前注册相应序列化和反序列化方法。由于handle会被序列化，context会被改变，所以无法直接在函数内部直接引用外部变量，除非是没有任何方法外引用，可以直接使用函数作为handle。如果需要接受外部参数，需要使用对象作为handle，并使用action函数作为handle，同时在`require()`时需要使用绝对路径，如下:
+
+```
+var handle =  {};
+handle.action = function(message,req, res) {
+  var format = require(process.cwd() + "/test/test-lib.js");
+  res.reply(format(this.name) + ',这样的事情怎么好意思告诉你啦- -');
+}
+handle.name = 'king';
+List.add('view', [
+  ['回复{c}查看我的性取向', handle]
+],function(){
+      //do something after list added
+}));
+```
 
 **注意：serializeList接受的方法中的参数list，其实已经进行过序列化，是string对象，可以直接保存，这里名字用serializeList可能不太妥。相应的List.deserializeList中的方法参数list，只要对应serializeList中一致的string对象即可**
 
