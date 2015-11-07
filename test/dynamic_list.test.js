@@ -182,7 +182,7 @@ describe('list', function() {
       }],
       ['选择{b}查看啥', function() {}],
       ['回复{c}查看我的性取向', '这样的事情怎么好意思告诉你啦- -']
-    ], "header", "...", "foot", function() {
+    ], function() {
       sendRequest(listInfo, function(err, res) {
         setTimeout(nextStep, 10);
       });
@@ -228,7 +228,7 @@ describe('list', function() {
       }],
       ['选择{b}查看啥', function() {}],
       ['回复{c}查看我的性取向', '这样的事情怎么好意思告诉你啦- -']
-    ], "header", "...", "foot", function() {
+    ], { head:"header",delimiter:",",foot:"footer"}, function() {
       sendRequest(listInfo, function(err, res) {
         setTimeout(nextStep, 10);
       });
