@@ -250,6 +250,42 @@ List.add('view', [
 
 if user's message is not in waiter's trigger texts. this message will be processd in the `else` way and can be stoped by `res.nowait()`, `res.nowait` method actions like `reply` method.
 
+### Dynamic List
+In single process condition, just use `List.add()` to override the existing list.In multi-process condition,use `serializeList(fn)`and `deserializeList(fn)` to register serializer and deserializer functions，to save the list in the external storage, database, file etc. Serializer and deserializer should be registered before service starts.Since handle will be serialized, the context will chanage，so you can not refer to external variables in the handle . unless you have no references of external variable, you can use function as handle directly.if you need to pass any data to the function, need to make handle as an object, and has an `action` function which will accept arguments `(message, req, res,next)`, then set the variables into the object, and access those in the funciton via `this`, meanwhile you need use absolute path for 'require()', see below:
+
+```
+var handle =  {};
+handle.action = function(message,req, res) {
+  var format = require(process.cwd() + "/test/test-lib.js");
+  res.reply(format(this.name) + ',this is answerc');
+}
+handle.name = 'king';
+List.add('view', [
+  ['reply{c} to see the anwser', handle]
+],function(){
+      //do something after list added
+}));
+```
+
+**Notice：the arugment `list` which passed to the serializer has already been serialized for simplicity,it's actullay a string object. The deserialize correspondingly need the same string object for the list**
+
+```
+List.serializeList(function(name, list, done) {
+    store[name] = list;
+    return done && done(null);
+  });
+
+  List.deserializeList(function(name, done) {
+    var list = store[name];
+    done(null, list);
+  });
+```
+When serializer and deserializer are both registered, the List will change to dynamic automatically, or it will still be static.Reset the dynamic List, remove serializer and deserializer use `List.reset()`
+
+
+####Invalid List (for dynamic)
+Between receive list and send the option, if the list has been updated, it will reply the invalid list tips to tell the user request the new list again.Default tips in Chinese:"列表已过期，请重新获取列表".set custom tips `List.setInvalidListTips(tips)`
+
 ## Show cases
 ### Auto-reply robot based on Node.js
 
