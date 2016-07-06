@@ -21,7 +21,7 @@
   },
   "devDependencies": {
     "supertest": "*",
-    "mocha": "*",
+    "mocha": "2.5.0",
     "should": "~3.0.0",
     "expect.js": "*",
     "connect": "2.5.*",
