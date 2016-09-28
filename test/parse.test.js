@@ -5,6 +5,12 @@ var tail = require('./support').tail;
 
 var connect = require('connect');
 var wechat = require('../');
+var assert = require('assert');
+var xml2js = require('xml2js');
+var rewire = require("rewire");
+var wechatModule = rewire('../lib/wechat.js');
+
+var formatMessage = wechatModule.__get__('formatMessage')
 
 var app = connect();
 app.use(connect.query());
@@ -39,4 +45,19 @@ describe('parse_xml.js', function () {
     .expect('BadMessageError')
     .end(done);
   });
+
+  it('should return array when xml include repeat item', function(done) {
+    var xml = '<xml><arraytest><item><![CDATA[item0]]></item><item><![CDATA[item1]]></item></arraytest></xml>';
+    xml2js.parseString(xml, {trim: true}, function(err, result) {
+      var xml = formatMessage(result.xml);
+      var items = xml['arraytest']['item'];
+
+      assert((items instanceof Array) == true);
+      for(var i = 0; i < items.length; i++) {
+        assert(items[i] == ("item"+i));
+      }
+
+      done()
+    });
+  })
 });
