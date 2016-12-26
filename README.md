@@ -148,7 +148,14 @@ res.reply({
       MessageAction: 'ranklist'
     }
 });
+
 ```
+### 将用户消息转发到多客服
+将普通微信用户向公众号发的消息，转发到多客服系统
+```js
+res.transfer2CustomerService();
+```
+
 ### 回复设备消息
 模块可以对类型为device_text或device_event的消息作出特定格式的响应.
 ```js
