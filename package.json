@@ -24,7 +24,7 @@
     "mocha": "*",
     "should": "~3.0.0",
     "expect.js": "*",
-    "connect": "2.5.*",
+    "connect": "3.5.0",
     "travis-cov": "*",
     "coveralls": "*",
     "mocha-lcov-reporter": "*",
