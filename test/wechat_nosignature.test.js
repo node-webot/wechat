@@ -72,7 +72,7 @@ app.use('/wechat', wechat(cfg, function (req, res, next) {
   }
 }));
 
-describe('wechat.js', function () {
+describe('wechat_nosignaturecheck.js', function () {
 
   describe('valid GET', function () {
     it('should 200', function (done) {
@@ -85,21 +85,6 @@ describe('wechat.js', function () {
       .get('/wechat?' + querystring.stringify(q))
       .expect(200)
       .expect('hehe', done);
-    });
-  });
-
-  describe('valid POST', function () {
-    it('should 401 invalid signature', function (done) {
-      var q = {
-        timestamp: new Date().getTime(),
-        nonce: parseInt((Math.random() * 10e10), 10)
-      };
-      q.signature = 'invalid_signature';
-      q.echostr = 'hehe';
-      request(app)
-      .post('/wechat?' + querystring.stringify(q))
-      .expect(401)
-      .expect('Invalid signature', done);
     });
   });
 
