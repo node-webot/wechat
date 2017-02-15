@@ -22,9 +22,9 @@
   "devDependencies": {
     "supertest": "*",
     "mocha": "*",
-    "should": "~3.0.0",
+    "should": "^3",
     "expect.js": "*",
-    "connect": "2.5.*",
+    "connect": "^2",
     "travis-cov": "*",
     "coveralls": "*",
     "mocha-lcov-reporter": "*",
