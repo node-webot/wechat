@@ -1,6 +1,6 @@
 {
   "name": "wechat",
-  "version": "2.0.3",
+  "version": "2.1.0",
   "description": "微信公共平台Node库",
   "main": "index.js",
   "scripts": {
@@ -37,5 +37,9 @@
   "readmeFilename": "README.md",
   "directories": {
     "test": "test"
-  }
+  },
+  "files": [
+    "lib",
+    "index.js"
+  ]
 }
