@@ -153,7 +153,8 @@ var wechat = require('wechat');
 var config = {
   token: 'token',
   appid: 'appid',
-  encodingAESKey: 'encodinAESKey'
+  encodingAESKey: 'encodinAESKey',
+  checkSignature: true // optional, default value is true. Because WeChat open platform debug tool does not send signature in plaintext mode, if you want to use this debug tool, please set to false
 };
 
 app.use(express.query());
