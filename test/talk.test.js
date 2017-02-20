@@ -184,7 +184,7 @@ describe('wechat.js', function () {
       });
     });
 
-    it('should reply 500 when undefined list', function (done) {
+    it('should reply thanks when nowait', function (done) {
       var info = {
         sp: 'nvshen',
         user: 'diaosi',
