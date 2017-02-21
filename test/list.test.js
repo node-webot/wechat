@@ -56,7 +56,7 @@ describe('list.js', function () {
     var delimiter = '-------';
     var foot = '我是小尾巴';
 
-    List.add('common', common, head, delimiter, '我是小尾巴');
+    List.add('common', common, head, delimiter, foot);
     var list = List.get('common');
     list.description.should.be.equal(head + '\n选择a查看啥\n' + delimiter + '\n选择b查看啥\n' + delimiter + '\n选择c查看啥\n' + foot);
     list.get('a').should.be.equal(common[0][1]);
