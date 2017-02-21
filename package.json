@@ -27,7 +27,7 @@
     "connect": "^2",
     "travis-cov": "*",
     "coveralls": "*",
-    "mocha-lcov-reporter": "*",
+    "mocha-lcov-reporter": "1.1.0",
     "muk": "*",
     "rewire": "*",
     "istanbul": "*"
