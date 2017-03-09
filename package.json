@@ -22,7 +22,7 @@
   "devDependencies": {
     "supertest": "*",
     "mocha": "*",
-    "should": "^3",
+    "should": "^11.2.1",
     "expect.js": "*",
     "connect": "^2",
     "travis-cov": "*",
